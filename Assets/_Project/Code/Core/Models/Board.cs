@@ -35,7 +35,7 @@ namespace _Project.Code.Core.Models
             int y = Mathf.RoundToInt(position.y);
 
             var tryGetValue = _cells.TryGetValue(new Vector2(x, y), out cell);
-            return cell != null && tryGetValue; //TODO: Remove null check
+            return cell != null; //TODO: Remove null check
         }
     }
 }
