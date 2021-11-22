@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -775513927, guid: c2ca72da8b13f33468a892f16080eaab, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  pixelsPerUnit: 216
+  tokenSize: {x: 0.55, y: 0.55}
+  maximumBoostersAmount: 3
+  maximumScoreMilestones: 3
+  maximumLifes: 5
+  maximumChainsDurability: 2
+  maximumIceDurability: 2
+  maximumCellDurability: 1
+  regainLifesHours: 0
+  regainLifesMinutes: 1
+  regainLifesSeconds: 0
+  tokensMovementSpeed: 45
+  regularTokenName: Random token
+  regularCellName: Cell
+  defaultTokenPrefab: {fileID: 191012, guid: d2be239dce257e842836f2076e870cd9, type: 2}
+  defaultBackroundPrefab: {fileID: 169638, guid: 9a5210ce860f14b469ac4c4ded6d2ec7, type: 2}
+  defaultHolePrefab: {fileID: 150472, guid: 06899371d2f2d12428fe901a47adab10, type: 2}
+  levelsPerLocation: 40
+  fogOffset: 20
+  tokenScore: 60
+  matchThreeScore: 60
+  matchFourScore: 120
+  matchSquareScore: 120
+  matchFiveScore: 200
+  matchTScore: 200
+  matchCornerScore: 200
+  bombExplosionScore: 540
+  chainsScore: 0
+  glassScore: 1000
+  stoneScore: 20
+  chocolateScore: 20
+  ingridientScore: 10000
+  backgroundMusic: {fileID: 8300000, guid: 035a0cc7d413a1348a016c5eff7203e8, type: 3}
+  levelStartSound: {fileID: 8300000, guid: 772acbb1b4762b44e80f6f5850127ed7, type: 3}
+  winSound: {fileID: 8300000, guid: 690182d7087291949b5a7c355f60788d, type: 3}
+  matchSound: {fileID: 8300000, guid: 54ab323f69c499e47b7aa05c8d4c5709, type: 3}
+  furtherMatchSound: {fileID: 8300000, guid: fbc44bf7687df934e8ebd55079a172ea, type: 3}
+  shuffleSound: {fileID: 8300000, guid: e284b9f8042868d4dbac058b715f0a34, type: 3}
+  tokenLandingSound: {fileID: 8300000, guid: 31898692047656d41a1c1eb76f6ed0d8, type: 3}
+  buttonTapSound: {fileID: 8300000, guid: aeaa1ca3560eac0498e80e7f8ca9ea39, type: 3}
+  adittionalTurnCost: 9
+  baseCostStep: 3
+  incrementStepBy: 1
+  additionalTurnsAmount: 5
+  boosterCosts:
+  - name: DoubleLineDoubleBombDoubleColorBombDoubleHammerPrebooster
+    amount: -33

@@ -4,29 +4,14 @@ namespace _Project.Code.Infrastructure.Services
 {
     public class AssetProvider : IAssetProvider
     {
-        public GameObject Instantiate(string path)
-        {
-            var gameObject = Resources.Load<GameObject>(path);
-            return Object.Instantiate(gameObject);
-        }
+        public GameObject Load(string path) => Resources.Load<GameObject>(path);
 
-        public GameObject Instantiate(string path, Vector3 at)
+        public T Load<T>(string path) where T : Component => Resources.Load<T>(path);
+        public T Instantiate<T>(string path, Vector3 position = default) where T : Component
         {
-            var gameObject = Resources.Load<GameObject>(path);
-            return Object.Instantiate(gameObject, at, Quaternion.identity);
+            var component = Load<T>(path);
+            var gameObject = Object.Instantiate(component.gameObject, position, Quaternion.identity);
+            return gameObject.GetComponent<T>();
         }
-
-        public GameObject Instantiate<T>(string path) where T : Component
-        {
-            var component = Resources.Load<T>(path);
-            return Object.Instantiate(component.gameObject);
-        }
-
-        public GameObject Instantiate<T>(string path, Vector3 at) where T : Component
-        {
-            var component = Resources.Load<T>(path);
-            return Object.Instantiate(component.gameObject, at, Quaternion.identity);
-        }
-        
     }
 }

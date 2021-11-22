@@ -1,0 +1,22 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:cfdaa71fbdde4a5bee7cfed841c7c577:c292f777d1c65cfbbaa167c50725d46e:1a00a9776c25dcf62244b5c5c4eb2d44$
+#
+:format=40000
+:texture=atlas_02.png
+:size=2048x2048
+:pivotpoints=enabled
+
+base_game-info;937;527;1080;264;0.5;0.5
+base_game_goal;1;82;1286;383;0.5;0.5
+base_right-panel-1;1873;1897;128;150;0.5;0.5
+base_right-panel-2;1873;1745;128;150;0.5;0.5
+base_right-panel-3;1873;1593;128;150;0.5;0.5
+base_right-panel-content-message;1289;237;728;288;0.5;0.5
+base_shop;1;467;934;1580;0.5;0.5
+base_title;1289;73;750;162;0.5;0.5
+base_type2;937;793;934;1254;0.5;0.5

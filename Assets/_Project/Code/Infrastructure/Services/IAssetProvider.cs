@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using _Project.Code.Infrastructure.Installers.Scene;
+using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Services
 {
     public interface IAssetProvider
     {
-        GameObject Instantiate(string path);
-        GameObject Instantiate(string path, Vector3 at);
-        GameObject Instantiate<T>(string path) where T : Component;
-        GameObject Instantiate<T>(string path, Vector3 at) where T : Component;
+        GameObject Load(string path);
+        T Load<T>(string path) where T : Component;
+        T Instantiate<T>(string path, Vector3 position = default) where T : Component;
     }
 }

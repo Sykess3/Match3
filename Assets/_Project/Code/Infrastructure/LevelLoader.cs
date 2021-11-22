@@ -8,7 +8,6 @@ namespace _Project.Code.Infrastructure
         private readonly GameStateMachine _stateMachine;
         private readonly LoadingCurtain _loadingCurtain;
         private Action _onLoaded;
-        private bool _withCurtain;
 
 
         public LevelLoader(GameStateMachine stateMachine, LoadingCurtain loadingCurtain)
@@ -17,14 +16,12 @@ namespace _Project.Code.Infrastructure
             _loadingCurtain = loadingCurtain;
         }
 
-        public void Load(string name, Action onLoaded = null, bool withCurtain = true)
+        public void Load(string name, Action onLoaded = null)
         {
-            _withCurtain = withCurtain;
             _onLoaded = onLoaded;
-            
-            if (_withCurtain)
-                _loadingCurtain.Show();
-            
+
+            _loadingCurtain.Show();
+
             _stateMachine.Enter<Load_LevelDataState, string>(name);
 
             var loadSceneState = _stateMachine.Enter<LoadSceneState, string>(name);
@@ -37,8 +34,7 @@ namespace _Project.Code.Infrastructure
             loadSceneState.SceneLoaded -= OnSceneLoaded;
 
             _onLoaded?.Invoke();
-            if (_withCurtain) 
-                _loadingCurtain.Hide();
+            _loadingCurtain.Hide();
         }
     }
 }

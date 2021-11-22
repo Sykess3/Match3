@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3642174167d84644aa259dd3cb000149, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  LoadingCurtain: {fileID: 795907595884449915, guid: 41f5abc8403a8c4428a017f5d0a7dfd6, type: 3}
+  _loadingCurtain: {fileID: 795907595884449915, guid: 41f5abc8403a8c4428a017f5d0a7dfd6, type: 3}
+  _firstSceneToLoad: SampleScene
+  _cellContentConfigs:
+  - {fileID: 11400000, guid: 5336a9082245ae44b841eda2fa9c0812, type: 2}
+  - {fileID: 11400000, guid: d9e139ea1d1953c45af3ad0f2bbf2f76, type: 2}
+  - {fileID: 11400000, guid: 6ff74127479639445ad98b355f168da6, type: 2}
+  - {fileID: 11400000, guid: 211527a42565fed4fa5b2410ff7bac69, type: 2}
+  - {fileID: 11400000, guid: e5cecfa2c8d59e84490dd0ec4ca0cd3c, type: 2}
+  - {fileID: 11400000, guid: 61bfae3182c56274294e7ef4e529ae17, type: 2}
