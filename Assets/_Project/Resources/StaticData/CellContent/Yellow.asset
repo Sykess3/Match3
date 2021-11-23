@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecd1022f4354892900522bad4c008d9, type: 3}
   m_Name: Yellow
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 1337825803871406146, guid: ebb185a2d34ab7d438df492c9e61dd4e, type: 3}
   _matchableContent: 05000000
   _switchable: 1
   _contentType: 5

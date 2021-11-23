@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
@@ -34,11 +35,16 @@ namespace _Project.Code.Infrastructure.Installers.Scene
             Container
                 .Bind<Board>()
                 .AsSingle();
+            
             Container
                 .Bind<IEnumerable<Cell>>()
                 .FromFactory<CellsFactory>()
                 .AsSingle();
-            
+
+            Container
+                .Bind<IRandomCellContentGenerator>()
+                .To<RandomCellContentGenerator>()
+                .AsSingle();
         }
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecd1022f4354892900522bad4c008d9, type: 3}
   m_Name: Purple
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 4236482754479186325, guid: 93652b1673b4a734896b9e5f73bef7ce, type: 3}
   _matchableContent: 03000000
   _switchable: 1
   _contentType: 3

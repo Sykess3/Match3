@@ -8,6 +8,7 @@ namespace _Project.Code.Core.Input
     public class PlayerInput : MonoBehaviour, IPlayerInput
     {
         public event Action<Vector2> ClickedOnPosition;
+
         private Camera _camera;
 
         [Inject]
@@ -23,6 +24,10 @@ namespace _Project.Code.Core.Input
                 ClickedOnPosition?.Invoke(position);
             }
         }
+
+        public void Disable() => enabled = false;
+
+        public void Enable() => enabled = true;
 
         private bool ClickedOnClickableGameObject(out Vector2 position)
         {

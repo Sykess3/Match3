@@ -1,4 +1,5 @@
 ﻿using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Views;
 using UnityEngine;
 

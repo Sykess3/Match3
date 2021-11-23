@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
+using _Project.Code.Infrastructure.Installers.Factories;
 using _Project.Code.Infrastructure.Services;
-using UnityEngine;
-using Zenject;
+using Object = UnityEngine.Object;
 
-namespace _Project.Code.Infrastructure.Installers.Factories
+namespace _Project.Code.Infrastructure.Factories
 {
-    public class CellContentFactory : IFactory<Cell.ContentType, Cell.Content>
+    public class CellContentFactory : ICellContentFactory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly Dictionary<Cell.ContentType, ICellContentConfig> _cellContentConfigsMap;
@@ -27,30 +28,11 @@ namespace _Project.Code.Infrastructure.Installers.Factories
 
         public Cell.Content Create(Cell.ContentType type)
         {
-            switch (type)
-            {
-                case Cell.ContentType.Red:
-                    return InternalCreate(PrefabPath.ContentType.Red, type);
-                case Cell.ContentType.Blue:
-                    return InternalCreate(PrefabPath.ContentType.Blue, type);
-                case Cell.ContentType.Orange:
-                    return InternalCreate(PrefabPath.ContentType.Orange, type);
-                case Cell.ContentType.Purple:
-                    return InternalCreate(PrefabPath.ContentType.Purple, type);
-                case Cell.ContentType.Green:
-                    return InternalCreate(PrefabPath.ContentType.Green, type);
-                case Cell.ContentType.Yellow:
-                    return InternalCreate(PrefabPath.ContentType.Yellow, type);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-        }
-
-        private Cell.Content InternalCreate(string path, Cell.ContentType contentType)
-        {
-            var view = _assetProvider.Instantiate<CellContentView>(path);
-            var model = new Cell.Content(_cellContentConfigsMap[contentType]);
-            var presenter = new CellContentViewPresenter(model, view);
+            var config = _cellContentConfigsMap[type];
+            
+            var view = Object.Instantiate(config.Prefab);
+            var model = new Cell.Content(config);
+            var presenter = new CellContentViewPresenter(model, view.GetComponent<CellContentView>());
             
             CachePresenter(presenter);
             return model;

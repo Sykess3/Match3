@@ -8,20 +8,5 @@ namespace _Project.Code.Core.Presenters
         public BoardViewPresenter(Board model, BoardView view) : base(model, view)
         {
         }
-
-        protected override void OnStart()
-        {
-            Model.FillCells();
-        }
-
-        protected override void UnSubscribe()
-        {
-            
-        }
-
-        protected override void Subscribe()
-        {
-            
-        }
     }
 }

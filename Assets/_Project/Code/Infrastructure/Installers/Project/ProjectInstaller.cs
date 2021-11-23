@@ -3,6 +3,7 @@ using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
+using _Project.Code.Infrastructure.Factories;
 using _Project.Code.Infrastructure.Installers.Factories;
 using _Project.Code.Infrastructure.Services;
 using UnityEngine;
@@ -48,7 +49,8 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .AsSingle();
 
             Container
-                .Bind<CellContentFactory>()
+                .Bind<ICellContentFactory>()
+                .To<CellContentFactory>()
                 .AsTransient();
             
             Container

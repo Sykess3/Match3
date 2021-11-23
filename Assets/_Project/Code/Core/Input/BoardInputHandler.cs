@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Models.Directions;
 using UnityEngine;
 using Zenject;
@@ -12,14 +13,14 @@ namespace _Project.Code.Core.Input
         private IPlayerInput _input;
         private Board _board;
         private Cell _selectedCell;
-        private ContentSwitcher _contentSwitcher;
+        private ContentSwapper _contentSwapper;
 
         [Inject]
-        private void Construct(IPlayerInput input, ContentSwitcher contentSwitcher, Board board)
+        private void Construct(IPlayerInput input, ContentSwapper contentSwapper, Board board)
         {
             _input = input;
             _board = board;
-            _contentSwitcher = contentSwitcher;
+            _contentSwapper = contentSwapper;
         }
 
         private void OnEnable() => _input.ClickedOnPosition += InputOnClickedOnPosition;
@@ -36,9 +37,9 @@ namespace _Project.Code.Core.Input
                     return;
                 }
 
-                if (IsNeighbourOfSelectedCell(cell))
+                if (IsNeighbourOfSelectedCell(cell) && _selectedCell != cell)
                 {
-                    _contentSwitcher.Switch(new SwitchCommand(_selectedCell, cell));
+                    _contentSwapper.Switch(new SwapCommand(_selectedCell, cell));
                     _selectedCell = null;
                     return;
                 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecd1022f4354892900522bad4c008d9, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 8856450982404973335, guid: e62dba446e309d44890fddadbd3c38e7, type: 3}
   _matchableContent: 01000000
   _switchable: 1
   _contentType: 1

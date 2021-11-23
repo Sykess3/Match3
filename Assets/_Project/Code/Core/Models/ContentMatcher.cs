@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Models.Directions;
 using UnityEngine;
 using Zenject;
@@ -17,7 +18,7 @@ namespace _Project.Code.Core.Models
             _board = board;
         }
 
-        public IReadOnlyCollection<Cell> Match(Cell cell)
+        public List<Cell> Match(Cell cell)
         {
             var matchedCells = new List<Cell>();
             var matchedInEast = MatchInDirection(cell, Direction.East);
@@ -25,17 +26,16 @@ namespace _Project.Code.Core.Models
             var matchedInNorth = MatchInDirection(cell, Direction.North);
             var matchedInSouth = MatchInDirection(cell, Direction.South);
 
-            if (matchedInEast.Count >= MinContentToMatch)
-                matchedCells.AddRange(matchedInEast);
+            var matchedInVertical = matchedInNorth
+                .Concat(matchedInSouth);
+            var matchedInHorizontal = matchedInEast
+                .Concat(matchedInWest);
 
-            if (matchedInNorth.Count >= MinContentToMatch)
-                matchedCells.AddRange(matchedInNorth);
+            if (matchedInVertical.Count() >= MinContentToMatch - 1)
+                matchedCells.AddRange(matchedInVertical);
 
-            if (matchedInWest.Count >= MinContentToMatch)
-                matchedCells.AddRange(matchedInWest);
-
-            if (matchedInSouth.Count >= MinContentToMatch)
-                matchedCells.AddRange(matchedInSouth);
+            if (matchedInHorizontal.Count() >= MinContentToMatch - 1)
+                matchedCells.AddRange(matchedInHorizontal);
 
             if (matchedCells.Count > 0)
                 matchedCells.Add(cell);

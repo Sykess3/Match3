@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using UnityEngine;
 
-namespace _Project.Code.Core.Models
+namespace _Project.Code.Core.Models.Cells
 {
     public class Cell : IModel
     {
@@ -14,8 +13,11 @@ namespace _Project.Code.Core.Models
             get => _filler;
             set
             {
+                if (_filler != null) 
+                    _filler.Destroyed -= FillerOnDestroyed;
+
                 _filler = value;
-                _filler.Destroyed += FillerOnDestroyed;
+                _filler.Destroyed += FillerOnDestroyed;   
             }
         }
 
@@ -53,11 +55,13 @@ namespace _Project.Code.Core.Models
             public Vector2 Position
             {
                 get => _position;
-                set
-                {
-                    _position = value;
-                    PositionChanged?.Invoke();
-                }
+                set => ChangePosition(value);
+            }
+
+            private void ChangePosition(Vector2 value)
+            {
+                _position = value;
+                PositionChanged?.Invoke();
             }
 
             public void Destroy() => Destroyed?.Invoke();
