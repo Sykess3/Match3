@@ -1,79 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using _Project.Code.Core.Models.Interfaces.Configs;
+using System.Collections;
+using _Project.Code.Infrastructure;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.Cells
 {
     public class Cell : IModel
     {
-        private Content _filler;
-        public Content Filler
-        {
-            get => _filler;
-            set
-            {
-                if (_filler != null) 
-                    _filler.Destroyed -= FillerOnDestroyed;
-
-                _filler = value;
-                _filler.Destroyed += FillerOnDestroyed;   
-            }
-        }
-
-        private void FillerOnDestroyed()
-        {
-            _filler.Destroyed -= FillerOnDestroyed;
-            _filler = null;
-        }
+        private CellContent _content;
 
         public Vector2 Position { get; }
+        public event EventHandler ContentStartedMovement; 
+        public event EventHandler ContentRemoved;
+
+        public CellContent Content
+        {
+            get => _content;
+            set => ChangeContent(value);
+        }
 
         public Cell(Vector2 position)
         {
             Position = position;
         }
 
+        public void SetContentToEmpty() => Content = new EmptyCellContent();
 
-        public class Content : IModel
+        private void ChangeContent(CellContent value)
         {
-            private readonly ICellContentConfig _config;
-            private Vector2 _position;
-            
-            public IEnumerable<ContentType> MatchableContent => _config.MatchableContent;
-            public bool Switchable => _config.Switchable;
-            public ContentType Type => _config.ContentType;
-            
-            public event Action PositionChanged;
-            public event Action Destroyed;
-
-            public Content(ICellContentConfig config)
+            if (_content != null)
             {
-                _config = config;
+                _content.Matched -= ContentOnMatched;
+                _content.StartedMovement -= OnContentStartedMovement;
             }
 
-            public Vector2 Position
-            {
-                get => _position;
-                set => ChangePosition(value);
-            }
-
-            private void ChangePosition(Vector2 value)
-            {
-                _position = value;
-                PositionChanged?.Invoke();
-            }
-
-            public void Destroy() => Destroyed?.Invoke();
+            _content = value;
+            _content.Matched += ContentOnMatched;
+            _content.StartedMovement += OnContentStartedMovement;
         }
-        public enum ContentType
+
+        private void OnContentStartedMovement()
         {
-            Red,
-            Blue,
-            Orange,
-            Purple,
-            Green,
-            Yellow
+            ContentStartedMovement?.Invoke(this, EventArgs.Empty);
         }
+
+
+        private void ContentOnMatched()
+        {
+            _content.Matched -= ContentOnMatched;
+
+            SetContentToEmpty();
+            ContentRemoved?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
 }

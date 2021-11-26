@@ -11,18 +11,16 @@ using Zenject;
 
 namespace _Project.Code.Core.Models
 {
-    public class ContentSwapper
+    public class SwapCommandHandler
     {
         private readonly IContentMatcher _matcher;
-        private readonly IPlayerInput _playerInput;
 
-        public ContentSwapper(IContentMatcher matcher, IPlayerInput playerInput)
+        public SwapCommandHandler(IContentMatcher matcher)
         {
             _matcher = matcher;
-            _playerInput = playerInput;
         }
 
-        public void Switch(SwapCommand command)
+        public void Swap(SwapCommand command)
         {
             command.Execute(OnCommandExecuted);
         }
@@ -32,20 +30,11 @@ namespace _Project.Code.Core.Models
             var matchedCells = GetMatchedCells(command);
 
             if (matchedCells.Any())
-            {
                 DestroyCells(matchedCells);
-                _playerInput.Enable();
-            }
             else
-            {
-                command.Revert(OnCommandReverted);
-            }
+                command.Revert();
         }
-
-        private void OnCommandReverted(SwapCommand command)
-        {
-            _playerInput.Enable();
-        }
+        
 
         private List<Cell> GetMatchedCells(SwapCommand command)
         {
@@ -60,10 +49,8 @@ namespace _Project.Code.Core.Models
 
         private void DestroyCells(IEnumerable<Cell> matchedCells)
         {
-            foreach (var cell in matchedCells)
-            {
-                cell.Filler.Destroy();
-            }
+            foreach (var cell in matchedCells) 
+                cell.Content.Match();
         }
     }
 }

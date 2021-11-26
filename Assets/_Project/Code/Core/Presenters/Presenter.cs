@@ -19,8 +19,8 @@ namespace _Project.Code.Core.Presenters
             
             View.Created += OnCreate;
             View.Destroyed += OnDestroy;
-            
         }
+        
         
         private void OnCreate()
         {

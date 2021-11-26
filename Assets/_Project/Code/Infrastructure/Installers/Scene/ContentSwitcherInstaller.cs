@@ -8,7 +8,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
         public override void InstallBindings()
         {
             Container
-                .Bind<ContentSwapper>()
+                .Bind<SwapCommandHandler>()
                 .AsSingle();
 
             Container

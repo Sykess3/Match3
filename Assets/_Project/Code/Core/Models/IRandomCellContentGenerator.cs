@@ -1,9 +1,10 @@
 ﻿using _Project.Code.Core.Models.Cells;
+using UnityEngine;
 
 namespace _Project.Code.Core.Models
 {
     public interface IRandomCellContentGenerator
     {
-        Cell.Content Generate();
+        CellContent Generate(Vector2 position);
     }
 }

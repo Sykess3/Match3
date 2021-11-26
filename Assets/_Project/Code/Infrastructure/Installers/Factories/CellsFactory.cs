@@ -18,14 +18,22 @@ namespace _Project.Code.Infrastructure.Installers.Factories
             _boardConfig = boardConfig;
             _randomCellContentGenerator = randomCellContentGenerator;
         }
-        
+
         public IEnumerable<Cell> Create()
         {
             var size = _boardConfig.Size;
-            var cells = new Cell[size.x * size.y];
 
             Vector2 offset = new Vector2((size.x - 1)
                                          * 0.5f, (size.y - 1) * 0.5f);
+
+            var cells = CreateCellsWithInitializationOfContent(offset);
+            return cells;
+        }
+
+        private Cell[] CreateCellsWithInitializationOfContent(Vector2 offset)
+        {
+            var size = _boardConfig.Size;
+            var cells = new Cell[size.x * size.y];
             for (int i = 0, index = 0; i < size.x; i++)
             {
                 for (int j = 0; j < size.y; j++, index++)
@@ -33,9 +41,8 @@ namespace _Project.Code.Infrastructure.Installers.Factories
                     var position = new Vector2(x: i - offset.x, y: j - offset.y);
                     var cell = new Cell(position)
                     {
-                        Filler = _randomCellContentGenerator.Generate()
+                        Content = _randomCellContentGenerator.Generate(position)
                     };
-                    cell.Filler.Position = cell.Position;
                     cells[index] = cell;
                 }
             }

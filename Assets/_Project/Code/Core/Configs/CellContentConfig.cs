@@ -11,12 +11,12 @@ namespace _Project.Code.Core.Configs
     public class CellContentConfig : ScriptableObject, ICellContentConfig
     {
         [SerializeField] private CellContentView _prefab;
-        [SerializeField] private Cell.ContentType[] _matchableContent;
+        [SerializeField] private ContentType[] _matchableContent;
         [SerializeField] private bool _switchable;
-        [SerializeField] private Cell.ContentType _contentType;
+        [SerializeField] private ContentType _contentType;
 
-        public Cell.ContentType ContentType => _contentType;
-        public IEnumerable<Cell.ContentType> MatchableContent => _matchableContent;
+        public ContentType ContentType => _contentType;
+        public IEnumerable<ContentType> MatchableContent => _matchableContent;
         public bool Switchable => _switchable;
         public GameObject Prefab => _prefab.gameObject;
     }

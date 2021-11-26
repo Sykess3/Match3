@@ -45,6 +45,11 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .Bind<IRandomCellContentGenerator>()
                 .To<RandomCellContentGenerator>()
                 .AsSingle();
+
+            Container
+                .Bind<CellContentFalling>()
+                .AsSingle()
+                .NonLazy();
         }
     }
 }

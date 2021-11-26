@@ -7,8 +7,8 @@ namespace _Project.Code.Core.Models.Interfaces.Configs
 {
     public interface ICellContentConfig
     {
-        Cell.ContentType ContentType { get; }
-        IEnumerable<Cell.ContentType> MatchableContent { get; }
+        ContentType ContentType { get; }
+        IEnumerable<ContentType> MatchableContent { get; }
         bool Switchable { get; }
         GameObject Prefab { get; } 
     }

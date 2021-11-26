@@ -10,6 +10,7 @@ namespace _Project.Code.Core.Input
         public event Action<Vector2> ClickedOnPosition;
 
         private Camera _camera;
+        private bool _disabled;
 
         [Inject]
         public void Construct(Camera camera)
@@ -19,15 +20,18 @@ namespace _Project.Code.Core.Input
 
         private void Update()
         {
+            if (_disabled)
+                return;
+
             if (ClickedOnClickableGameObject(out var position))
             {
                 ClickedOnPosition?.Invoke(position);
             }
         }
 
-        public void Disable() => enabled = false;
+        public void Disable() => _disabled = true;
 
-        public void Enable() => enabled = true;
+        public void Enable() => _disabled = false;
 
         private bool ClickedOnClickableGameObject(out Vector2 position)
         {

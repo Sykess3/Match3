@@ -8,15 +8,19 @@ namespace _Project.Code.Core.Models
 {
     public class SwapCommand
     {
-        private bool _oneContentReachedTarget;
-        
+        private readonly ICellContentSwapper _swapper;
         private Action<SwapCommand> _onCommandExecutedCallBack;
+        private Action<SwapCommand> _onCommandRevertedCallBack;
         public Cell FirstCell { get; }
         public Cell SecondCell { get; }
-        public float Duration { get; set; } = 1;
+        public float Speed { get; set; } = 2;
 
-        public SwapCommand(Cell firstCell, Cell secondCell)
+        public SwapCommand(
+            Cell firstCell, 
+            Cell secondCell,
+            ICellContentSwapper swapper)
         {
+            _swapper = swapper;
             FirstCell = firstCell;
             SecondCell = secondCell;
         }
@@ -24,73 +28,31 @@ namespace _Project.Code.Core.Models
         public void Execute(Action<SwapCommand> onCommandExecuted)
         {
             _onCommandExecutedCallBack = onCommandExecuted;
-
-            var swapInstances = SwapPositions(
-                firstFillerTargetPosition: SecondCell.Position,
-                secondFillerTargetPosition: FirstCell.Position);
-
-            swapInstances
-                .Item1
-                .OnComplete(TryInformExecutedSubscribers);
-
-            swapInstances
-                .Item2
-                .OnComplete(TryInformExecutedSubscribers);
+            _swapper.SwapContent(
+                FirstCell,
+                SecondCell,
+                Speed,
+                InvokeOnCommandExecuted);
         }
 
-        public void Revert(Action<SwapCommand> onCommandRevertedCallBack)
+        public void Revert(Action<SwapCommand> onCommandRevertedCallBack = null)
         {
-            var swapInstances = SwapPositions(
-                firstFillerTargetPosition: SecondCell.Position,
-                secondFillerTargetPosition: FirstCell.Position);
-
-            swapInstances.Item1.OnComplete(delegate
-            {
-                SwapContent();
-                onCommandRevertedCallBack?.Invoke(this);
-            });
+            _onCommandRevertedCallBack = onCommandRevertedCallBack;
+            _swapper.SwapContent(
+                FirstCell,
+                SecondCell,
+                Speed,
+                InvokeOnCommandReverted);
         }
 
-        private (Tweener, Tweener) SwapPositions(Vector2 firstFillerTargetPosition, Vector2 secondFillerTargetPosition)
+        private void InvokeOnCommandExecuted()
         {
-            (Tweener, Tweener) result = (
-                MoveFillerTo(
-                    currentFiller: FirstCell.Filler,
-                    targetPoint: firstFillerTargetPosition),
-                MoveFillerTo(
-                    currentFiller: SecondCell.Filler, 
-                    targetPoint: secondFillerTargetPosition)
-            );
-
-            return result;
-        }
-
-        private Tweener MoveFillerTo(Cell.Content currentFiller, Vector2 targetPoint)
-        {
-            return DOVirtual.Vector3(
-                @from: currentFiller.Position,
-                to: targetPoint,
-                duration: Duration,
-                (x) => currentFiller.Position = x);
-        }
-
-        private void SwapContent()
-        {
-            var temp = FirstCell.Filler;
-            FirstCell.Filler = SecondCell.Filler;
-            SecondCell.Filler = temp;
-        }
-
-        private void TryInformExecutedSubscribers()
-        {
-            if (!_oneContentReachedTarget)
-            {
-                _oneContentReachedTarget = true;
-                return;
-            }
-            
-            SwapContent();
             _onCommandExecutedCallBack?.Invoke(this);
+        }
+
+        private void InvokeOnCommandReverted()
+        {
+            _onCommandRevertedCallBack?.Invoke(this);
         }
     }
 }

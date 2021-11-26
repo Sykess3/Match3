@@ -14,7 +14,7 @@ namespace _Project.Code.Core.Configs
     {
         [SerializeField] private Pair[] _contentToSpawn;
 
-        public Dictionary<Cell.ContentType, float> ContentToSpawn =>
+        public Dictionary<ContentType, float> ContentToSpawn =>
             _contentToSpawn
                 .OrderBy(x => x.ChanceToSpawn.Min)
                 .ToDictionary(x => x.Type, x => x.ChanceToSpawn.Max);
@@ -22,7 +22,7 @@ namespace _Project.Code.Core.Configs
         [Serializable]
         class Pair
         {
-            public Cell.ContentType Type;
+            public ContentType Type;
             [FloatRangeSlider(0,1)]
             public FloatRange ChanceToSpawn;
         }    

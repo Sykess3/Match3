@@ -40,7 +40,24 @@ namespace _Project.Code.Core.Models
             if (matchedCells.Count > 0)
                 matchedCells.Add(cell);
 
-            return matchedCells;
+            return SortedCollection(matchedCells);
+        }
+
+        private List<Cell> SortedCollection(List<Cell> matchedCells)
+        {
+            if (IsMatchedInHorizontal(matchedCells))
+                return matchedCells.OrderBy(x => x.Position.x).ToList();
+
+            return matchedCells.OrderBy(y => y.Position.y).ToList();
+        }
+
+        private static bool IsMatchedInHorizontal(List<Cell> matchedCells)
+        {
+            for (int i = 0; i < matchedCells.Count - 2; i++)
+                if (matchedCells[i].Position.x != matchedCells[i + 1].Position.x)
+                    return true;
+
+            return false;
         }
 
         private List<Cell> MatchInDirection(Cell initialCell, Direction direction)
@@ -62,12 +79,12 @@ namespace _Project.Code.Core.Models
 
         private static bool NextCellCanBeMatchedWithInitialCell(Cell cell, Cell nextCell)
         {
-            return cell.Filler.MatchableContent.All(x => x != nextCell.Filler.Type);
+            return cell.Content.MatchableContent.All(x => x != nextCell.Content.Type);
         }
 
         private bool NextCellIsSwitchable(Vector2 nextContentPosition, out Cell nextCell)
         {
-            return _board.TryGetCell(nextContentPosition, out nextCell) && nextCell.Filler.Switchable;
+            return _board.TryGetCell(nextContentPosition, out nextCell) && nextCell.Content.Switchable;
         }
     }
 }

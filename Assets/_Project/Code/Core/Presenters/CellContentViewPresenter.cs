@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Presenters
 {
-    public class CellContentViewPresenter : Presenter<Cell.Content, CellContentView>
+    public class CellContentViewPresenter : Presenter<CellContent, CellContentView>
     {
-        public CellContentViewPresenter(Cell.Content model, CellContentView view) : base(model, view)
+        public CellContentViewPresenter(CellContent model, CellContentView view) : base(model, view)
         {
         }
 
@@ -15,14 +15,14 @@ namespace _Project.Code.Core.Presenters
 
         protected override void Subscribe()
         {
-            Model.Destroyed += DestroyView;
+            Model.Matched += DestroyView;
             Model.PositionChanged += SyncPosition;
         }
 
         protected override void UnSubscribe()
         {
             Model.PositionChanged -= SyncPosition;
-            Model.Destroyed -= DestroyView;
+            Model.Matched -= DestroyView;
         }
 
         

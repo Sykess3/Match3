@@ -6,6 +6,6 @@ namespace _Project.Code.Core.Models.Interfaces.Configs
 {
     public interface ILevelConfig
     {
-        Dictionary<Cell.ContentType, float> ContentToSpawn { get; }
+        Dictionary<ContentType, float> ContentToSpawn { get; }
     }
 }

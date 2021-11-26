@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: SampleScene
   m_EditorClassIdentifier: 
   _contentToSpawn:
-  - Type: 0
+  - Type: 1
     ChanceToSpawn:
       _min: 0
       _max: 0.1666
-  - Type: 1
+  - Type: 2
     ChanceToSpawn:
       _min: 0.1666
       _max: 0.3332
-  - Type: 2
+  - Type: 3
     ChanceToSpawn:
       _min: 0.3332
       _max: 0.4998
-  - Type: 3
+  - Type: 4
     ChanceToSpawn:
       _min: 0.4998
       _max: 0.6664
-  - Type: 4
+  - Type: 5
     ChanceToSpawn:
       _min: 0.6664
       _max: 0.833
-  - Type: 5
+  - Type: 6
     ChanceToSpawn:
       _min: 0.833
       _max: 1

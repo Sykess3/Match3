@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
-using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Infrastructure.Factories;
-using _Project.Code.Infrastructure.Installers.Factories;
 using _Project.Code.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
@@ -19,7 +16,7 @@ namespace _Project.Code.Infrastructure.Installers.Project
         {
             ProvidersInstaller.Install(Container);
             StateMachineInstaller.Install(Container);
-            
+
             Container
                 .BindInterfacesTo<GameBootstrapper>()
                 .AsSingle();

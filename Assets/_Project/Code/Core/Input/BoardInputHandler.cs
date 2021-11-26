@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.Cells;
 using _Project.Code.Core.Models.Directions;
@@ -13,13 +14,19 @@ namespace _Project.Code.Core.Input
         private IPlayerInput _input;
         private Board _board;
         private Cell _selectedCell;
-        private ContentSwapper _contentSwapper;
+        private SwapCommandHandler _swapCommandHandler;
+        private ICellContentSwapper _contentSwapper;
 
         [Inject]
-        private void Construct(IPlayerInput input, ContentSwapper contentSwapper, Board board)
+        private void Construct(
+            IPlayerInput input, 
+            SwapCommandHandler swapCommandHandler,
+            Board board,
+            ICellContentSwapper contentSwapper)
         {
             _input = input;
             _board = board;
+            _swapCommandHandler = swapCommandHandler;
             _contentSwapper = contentSwapper;
         }
 
@@ -39,7 +46,11 @@ namespace _Project.Code.Core.Input
 
                 if (IsNeighbourOfSelectedCell(cell) && _selectedCell != cell)
                 {
-                    _contentSwapper.Switch(new SwapCommand(_selectedCell, cell));
+                    _swapCommandHandler.Swap(
+                        new SwapCommand(
+                            firstCell: _selectedCell,
+                            secondCell: cell,
+                            swapper: _contentSwapper));
                     _selectedCell = null;
                     return;
                 }
@@ -50,28 +61,8 @@ namespace _Project.Code.Core.Input
 
         private bool IsNeighbourOfSelectedCell(Cell cell)
         {
-            var eastCellPosition = _selectedCell.Position + Direction.East.GetVector2();
-            var westCellPosition = _selectedCell.Position + Direction.West.GetVector2();
-            var northCellPosition = _selectedCell.Position + Direction.North.GetVector2();
-            var southCellPosition = _selectedCell.Position + Direction.South.GetVector2();
-
-            if (_board.TryGetCell(eastCellPosition, out var eastCell))
-                if (eastCell == cell)
-                    return true;
-            
-            if (_board.TryGetCell(westCellPosition, out var westCell))
-                if (westCell == cell)
-                    return true;
-            
-            if (_board.TryGetCell(northCellPosition, out var northCell))
-                if (northCell == cell)
-                    return true;
-            
-            if (_board.TryGetCell(southCellPosition, out var southCell))
-                if (southCell == cell)
-                    return true;
-            
-            return false;
+            var cellNeighbours= _board.GetNeighboursOf(cell);
+            return cellNeighbours.Any(neighbour => neighbour == _selectedCell);
         }
     }
 }
