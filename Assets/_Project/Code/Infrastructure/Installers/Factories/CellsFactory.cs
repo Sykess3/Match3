@@ -20,13 +20,10 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         }
 
         public IEnumerable<Cell> Create()
-        {
-            var size = _boardConfig.Size;
+        {   
+            Constants.Board.InitializeOffset(_boardConfig.Size);
 
-            Vector2 offset = new Vector2((size.x - 1)
-                                         * 0.5f, (size.y - 1) * 0.5f);
-
-            var cells = CreateCellsWithInitializationOfContent(offset);
+            var cells = CreateCellsWithInitializationOfContent(Constants.Board.OffsetFromCenter);
             return cells;
         }
 
