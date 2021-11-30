@@ -1,4 +1,4 @@
-﻿using _Project.Code.Core.Models.Cells;
+﻿using _Project.Code.Core.Models.BoardLogic.Cells;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models

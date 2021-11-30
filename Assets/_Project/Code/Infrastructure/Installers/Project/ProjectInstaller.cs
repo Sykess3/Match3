@@ -37,12 +37,12 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .AsSingle();
 
             Container
-                .Bind<LevelLoader>()
+                .Bind<SceneLoader>()
                 .AsSingle();
 
             Container
                 .Bind<ISceneLoader>()
-                .To<SceneLoader>()
+                .To<InternalSceneLoader>()
                 .AsSingle();
 
             Container

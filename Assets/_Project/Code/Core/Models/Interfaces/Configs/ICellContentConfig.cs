@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using _Project.Code.Core.Models.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Views;
 using UnityEngine;
 

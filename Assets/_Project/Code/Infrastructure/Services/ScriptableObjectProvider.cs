@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Services
 {
-    public class ScriptableObjectProvider : IConfigProvider
+    internal class ScriptableObjectProvider : IConfigProvider
     {
         public T Load<T>(string path) where T : class
         {

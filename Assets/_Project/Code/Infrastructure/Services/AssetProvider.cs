@@ -2,7 +2,7 @@
 
 namespace _Project.Code.Infrastructure.Services
 {
-    public class AssetProvider : IAssetProvider
+    internal class AssetProvider : IAssetProvider
     {
         public GameObject Load(string path) => Resources.Load<GameObject>(path);
 

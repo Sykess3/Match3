@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.CustomAttributes;
 using _Project.Code.Core.Models;
-using _Project.Code.Core.Models.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using UnityEngine;
 

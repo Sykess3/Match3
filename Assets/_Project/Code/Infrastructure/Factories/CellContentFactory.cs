@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models;
-using _Project.Code.Core.Models.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
-using _Project.Code.Infrastructure.Installers.Factories;
-using _Project.Code.Infrastructure.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

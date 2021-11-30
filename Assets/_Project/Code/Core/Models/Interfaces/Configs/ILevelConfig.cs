@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Code.Core.CustomAttributes;
-using _Project.Code.Core.Models.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 
 namespace _Project.Code.Core.Models.Interfaces.Configs
 {

@@ -4,12 +4,12 @@ using _Project.Code.Infrastructure.Services;
 
 namespace _Project.Code.Infrastructure.GameStates
 {
-    public class LoadSceneState : IGameStateWithPayload<string>
+    public class LoadLevelState : IGameStateWithPayload<string>
     {
         private readonly ISceneLoader _sceneLoader;
         public event EventHandler SceneLoaded;
 
-        public LoadSceneState(ISceneLoader sceneLoader)
+        public LoadLevelState(ISceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
         }

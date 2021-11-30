@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.Directions
 {
-    enum Direction
+    public enum Direction
     {
         South,
         North,
