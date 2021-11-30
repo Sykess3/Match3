@@ -8,7 +8,7 @@ using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Models.Random;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
-using _Project.Code.Infrastructure.Installers.Project;
+using _Project.Code.Infrastructure.Installers.Factories;
 using UnityEngine;
 using Zenject;
 
@@ -55,14 +55,30 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                     .AsSingle();
 
                 Container
+                    .Bind<CellCollection>()
+                    .FromFactory<CellCollectionFactory>()
+                    .AsSingle();
+
+                Container
                     .Bind<IRandomCellContentGenerator>()
                     .To<RandomCellContentGenerator>()
                     .AsSingle();
 
                 Container
-                    .Bind<CellContentFallingFactory>()
+                    .Bind<CellContentFalling>()
                     .AsSingle();
 
+                MovementBindings();
+                MatchBindings();
+
+                Container
+                    .Bind<SwapCommandHandler>()
+                    .AsSingle();
+                
+            }
+
+            private void MovementBindings()
+            {
                 Container
                     .Bind<ICellContentMover>()
                     .To<CellContentMovement>()
@@ -72,18 +88,17 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                     .Bind<ICellContentSwapper>()
                     .To<CellContentMovement>()
                     .AsCached();
+            }
 
+            private void MatchBindings()
+            {
                 Container
-                    .Bind<IContentMatcher>()
-                    .To<ContentMatcher>()
+                    .Bind<IContentMatchFinder>()
+                    .To<ContentMatchFinder>()
                     .AsSingle();
 
                 Container
-                    .Bind<SwapCommandHandlerFactory>()
-                    .AsSingle();
-
-                Container
-                    .Bind<CellCollectionFactory>()
+                    .Bind<ContentMatcher>()
                     .AsSingle();
             }
         }

@@ -5,10 +5,9 @@ using _Project.Code.Core.Models.Directions;
 
 namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 {
-    public interface IContentMatcher
+    public interface IContentMatchFinder
     {
         List<Cell> FindMatch(Cell commandCell1);
         List<Cell> FindMatchesByWholeBoard();
-        void Initialize(CellCollection cells);
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.ContentMatching;
 using _Project.Code.Core.Models.BoardLogic.Swap;
 using UnityEngine;
 using Zenject;
@@ -9,64 +11,62 @@ namespace _Project.Code.Core.Models.BoardLogic
 {
     public class Board : IModel, IInitializable, IDisposable
     {
-        private readonly CellCollectionFactory _cellCollectionFactory;
-        private readonly SwapCommandHandlerFactory _swapCommandHandlerFactory;
-        private readonly CellContentFallingFactory _contentFallingFactory;
-
-        private CellContentFalling _cellContentFalling;
-        private SwapCommandHandler _swapCommandHandler;
-        private CellCollection _cells;
+        private readonly CellContentFalling _contentFalling;
+        private readonly IContentMatchFinder _matchFinder;
+        private readonly SwapCommandHandler _swapCommandHandler;
+        private readonly CellCollection _cellCollection;
 
         public event Action<CellContent> ContentMatched;
 
-        public Board(
-            SwapCommandHandlerFactory swapCommandHandlerFactory,
-            CellContentFallingFactory contentFallingFactory,
-            CellCollectionFactory cellCollectionFactory)
+        public Board(IContentMatchFinder matchFinder,
+            SwapCommandHandler swapCommandHandler,
+            CellContentFalling contentFalling,
+            CellCollection cellCollection)
         {
-            _swapCommandHandlerFactory = swapCommandHandlerFactory;
-            _contentFallingFactory = contentFallingFactory;
-            _cellCollectionFactory = cellCollectionFactory;
+            _matchFinder = matchFinder;
+            _swapCommandHandler = swapCommandHandler;
+            _contentFalling = contentFalling;
+            _cellCollection = cellCollection;
         }
 
         void IInitializable.Initialize()
         {
-            _cells = _cellCollectionFactory.CreateWithFilling();
-
-            _swapCommandHandler = _swapCommandHandlerFactory.Create(_cells);
-            _cellContentFalling = _contentFallingFactory.Create(_cells);
-            
-            _cells.Initialize(OnCellContentMatched, OnCellContentStartedMovement);
+            _cellCollection.Initialize(OnCellContentMatched, OnCellContentStartedMovement);
+            _contentFalling.FallingEnded += FindAnyMatchesInWholeBoard;
         }
 
         void IDisposable.Dispose()
         {
-            _cells.CleanUp();
+            _cellCollection.CleanUp();
+            _contentFalling.FallingEnded -= FindAnyMatchesInWholeBoard;
         }
 
-        public bool TryGetCell(Vector2 position, out Cell cell) => _cells.TryGetCell(position, out cell);
+        public bool TryGetCell(Vector2 position, out Cell cell) => _cellCollection.TryGetCell(position, out cell);
 
-        public IEnumerable<Cell> GetNeighboursOf(Cell cell) => _cells.GetNeighboursOf(cell);
-
-
+        public IEnumerable<Cell> GetNeighboursOf(Cell cell) => _cellCollection.GetNeighboursOf(cell);
+        
         /// <summary>
         /// Swap cellsContent and match they if condition is satisfied(3 content is the same)
         /// if it not satisfied swap back
         /// </summary>
-        public void TryMatch(SwapCommand swapCommand)
+        public void TryMatch(SwapCommand swapCommand) => _swapCommandHandler.Swap(swapCommand);
+
+        private async void FindAnyMatchesInWholeBoard()
         {
-            _swapCommandHandler.Swap(swapCommand);
+            List<Cell> matchedCells = await Task.Run(_matchFinder.FindMatchesByWholeBoard);
+            foreach (var cell in matchedCells) 
+                cell.Content.Match();
         }
 
         private void OnCellContentStartedMovement(Cell obj)
         {
-            _cellContentFalling.FillContentOnEmptyCells(obj);
+            _contentFalling.FillContentOnEmptyCells(obj);
         }
 
         private void OnCellContentMatched(object sender, EventArgs eventArgs)
         {
             var cell = (Cell) sender;
-            _cellContentFalling.FillContentOnEmptyCells(cell);
+            _contentFalling.FillContentOnEmptyCells(cell);
             ContentMatched?.Invoke(cell.Content);
         }
     }

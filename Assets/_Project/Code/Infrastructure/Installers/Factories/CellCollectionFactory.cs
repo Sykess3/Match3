@@ -1,11 +1,13 @@
-﻿using _Project.Code.Core.Models.BoardLogic.Cells;
-using _Project.Code.Core.Models.Interfaces.Configs;
+﻿using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.BoardLogic;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Random;
 using UnityEngine;
+using Zenject;
 
-namespace _Project.Code.Core.Models.BoardLogic
+namespace _Project.Code.Infrastructure.Installers.Factories
 {
-    public class CellCollectionFactory
+    public class CellCollectionFactory : IFactory<CellCollection>
     {
         private readonly IRandomCellContentGenerator _randomCellContentGenerator;
 
@@ -17,7 +19,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         /// <summary>
         /// Fill Content by random content with no matches
         /// </summary>
-        public CellCollection CreateWithFilling()
+        public CellCollection Create()
         {
             var size = Constants.Board.BoardSize;
             var offset = Constants.Board.OffsetFromCenter;

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using _Project.Code.Core.Input;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Random;
@@ -11,6 +13,7 @@ namespace _Project.Code.Core.Models.BoardLogic
     {
         private const int YMinSpawnPosition = 5;
         private const float FallingSpeed = 4f;
+        
         private readonly ICellContentMover _mover;
         private readonly IRandomCellContentGenerator _contentGenerator;
         private readonly ICoroutineRunner _coroutineRunner;
@@ -18,6 +21,10 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly IPlayerInput _playerInput;
         private readonly int[] _ySpawnPositions = new int[9];
         private Coroutine _ySpawnPositionsResetCoroutine;
+
+        private bool _invokedInCurrentFrame;
+
+        public Action FallingEnded;
 
         public CellContentFalling(
             ICellContentMover mover, 
@@ -35,8 +42,11 @@ namespace _Project.Code.Core.Models.BoardLogic
             ResetSpawnPositionsArray();
         }
 
-        public void FillContentOnEmptyCells(Cell emptyCell) => 
+        public void FillContentOnEmptyCells(Cell emptyCell)
+        {
+            _invokedInCurrentFrame = true;
             _coroutineRunner.StartCoroutine(FillContentOnEmptyCells_InNextFrame(emptyCell));
+        }
 
         private IEnumerator FillContentOnEmptyCells_InNextFrame(Cell emptyCell)
         {
@@ -58,7 +68,7 @@ namespace _Project.Code.Core.Models.BoardLogic
                 contentToMove: randomContent,
                 to: emptyCell,
                 speed: FallingSpeed,
-                callback: TryEnableInput);
+                callback: TryEnableInputAndInformAboutFallingEnded);
 
             _ySpawnPositions[XIndexOnMatrixOfEmptyCell()]++;
 
@@ -78,19 +88,25 @@ namespace _Project.Code.Core.Models.BoardLogic
                     @from: filledCell,
                     to: emptyCell,
                     speed: FallingSpeed,
-                    callback: TryEnableInput);
+                    callback: TryEnableInputAndInformAboutFallingEnded);
                 return true;
             }
 
             return false;
         }
 
-        private void TryEnableInput()
+        private void TryEnableInputAndInformAboutFallingEnded()
         {
             if (_cellCollection.IsAnyContentMoving())
                 return;
-            
-            _playerInput.Enable();
+
+            if (_invokedInCurrentFrame)
+            {
+                _invokedInCurrentFrame = false;
+                
+                _playerInput.Enable();
+                FallingEnded?.Invoke();
+            }
         }
 
         private bool TryGetFilledCellAbove(Cell emptyCell, out Cell filledCell)
