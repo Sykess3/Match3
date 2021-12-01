@@ -9,7 +9,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public Vector2 Position { get; }
         public event EventHandler ContentStartedMovement; 
-        public event EventHandler ContentMatched;
 
         public CellContent Content
         {
@@ -28,12 +27,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         {
             if (_content != null)
             {
-                _content.Matched -= ContentOnMatched;
+                _content.Destroyed -= SetContentToEmpty;
                 _content.StartedMovement -= OnContentStartedMovement;
             }
 
             _content = value;
-            _content.Matched += ContentOnMatched;
+            _content.Destroyed += SetContentToEmpty;
             _content.StartedMovement += OnContentStartedMovement;
         }
 
@@ -41,15 +40,5 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         {
             ContentStartedMovement?.Invoke(this, EventArgs.Empty);
         }
-
-
-        private void ContentOnMatched()
-        {
-            _content.Matched -= ContentOnMatched;
-
-            SetContentToEmpty();
-            ContentMatched?.Invoke(this, EventArgs.Empty);
-        }
-        
     }
 }

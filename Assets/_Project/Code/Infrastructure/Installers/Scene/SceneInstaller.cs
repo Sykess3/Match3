@@ -64,17 +64,28 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                     .To<RandomCellContentGenerator>()
                     .AsSingle();
 
-                Container
-                    .Bind<CellContentFalling>()
-                    .AsSingle();
-
+                FallingBindings();
+                
                 MovementBindings();
+                
                 MatchBindings();
 
                 Container
                     .Bind<SwapCommandHandler>()
                     .AsSingle();
                 
+            }
+
+            private void FallingBindings()
+            {
+                Container
+                    .Bind<BoardGravity>()
+                    .AsSingle();
+
+                Container
+                    .Bind<ICellContentFalling>()
+                    .To<CellContentFalling>()
+                    .AsSingle();
             }
 
             private void MovementBindings()

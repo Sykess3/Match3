@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
@@ -11,34 +12,35 @@ namespace _Project.Code.Core.Models.BoardLogic
 {
     public class Board : IModel, IInitializable, IDisposable
     {
-        private readonly CellContentFalling _contentFalling;
-        private readonly IContentMatchFinder _matchFinder;
+        private readonly BoardGravity _boardGravity;
+        private readonly ContentMatcher _matcher;
         private readonly SwapCommandHandler _swapCommandHandler;
         private readonly CellCollection _cellCollection;
 
         public event Action<CellContent> ContentMatched;
 
-        public Board(IContentMatchFinder matchFinder,
+        public Board(ContentMatcher matcher,
             SwapCommandHandler swapCommandHandler,
-            CellContentFalling contentFalling,
+            BoardGravity boardGravity,
             CellCollection cellCollection)
         {
-            _matchFinder = matchFinder;
+            _matcher = matcher;
             _swapCommandHandler = swapCommandHandler;
-            _contentFalling = contentFalling;
+            _boardGravity = boardGravity;
             _cellCollection = cellCollection;
         }
 
         void IInitializable.Initialize()
         {
-            _cellCollection.Initialize(OnCellContentMatched, OnCellContentStartedMovement);
-            _contentFalling.FallingEnded += FindAnyMatchesInWholeBoard;
+            _cellCollection.Initialize(OnCellContentStartedMovement);
+            _boardGravity.FallingEnded += ResolveMatchesInWholeBoard;
+            _swapCommandHandler.Matched += OnMatched;
         }
-
         void IDisposable.Dispose()
         {
             _cellCollection.CleanUp();
-            _contentFalling.FallingEnded -= FindAnyMatchesInWholeBoard;
+           _boardGravity.FallingEnded -= ResolveMatchesInWholeBoard;
+            _swapCommandHandler.Matched -= OnMatched;
         }
 
         public bool TryGetCell(Vector2 position, out Cell cell) => _cellCollection.TryGetCell(position, out cell);
@@ -51,23 +53,26 @@ namespace _Project.Code.Core.Models.BoardLogic
         /// </summary>
         public void TryMatch(SwapCommand swapCommand) => _swapCommandHandler.Swap(swapCommand);
 
-        private async void FindAnyMatchesInWholeBoard()
+        private void ResolveMatchesInWholeBoard()
         {
-            List<Cell> matchedCells = await Task.Run(_matchFinder.FindMatchesByWholeBoard);
-            foreach (var cell in matchedCells) 
-                cell.Content.Match();
+            _matcher.ResolveMatchesByWholeBoard(OnMatched);
         }
 
         private void OnCellContentStartedMovement(Cell obj)
         {
-            _contentFalling.FillContentOnEmptyCells(obj);
+            _boardGravity.FillContentOnEmptyCell(obj);
         }
-
-        private void OnCellContentMatched(object sender, EventArgs eventArgs)
+        
+        private void OnMatched(IEnumerable<Cell> matchedCells)
         {
-            var cell = (Cell) sender;
-            _contentFalling.FillContentOnEmptyCells(cell);
-            ContentMatched?.Invoke(cell.Content);
+            if (matchedCells.Any())
+            {
+                _boardGravity.FillContentOnEmptyCells(matchedCells.ToArray());
+            
+                foreach (var matchedCell in matchedCells) 
+                    ContentMatched?.Invoke(matchedCell.Content);
+            }
         }
+        
     }
 }

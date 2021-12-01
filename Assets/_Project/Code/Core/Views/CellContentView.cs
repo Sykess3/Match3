@@ -10,6 +10,5 @@ namespace _Project.Code.Core.Views
 {
     public class CellContentView : View
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
     }
 }

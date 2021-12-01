@@ -11,9 +11,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         {
             var cachedContent = from.Content;
             await MoveContentTo(
-                from.Content,
-                to,
-                speed,
+                contentToMove: from.Content,
+                targetCell: to,
+                speed: speed,
                 movementType: Ease.Linear);
 
             if (@from.Content == cachedContent)
@@ -28,8 +28,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
                 targetCell: to,
                 speed: speed,
                 movementType: Ease.Linear);
-
-            to.Content = contentToMove;
+            
             callback?.Invoke();
         }
 

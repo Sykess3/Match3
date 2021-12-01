@@ -24,7 +24,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public event Action PositionChanged;
 
-        public event Action Matched;
+        public event Action Destroyed;
+
+        public bool IsDestroying { get; set; }
 
         public bool IsFalling
         {
@@ -55,7 +57,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             PositionChanged?.Invoke();
         }
 
-        public void Match() => Matched?.Invoke();
+        public void Destroy() => Destroyed?.Invoke();
     }
 
     public enum ContentType

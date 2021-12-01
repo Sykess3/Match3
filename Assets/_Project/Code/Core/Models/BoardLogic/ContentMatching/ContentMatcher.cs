@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Swap;
 
@@ -13,16 +15,22 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         {
             _matchFinder = matchFinder;
         }
-        public bool TryMatch(SwapCommand command)
+        public bool TryMatch(SwapCommand command, Action<IEnumerable<Cell>> onMatched)
         {
             List<Cell> matchedCells =  GetMatchedCellsFromCommand(command);
 
             if (matchedCells.Count > 0)
             {
-                DestroyCells(matchedCells);
+                DestroyCells(matchedCells, onMatched);
                 return true;
             }
             return false;
+        }
+
+        public async void ResolveMatchesByWholeBoard(Action<IEnumerable<Cell>> onMatched)
+        {
+            var matchesByWholeBoard = await Task.Run(_matchFinder.FindMatchesByWholeBoard);
+            DestroyCells(matchesByWholeBoard, onMatched);
         }
 
         private List<Cell> GetMatchedCellsFromCommand(SwapCommand command)
@@ -34,10 +42,15 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             return matchedCells;
         }
 
-        private void DestroyCells(IEnumerable<Cell> matchedCells)
+        private void DestroyCells(IEnumerable<Cell> matchedCells, Action<IEnumerable<Cell>> onMatched)
         {
+            foreach (Cell matchedCell in matchedCells) 
+                matchedCell.Content.IsDestroying = true;
+            
+            onMatched?.Invoke(matchedCells);
+
             foreach (var cell in matchedCells) 
-                cell.Content.Match();
+                cell.Content.Destroy();
         }
     }
 }

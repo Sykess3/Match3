@@ -11,7 +11,6 @@ namespace _Project.Code.Core.Models.BoardLogic
     public class CellCollection
     {
         private readonly Dictionary<Vector2, Cell> _cells;
-        private EventHandler _cellContentMatchedCallback;
         private Action<Cell> _cellContentStartedMovementCallback;
 
 
@@ -22,9 +21,8 @@ namespace _Project.Code.Core.Models.BoardLogic
             
         }
 
-        public void Initialize(EventHandler cellContentMatchedCallback, Action<Cell> cellContentStartedMovementCallback)
+        public void Initialize(Action<Cell> cellContentStartedMovementCallback)
         {
-            _cellContentMatchedCallback = cellContentMatchedCallback;
             _cellContentStartedMovementCallback = cellContentStartedMovementCallback;
             
             SubscribeOnCellEvents();
@@ -79,20 +77,14 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private void SubscribeOnCellEvents()
         {
-            foreach (var cellKvP in _cells)
-            {
-                cellKvP.Value.ContentMatched += OnCellContentMatched;
+            foreach (var cellKvP in _cells) 
                 cellKvP.Value.ContentStartedMovement += OnCellContentStartedMovement;
-            }
         }
 
         private void UnsubscribeOnCellEvents()
         {
-            foreach (var cellKvP in _cells)
-            {
-                cellKvP.Value.ContentMatched -= OnCellContentMatched;
+            foreach (var cellKvP in _cells) 
                 cellKvP.Value.ContentStartedMovement -= OnCellContentStartedMovement;
-            }
         }
 
         private void OnCellContentStartedMovement(object sender, EventArgs eventArgs)
@@ -103,11 +95,5 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private static bool ContentMoving(KeyValuePair<Vector2, Cell> x) => 
             x.Value.Content.IsFalling;
-
-        private void OnCellContentMatched(object sender, EventArgs e)
-        {
-            var cell = (Cell) sender;
-            _cellContentMatchedCallback?.Invoke(cell, e);
-        }
     }
 }

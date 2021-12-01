@@ -1,74 +1,49 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using _Project.Code.Core.Input;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Random;
-using _Project.Code.Infrastructure;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic
 {
-    public class CellContentFalling
+    public class CellContentFalling : ICellContentFalling
     {
         private const int YMinSpawnPosition = 5;
         private const float FallingSpeed = 4f;
-        
-        private readonly ICellContentMover _mover;
-        private readonly IRandomCellContentGenerator _contentGenerator;
-        private readonly ICoroutineRunner _coroutineRunner;
+
         private readonly CellCollection _cellCollection;
-        private readonly IPlayerInput _playerInput;
-        private readonly int[] _ySpawnPositions = new int[9];
-        private Coroutine _ySpawnPositionsResetCoroutine;
+        private readonly IRandomCellContentGenerator _contentGenerator;
+        private readonly ICellContentMover _mover;
+        private readonly int[] _ySpawnPositions = new int[Constants.Board.BoardSize.x];
+        private bool _isResetSpawnPositions;
 
-        private bool _invokedInCurrentFrame;
-
-        public Action FallingEnded;
-
-        public CellContentFalling(
-            ICellContentMover mover, 
-            IRandomCellContentGenerator contentGenerator,
-            ICoroutineRunner coroutineRunner,
-            CellCollection cellCollection,
-            IPlayerInput playerInput)
+        public CellContentFalling(CellCollection cellCollection, IRandomCellContentGenerator contentGenerator,
+            ICellContentMover mover)
         {
-            _mover = mover;
-            _contentGenerator = contentGenerator;
-            _coroutineRunner = coroutineRunner;
             _cellCollection = cellCollection;
-            _playerInput = playerInput;
+            _contentGenerator = contentGenerator;
+            _mover = mover;
 
             ResetSpawnPositionsArray();
         }
 
-        public void FillContentOnEmptyCells(Cell emptyCell)
+        public void FillContentOnEmptyCell(Cell emptyCell, Action<Cell> onLandedCallback)
         {
-            _invokedInCurrentFrame = true;
-            _coroutineRunner.StartCoroutine(FillContentOnEmptyCells_InNextFrame(emptyCell));
+            _isResetSpawnPositions = false;
+            if (!TryMoveExistingContentToEmptyCells(emptyCell, onLandedCallback))
+                GenerateNewContentWithMovementTo(emptyCell, onLandedCallback);
         }
 
-        private IEnumerator FillContentOnEmptyCells_InNextFrame(Cell emptyCell)
+        private void GenerateNewContentWithMovementTo(Cell emptyCell, Action<Cell> onLandedCallback)
         {
-            yield return null;
-            if (!TryMoveExistingContentToEmptyCells(emptyCell)) 
-                GenerateNewContentWithMovementTo(emptyCell);
-        }
-
-        private void GenerateNewContentWithMovementTo(Cell emptyCell)
-        {
-            if (_ySpawnPositionsResetCoroutine == null)
-                _ySpawnPositionsResetCoroutine = _coroutineRunner.StartCoroutine(ResetYSpawnPosition_InNextFrame());
-            
             var randomContent = _contentGenerator.Generate(
                 new Vector2(emptyCell.Position.x, _ySpawnPositions[XIndexOnMatrixOfEmptyCell()]));
-            
-            _playerInput.Disable();
+
             _mover.MoveCellContent(
                 contentToMove: randomContent,
                 to: emptyCell,
                 speed: FallingSpeed,
-                callback: TryEnableInputAndInformAboutFallingEnded);
+                callback: () => OnLandedGeneratedContent(emptyCell, onLandedCallback));
 
             _ySpawnPositions[XIndexOnMatrixOfEmptyCell()]++;
 
@@ -78,49 +53,44 @@ namespace _Project.Code.Core.Models.BoardLogic
             }
         }
 
+        private void OnLandedGeneratedContent(Cell emptyCell, Action<Cell> onLandedCallback)
+        {
+            if (!_isResetSpawnPositions)
+            {
+                _isResetSpawnPositions = true;
+                ResetSpawnPositionsArray();
+            }
 
-        private bool TryMoveExistingContentToEmptyCells(Cell emptyCell)
+            onLandedCallback?.Invoke(emptyCell);
+        }
+
+        private bool TryMoveExistingContentToEmptyCells(Cell emptyCell, Action<Cell> onLanded)
         {
             if (TryGetFilledCellAbove(emptyCell, out var filledCell))
             {
-                _playerInput.Disable();
                 _mover.MoveCellContent(
                     @from: filledCell,
                     to: emptyCell,
                     speed: FallingSpeed,
-                    callback: TryEnableInputAndInformAboutFallingEnded);
+                    callback: () => onLanded(emptyCell));
                 return true;
             }
 
             return false;
         }
 
-        private void TryEnableInputAndInformAboutFallingEnded()
-        {
-            if (_cellCollection.IsAnyContentMoving())
-                return;
-
-            if (_invokedInCurrentFrame)
-            {
-                _invokedInCurrentFrame = false;
-                
-                _playerInput.Enable();
-                FallingEnded?.Invoke();
-            }
-        }
-
         private bool TryGetFilledCellAbove(Cell emptyCell, out Cell filledCell)
         {
             filledCell = null;
             var currentCell = emptyCell;
-            while (_cellCollection.TryGetCellAbove(currentCell, out var cellAbove) )
+            while (_cellCollection.TryGetCellAbove(currentCell, out var cellAbove))
             {
-                if (cellAbove.Content.IsFalling)
+                if (cellAbove.Content.IsFalling || cellAbove.Content.IsDestroying)
                 {
                     currentCell = cellAbove;
                     continue;
                 }
-                
+
                 if (cellAbove.Content.Type != ContentType.Empty)
                 {
                     filledCell = cellAbove;
@@ -133,16 +103,9 @@ namespace _Project.Code.Core.Models.BoardLogic
             return false;
         }
 
-        private IEnumerator ResetYSpawnPosition_InNextFrame()
-        {
-            yield return null;
-            ResetSpawnPositionsArray();
-            _ySpawnPositionsResetCoroutine = null;
-        }
-
         private void ResetSpawnPositionsArray()
         {
-            for (int i = 0; i < _ySpawnPositions.Length; i++) 
+            for (int i = 0; i < _ySpawnPositions.Length; i++)
                 _ySpawnPositions[i] = YMinSpawnPosition;
         }
     }
