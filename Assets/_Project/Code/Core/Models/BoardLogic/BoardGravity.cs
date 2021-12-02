@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Code.Core.Input;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic
 {
@@ -59,6 +61,11 @@ namespace _Project.Code.Core.Models.BoardLogic
             while (currentNode != null)
             {
                 _contentFalling.FillContentOnEmptyCell(currentNode.Value, OnCellLanded);
+                if (_cellsToFill.Distinct().Count() != _cellsToFill.Count)
+                {
+                    Debug.Log("Fuck");
+                    //TODO: В крайнем случае не добавлять если уже существует
+                }
                 currentNode = currentNode.Next;
             }
         }

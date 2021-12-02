@@ -54,7 +54,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
                 }
             }
 
-            return OrderMatchedCells(allMatchedCells);
+            return OrderMatchedCells(allMatchedCells.Distinct());
         }
 
         private List<Cell> MatchInDirection(Cell initialCell, Direction direction)
@@ -74,7 +74,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             return matchedCells;
         }
 
-        private static List<Cell> OrderMatchedCells(List<Cell> matchedCells)
+        private static List<Cell> OrderMatchedCells(IEnumerable<Cell> matchedCells)
         {
             return matchedCells.OrderBy(x => x.Position.y)
                 .ToList();

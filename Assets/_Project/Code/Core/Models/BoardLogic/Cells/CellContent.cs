@@ -70,6 +70,13 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         Purple,
         Green,
         Yellow,
-        Stone
+        Stone,
+        
+        Up_Red,
+        Up_Blue,
+        Up_Orange,
+        Up_Purple,
+        Up_Green,
+        Up_Yellow
     }
 }
