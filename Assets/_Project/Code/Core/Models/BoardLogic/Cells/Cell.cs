@@ -25,6 +25,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         private void ChangeContent(CellContent value)
         {
+
             if (_content != null)
             {
                 _content.Destroyed -= SetContentToEmpty;

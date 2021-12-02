@@ -15,7 +15,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         {
             _cells = cells;
         }
-
+        
         public List<Cell> FindMatch(Cell cell)
         {
             var matchedCells = new List<Cell>();
@@ -76,8 +76,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 
         private static List<Cell> OrderMatchedCells(List<Cell> matchedCells)
         {
-            return matchedCells.OrderBy(x => x.Position.x)
-                .ThenBy(x => x.Position.y)
+            return matchedCells.OrderBy(x => x.Position.y)
                 .ToList();
         }
 

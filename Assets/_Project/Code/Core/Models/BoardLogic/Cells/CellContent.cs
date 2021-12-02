@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells
 {
+    [System.Serializable]
     public class CellContent : IModel
     {
         private bool _isFalling;

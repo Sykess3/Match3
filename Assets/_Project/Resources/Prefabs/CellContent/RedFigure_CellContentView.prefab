@@ -126,4 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 4998361669244732650}
+  SpriteRenderer: {fileID: 4998361669244732650}
+  _matchVFX: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}

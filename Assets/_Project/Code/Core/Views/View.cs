@@ -6,7 +6,7 @@ namespace _Project.Code.Core.Views
 {
     public class View : MonoBehaviour
     {
-        [SerializeField] protected SpriteRenderer _spriteRenderer;
+        [SerializeField] protected SpriteRenderer SpriteRenderer;
         public event Action Destroyed;
         public event Action Created;
 
@@ -29,11 +29,11 @@ namespace _Project.Code.Core.Views
         
         private IEnumerator DoFadeIn()
         {
-            while (_spriteRenderer.color.a > 0)
+            while (SpriteRenderer.color.a > 0)
             {
-                Color color = _spriteRenderer.color;
+                Color color = SpriteRenderer.color;
                 color = new Color(color.r, color.g, color.b, color.a - 0.06f);
-                _spriteRenderer.color = color;
+                SpriteRenderer.color = color;
                 yield return new WaitForSeconds(0.06f);
             }
 

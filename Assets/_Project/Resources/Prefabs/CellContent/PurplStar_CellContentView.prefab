@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 6671981663326691629}
+  SpriteRenderer: {fileID: 6671981663326691629}
+  _matchVFX: {fileID: 8030658075521078671, guid: bb452d4890b67fd4ab4d39dde000b86c, type: 3}
 --- !u!1 &6153798422835938651
 GameObject:
   m_ObjectHideFlags: 0

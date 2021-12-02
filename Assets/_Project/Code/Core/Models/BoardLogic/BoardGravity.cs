@@ -5,7 +5,6 @@ using _Project.Code.Core.Models.BoardLogic.Cells;
 
 namespace _Project.Code.Core.Models.BoardLogic
 {
-    //Need to fix this garbage of separation of frames
     public class BoardGravity
     {
         private readonly ICellContentFalling _contentFalling;

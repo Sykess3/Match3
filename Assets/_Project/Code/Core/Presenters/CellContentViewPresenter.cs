@@ -1,7 +1,5 @@
-﻿using _Project.Code.Core.Models;
-using _Project.Code.Core.Models.BoardLogic.Cells;
+﻿using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Views;
-using UnityEngine;
 
 namespace _Project.Code.Core.Presenters
 {
@@ -11,21 +9,24 @@ namespace _Project.Code.Core.Presenters
         {
         }
 
-        protected override void OnStart() => SyncPosition();
+        protected override void OnStart()
+        {
+            SyncPosition();
+            View.CellContent = Model;
+        }
 
         protected override void Subscribe()
         {
-            Model.Destroyed += DestroyView;
+            Model.Destroyed += View.Match;
             Model.PositionChanged += SyncPosition;
         }
 
         protected override void UnSubscribe()
         {
             Model.PositionChanged -= SyncPosition;
-            Model.Destroyed -= DestroyView;
+            Model.Destroyed -= View.Match;
         }
 
-        private void DestroyView() => Object.Destroy(View.gameObject);
         private void SyncPosition() => View.transform.position = Model.Position;
     }
 }

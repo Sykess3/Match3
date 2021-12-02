@@ -17,7 +17,9 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         }
         public bool TryMatch(SwapCommand command, Action<IEnumerable<Cell>> onMatched)
         {
-            List<Cell> matchedCells =  GetMatchedCellsFromCommand(command);
+            List<Cell> matchedCells =  GetMatchedCellsFromCommand(command)
+                .OrderBy(x => x.Position.y)
+                .ToList();
 
             if (matchedCells.Count > 0)
             {
