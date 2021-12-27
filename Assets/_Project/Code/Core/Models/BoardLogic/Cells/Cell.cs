@@ -21,17 +21,19 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             Position = position;
         }
 
+
         public void SetContentToEmpty() => Content = new EmptyCellContent();
+        
 
         private void ChangeContent(CellContent value)
         {
-
             if (_content != null)
             {
                 _content.Destroyed -= SetContentToEmpty;
                 _content.StartedMovement -= OnContentStartedMovement;
             }
 
+            
             _content = value;
             _content.Destroyed += SetContentToEmpty;
             _content.StartedMovement += OnContentStartedMovement;

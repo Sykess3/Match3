@@ -8,7 +8,7 @@ namespace _Project.Code.Core.Models.Directions
         South,
         North,
         West,
-        East
+        East,
     }
 
     static class DirectionExtensions
@@ -18,9 +18,9 @@ namespace _Project.Code.Core.Models.Directions
             switch (direction)
             {
                 case Direction.South:
-                    return new Vector2(0, 1);
-                case Direction.North:
                     return new Vector2(0, -1);
+                case Direction.North:
+                    return new Vector2(0, 1);
                 case Direction.West:
                     return new Vector2(-1, 0);
                 case Direction.East:

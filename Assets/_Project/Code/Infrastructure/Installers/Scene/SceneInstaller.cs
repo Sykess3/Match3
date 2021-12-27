@@ -8,6 +8,7 @@ using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Models.Random;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
+using _Project.Code.Infrastructure.Factories;
 using _Project.Code.Infrastructure.Installers.Factories;
 using UnityEngine;
 using Zenject;
@@ -34,6 +35,24 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .Bind<BoardViewPresenter>()
                 .AsSingle()
                 .NonLazy();
+            
+
+#if UNITY_EDITOR
+            Container
+                .Bind<CellCollection>()
+                .FromFactory<CellCollectionFactory>()
+                .AsSingle();
+            
+            Container
+                .Bind<ICellContentSpawner>()
+                .To<CellContentSpawner>()
+                .AsSingle();
+            
+            Container
+                .Bind<IRandomCellContentGenerator>()
+                .To<RandomCellContentGenerator>()
+                .AsSingle();
+#endif
 
             Container
                 .Bind(typeof(Board), typeof(IInitializable), typeof(IDisposable))
@@ -41,77 +60,6 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .FromSubContainerResolve()
                 .ByInstaller<BoardInstaller>()
                 .AsSingle();
-
-        }
-
-        class BoardInstaller : Installer<BoardInstaller>
-        {
-            public override void InstallBindings()
-            {
-
-                Container
-                    .Bind(typeof(Board), typeof(IInitializable), typeof(IDisposable))
-                    .To<Board>()
-                    .AsSingle();
-
-                Container
-                    .Bind<CellCollection>()
-                    .FromFactory<CellCollectionFactory>()
-                    .AsSingle();
-
-                Container
-                    .Bind<IRandomCellContentGenerator>()
-                    .To<RandomCellContentGenerator>()
-                    .AsSingle();
-
-                FallingBindings();
-                
-                MovementBindings();
-                
-                MatchBindings();
-
-                Container
-                    .Bind<SwapCommandHandler>()
-                    .AsSingle();
-                
-            }
-
-            private void FallingBindings()
-            {
-                Container
-                    .Bind<BoardGravity>()
-                    .AsSingle();
-
-                Container
-                    .Bind<ICellContentFalling>()
-                    .To<CellContentFalling>()
-                    .AsSingle();
-            }
-
-            private void MovementBindings()
-            {
-                Container
-                    .Bind<ICellContentMover>()
-                    .To<CellContentMovement>()
-                    .AsCached();
-
-                Container
-                    .Bind<ICellContentSwapper>()
-                    .To<CellContentMovement>()
-                    .AsCached();
-            }
-
-            private void MatchBindings()
-            {
-                Container
-                    .Bind<IContentMatchFinder>()
-                    .To<ContentMatchFinder>()
-                    .AsSingle();
-
-                Container
-                    .Bind<ContentMatcher>()
-                    .AsSingle();
-            }
         }
     }
 }

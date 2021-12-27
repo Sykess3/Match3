@@ -4,22 +4,23 @@ using System.Linq;
 using _Project.Code.Core.Input;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
+using _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareComponents;
 
 namespace _Project.Code.Core.Models.BoardLogic.Swap
 {
     public class SwapCommandHandler
     {
-        private readonly ContentMatcher _matcher;
+        private readonly IContentMatchFinder _matchFinder;
         private readonly ICellContentSwapper _cellContentSwapper;
         private readonly IPlayerInput _playerInput;
+        
+        public event Action<MatchData> Matched;
 
-        public event Action<IEnumerable<Cell>> Matched;
-
-        public SwapCommandHandler(ContentMatcher matcher, ICellContentSwapper cellContentSwapper, IPlayerInput playerInput)
+        public SwapCommandHandler(ICellContentSwapper cellContentSwapper, IPlayerInput playerInput, IContentMatchFinder matchFinder)
         {
-            _matcher = matcher;
             _cellContentSwapper = cellContentSwapper;
             _playerInput = playerInput;
+            _matchFinder = matchFinder;
         }
 
         public void Swap(SwapCommand command)
@@ -31,12 +32,24 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
 
         private void OnCommandExecuted(SwapCommand command)
         {
-            if (!_matcher.TryMatch(command, OnMatched))
+            var matchData = GetMatchedDataFromCommand(command);
+            if (matchData.MatchedCells.Count == 0)
                 command.Revert(OnCommandReverted);
+            
+            Matched?.Invoke(matchData);
         }
-
-        private void OnMatched(IEnumerable<Cell> obj) => Matched?.Invoke(obj);
-
+        
         private void OnCommandReverted(SwapCommand obj) => _playerInput.Enable();
+        
+        
+        private MatchData GetMatchedDataFromCommand(SwapCommand command)
+        {
+            var matchDataFirstCell = _matchFinder.FindMatch(command.FirstCell);
+            var matchDataSecondCell = _matchFinder.FindMatch(command.SecondCell);
+
+            return matchDataFirstCell
+                .Concat(matchDataSecondCell)
+                .Distinct();
+        }
     }
 }

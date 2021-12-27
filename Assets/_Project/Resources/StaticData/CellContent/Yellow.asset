@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Yellow
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1337825803871406146, guid: ebb185a2d34ab7d438df492c9e61dd4e, type: 3}
-  _matchableContent: 06000000
+  _matchableContent: 060000000e000000
   _switchable: 1
   _contentType: 6

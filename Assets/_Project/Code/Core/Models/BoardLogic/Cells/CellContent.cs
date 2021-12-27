@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells
 {
-    [System.Serializable]
+    [Serializable]
     public class CellContent : IModel
     {
         private bool _isFalling;
@@ -27,8 +27,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public event Action Destroyed;
 
-        public bool IsDestroying { get; set; }
-
         public bool IsFalling
         {
             get => _isFalling;
@@ -46,7 +44,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             get => _position;
             set => ChangePosition(value);
         }
-
+        
         public CellContent(ICellContentConfig config)
         {
             _config = config;
@@ -61,6 +59,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         public void Destroy() => Destroyed?.Invoke();
     }
 
+    [Flags]
     public enum ContentType
     {
         Empty,
@@ -71,12 +70,24 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         Green,
         Yellow,
         Stone,
-        
-        Up_Red,
-        Up_Blue,
-        Up_Orange,
-        Up_Purple,
-        Up_Green,
-        Up_Yellow
+        UppedContent,
+
+        Upped_Red = Red | UppedContent,
+        Upped_Blue = Blue | UppedContent,
+        Upped_Orange = Orange | UppedContent,
+        Upped_Purple = Purple | UppedContent,
+        Upped_Green = Green | UppedContent,
+        Upped_Yellow = Yellow | UppedContent
+    }
+
+    public static class ContentTypeExtensions
+    {
+        public static ContentType Up(this ContentType contentType)
+        {
+            if (contentType.HasFlag(ContentType.UppedContent))
+                throw new InvalidCastException();
+            
+            return contentType | ContentType.UppedContent;
+        }
     }
 }

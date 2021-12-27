@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Purple
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4236482754479186325, guid: 93652b1673b4a734896b9e5f73bef7ce, type: 3}
-  _matchableContent: 04000000
+  _matchableContent: 040000000c000000
   _switchable: 1
   _contentType: 4

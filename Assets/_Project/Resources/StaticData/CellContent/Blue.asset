@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Blue
   m_EditorClassIdentifier: 
   _prefab: {fileID: 8856450982404973335, guid: e62dba446e309d44890fddadbd3c38e7, type: 3}
-  _matchableContent: 02000000
+  _matchableContent: 020000000a000000
   _switchable: 1
   _contentType: 2

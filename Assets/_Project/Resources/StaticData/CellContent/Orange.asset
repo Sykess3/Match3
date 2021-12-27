@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   _prefab: {fileID: 8113673601749052170, guid: 49218f0befa0e6a428e5bcd126104ebb, type: 3}
-  _matchableContent: 03000000
+  _matchableContent: 030000000b000000
   _switchable: 1
   _contentType: 3

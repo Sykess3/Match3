@@ -14,7 +14,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly CellCollection _cellCollection;
         private readonly IRandomCellContentGenerator _contentGenerator;
         private readonly ICellContentMover _mover;
-        private readonly int[] _ySpawnPositions = new int[Constants.Board.BoardSize.x];
+        private readonly int[] _ySpawnPositions = new int[Constant.Board.BoardSize.x];
         private bool _isResetSpawnPositions;
 
         public CellContentFalling(CellCollection cellCollection, IRandomCellContentGenerator contentGenerator,
@@ -49,7 +49,7 @@ namespace _Project.Code.Core.Models.BoardLogic
 
             int XIndexOnMatrixOfEmptyCell()
             {
-                return Mathf.RoundToInt(emptyCell.Position.x + Constants.Board.OffsetFromCenter.x);
+                return Mathf.RoundToInt(emptyCell.Position.x + Constant.Board.OffsetFromCenter.x);
             }
         }
 
@@ -85,19 +85,14 @@ namespace _Project.Code.Core.Models.BoardLogic
             var currentCell = emptyCell;
             while (_cellCollection.TryGetCellAbove(currentCell, out var cellAbove))
             {
-                if (cellAbove.Content.IsFalling || cellAbove.Content.IsDestroying)
+                if (cellAbove.Content.IsFalling || cellAbove.Content.Type == ContentType.Empty || !cellAbove.Content.Switchable)
                 {
                     currentCell = cellAbove;
                     continue;
                 }
 
-                if (cellAbove.Content.Type != ContentType.Empty)
-                {
-                    filledCell = cellAbove;
-                    return true;
-                }
-
-                currentCell = cellAbove;
+                filledCell = cellAbove;
+                return true;
             }
 
             return false;
