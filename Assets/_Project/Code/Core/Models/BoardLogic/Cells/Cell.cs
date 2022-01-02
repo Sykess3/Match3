@@ -39,9 +39,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             _content.StartedMovement += OnContentStartedMovement;
         }
 
-        private void OnContentStartedMovement()
-        {
-            ContentStartedMovement?.Invoke(this, EventArgs.Empty);
-        }
+        private void SetContentToEmpty(object sender, EventArgs e) => Content = new EmptyCellContent();
+
+        private void OnContentStartedMovement() => ContentStartedMovement?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -6,13 +6,13 @@ namespace _Project.Code.Infrastructure.Installers.Scene
 {
     public class SceneGameObjectsInstaller : MonoInstaller
     {
-        [SerializeField] private Camera _cameraPrefab;
+        [SerializeField] private Camera _camera;
         public override void InstallBindings()
         {
             InputInstaller.Install(Container);
             Container
                 .Bind<Camera>()
-                .FromComponentInNewPrefab(_cameraPrefab)
+                .FromInstance(_camera)
                 .AsSingle()
                 .NonLazy();
         }

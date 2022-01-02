@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Upped_Orange
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5087446165496748317, guid: 26d39b7658c96144791230e14a64a7b2, type: 3}
-  _matchableContent: 030000000b000000
+  _matchableContent: 030000000a00000010000000
   _switchable: 1
-  _contentType: 11
+  _contentType: 10

@@ -19,6 +19,10 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .To<Board>()
                 .AsSingle();
 
+            Container
+                .Bind<MatchDataHandler>()
+                .AsSingle();
+
 #if !UNITY_EDITOR
             Container
                 .Bind<CellCollection>()
@@ -95,7 +99,10 @@ namespace _Project.Code.Infrastructure.Installers.Scene
             Container
                 .Bind<UppedContentMatchFinder>()
                 .AsSingle();
-            
+
+            Container
+                .Bind<BombMatchFinder>()
+                .AsSingle();
         }
     }
 

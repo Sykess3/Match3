@@ -36,7 +36,7 @@ namespace _Project.Code.Core.Editor
 
                 if (cellCollection.TryGetCell(cellPos, out var cellToReplace))
                 {
-                    cellToReplace.Content.Destroy();
+                    cellToReplace.Content.Match();
                     cellContentSpawner.Spawn(new ContentToSpawn(_contentType, cellPos));
                 }
                 else

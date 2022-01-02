@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Upped_Red
   m_EditorClassIdentifier: 
   _prefab: {fileID: 8506729575097803458, guid: 6ee1ba7dfd7ea074c8494480cb900dbb, type: 3}
-  _matchableContent: 0100000009000000
+  _matchableContent: 01000000080000000e000000
   _switchable: 1
-  _contentType: 9
+  _contentType: 8

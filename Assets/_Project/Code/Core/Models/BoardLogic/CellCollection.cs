@@ -30,6 +30,16 @@ namespace _Project.Code.Core.Models.BoardLogic
         public bool TryGetCellAbove(Cell cell, out Cell cellAbove) =>
             TryGetCell(cell.Position + Direction.North.GetVector2(), out cellAbove);
 
+        public List<Cell> GetAll(ContentType ofType)
+        {
+            return _cells.Values.Where(TypeIsArgumentType).ToList();
+
+            bool TypeIsArgumentType(Cell cell)
+            {
+                return  cell.Content.Type == ofType;
+            }
+        }
+
         public IEnumerable<Cell> GetCellsInAllDirections(Cell relatively)
         {
             var cells = new List<Cell>(16);

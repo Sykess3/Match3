@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Infrastructure.Factories;
@@ -44,16 +47,31 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .Bind<ISceneLoader>()
                 .To<InternalSceneLoader>()
                 .AsSingle();
-
-            Container
-                .Bind<ICellContentFactory>()
-                .To<CellContentFactory>()
-                .AsTransient();
             
+                    
+            BindConfigs();
+            
+        }
+
+        private void BindConfigs()
+        {
             Container
                 .Bind<IEnumerable<ICellContentConfig>>()
                 .FromInstance(_settings.CellContentConfigs)
-                .AsSingle();
+                .AsCached();
+
+            BindBombConfigs();
+        }
+
+        private void BindBombConfigs()
+        {
+            IEnumerable<IBombConfig> bombConfigs =
+                _settings.CellContentConfigs.Where(x => x is IBombConfig).Cast<IBombConfig>();
+
+            Container
+                .Bind<IEnumerable<IBombConfig>>()
+                .FromInstance(bombConfigs)
+                .AsCached();
         }
     }
 }

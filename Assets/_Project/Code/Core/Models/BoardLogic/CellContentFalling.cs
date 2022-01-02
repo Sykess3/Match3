@@ -9,7 +9,7 @@ namespace _Project.Code.Core.Models.BoardLogic
     public class CellContentFalling : ICellContentFalling
     {
         private const int YMinSpawnPosition = 5;
-        private const float FallingSpeed = 4f;
+        private const float FallingSpeed = 5f;
 
         private readonly CellCollection _cellCollection;
         private readonly IRandomCellContentGenerator _contentGenerator;

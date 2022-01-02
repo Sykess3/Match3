@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
+  m_Name: PurpleBomb
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6466966613152203273, guid: 6e043b4a92d712f43a34e1183b04a39f, type: 3}
+  _matchableContent: 040000000b00000011000000
+  _switchable: 1
+  _contentType: 17
+  _amountOfContentToDestroy:
+    _min: 3
+    _max: 5

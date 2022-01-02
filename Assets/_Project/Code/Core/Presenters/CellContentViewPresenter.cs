@@ -17,14 +17,16 @@ namespace _Project.Code.Core.Presenters
 
         protected override void Subscribe()
         {
-            Model.Destroyed += View.Match;
+            Model.Matched += View.Match;
             Model.PositionChanged += SyncPosition;
+            View.Destroyed += Model.Destroy;
         }
 
         protected override void UnSubscribe()
         {
+            Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;
-            Model.Destroyed -= View.Match;
+            View.Destroyed -= Model.Destroy;
         }
 
         private void SyncPosition() => View.transform.position = Model.Position;

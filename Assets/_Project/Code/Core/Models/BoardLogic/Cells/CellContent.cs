@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Infrastructure;
+
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells
@@ -25,7 +26,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public event Action PositionChanged;
 
-        public event Action Destroyed;
+        public event EventHandler Destroyed;
+
+        public event Action Matched;
 
         public bool IsFalling
         {
@@ -35,7 +38,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
                 _isFalling = value;
                 if (_isFalling) 
                     StartedMovement?.Invoke();
-
             }
         }
 
@@ -56,38 +58,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             PositionChanged?.Invoke();
         }
 
-        public void Destroy() => Destroyed?.Invoke();
-    }
+        public void Match() => Matched?.Invoke();
 
-    [Flags]
-    public enum ContentType
-    {
-        Empty,
-        Red,
-        Blue,
-        Orange,
-        Purple,
-        Green,
-        Yellow,
-        Stone,
-        UppedContent,
-
-        Upped_Red = Red | UppedContent,
-        Upped_Blue = Blue | UppedContent,
-        Upped_Orange = Orange | UppedContent,
-        Upped_Purple = Purple | UppedContent,
-        Upped_Green = Green | UppedContent,
-        Upped_Yellow = Yellow | UppedContent
-    }
-
-    public static class ContentTypeExtensions
-    {
-        public static ContentType Up(this ContentType contentType)
-        {
-            if (contentType.HasFlag(ContentType.UppedContent))
-                throw new InvalidCastException();
-            
-            return contentType | ContentType.UppedContent;
-        }
+        public void Destroy() => Destroyed?.Invoke(this, EventArgs.Empty);
     }
 }

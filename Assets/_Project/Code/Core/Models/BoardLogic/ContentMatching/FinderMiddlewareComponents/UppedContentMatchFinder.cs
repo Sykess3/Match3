@@ -27,7 +27,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             if (hadCrossMatch)
             {
                 var centralCell = matchData.MovedCell;
-                contentToSpawn = new ContentToSpawn(centralCell.Content.Type.Up(), centralCell.Position);
+                contentToSpawn = new ContentToSpawn(centralCell.Content.Type.GetUppedContent(), centralCell.Position);
             }
 
             return hadCrossMatch;
@@ -46,17 +46,18 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
 
         private IEnumerable<Cell> ExposeUppedContent(List<Cell> uppedContent)
         {
+            List<Cell> matchedContent = new List<Cell>();
             foreach (var content in uppedContent)
-                return _cellCollection.GetCellsInAllDirections(content);
+                 matchedContent.AddRange(_cellCollection.GetCellsInAllDirections(content));
 
-            throw new ArgumentException();
+            return matchedContent;
         }
 
 
         private IEnumerable<Cell> FindExistingUppedContent(IReadOnlyList<Cell> cells)
         {
             foreach (Cell cell in cells)
-                if (cell.Content.Type.HasFlag(ContentType.UppedContent))
+                if (cell.Content.Type.IsUpped())
                     yield return cell;
         }
     }

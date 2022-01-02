@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 897935557902802844, guid: 3fb7232ebd5177f4980b3f3346ed095d, type: 3}
       propertyPath: m_Name
-      value: MatchParticleBlue Variant
+      value: Blue_MatchParticle Variant
       objectReference: {fileID: 0}
     - target: {fileID: 897935557902802844, guid: 3fb7232ebd5177f4980b3f3346ed095d, type: 3}
       propertyPath: m_IsActive
@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231669948301953354, guid: 3fb7232ebd5177f4980b3f3346ed095d, type: 3}
       propertyPath: stopAction
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3231669948301953354, guid: 3fb7232ebd5177f4980b3f3346ed095d, type: 3}
       propertyPath: cullingMode

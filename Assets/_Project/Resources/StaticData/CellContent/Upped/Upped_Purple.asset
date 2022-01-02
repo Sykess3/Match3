@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Upped_Purple
   m_EditorClassIdentifier: 
   _prefab: {fileID: 857316422880700566, guid: 6c18be49fd5d72940b6e382cd943ea3e, type: 3}
-  _matchableContent: 040000000c000000
+  _matchableContent: 040000000b00000011000000
   _switchable: 1
-  _contentType: 12
+  _contentType: 11

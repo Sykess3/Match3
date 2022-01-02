@@ -7,16 +7,20 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Configs
 {
-    [CreateAssetMenu(fileName = "", menuName = "StaticData/CellContent", order = 0)]
+    [CreateAssetMenu(fileName = "", menuName = "StaticData/CellContent/Default\\Upped", order = 0)]
     public class CellContentConfig : ScriptableObject, ICellContentConfig
     {
         [SerializeField] private CellContentView _prefab;
-        [SerializeField] private ContentType[] _matchableContent;
-        [SerializeField] private bool _switchable;
+        [SerializeField] private List<ContentType> _matchableContent;
+        [SerializeField] private bool _switchable = true;
         [SerializeField] private ContentType _contentType;
 
+
         public ContentType ContentType => _contentType;
+
+
         public IEnumerable<ContentType> MatchableContent => _matchableContent;
+
         public bool Switchable => _switchable;
         public GameObject Prefab => _prefab.gameObject;
     }

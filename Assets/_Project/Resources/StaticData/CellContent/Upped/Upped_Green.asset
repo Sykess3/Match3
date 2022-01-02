@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Upped_Green
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6385382024227532507, guid: 480e8f800fce1d74899580cd88d5299d, type: 3}
-  _matchableContent: 050000000d000000
+  _matchableContent: 050000000c00000012000000
   _switchable: 1
-  _contentType: 13
+  _contentType: 12

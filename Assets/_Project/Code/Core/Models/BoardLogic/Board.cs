@@ -15,19 +15,20 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly BoardGravity _boardGravity;
         private readonly SwapCommandHandler _swapCommandHandler;
         private readonly CellCollection _cellCollection;
-        private readonly ICellContentSpawner _spawner;
+        private readonly MatchDataHandler _matchDataHandler;
         private readonly IContentMatchFinder _matchFinder;
         public event Action<CellContent> ContentMatched;
 
         public Board(SwapCommandHandler swapCommandHandler,
             BoardGravity boardGravity,
             CellCollection cellCollection,
-            ICellContentSpawner spawner, IContentMatchFinder matchFinder)
+            MatchDataHandler matchDataHandler,
+            IContentMatchFinder matchFinder)
         {
             _swapCommandHandler = swapCommandHandler;
             _boardGravity = boardGravity;
             _cellCollection = cellCollection;
-            _spawner = spawner;
+            _matchDataHandler = matchDataHandler;
             _matchFinder = matchFinder;
         }
 
@@ -66,22 +67,10 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private void HandleMatchData(MatchData matchData)
         {
-            if (!matchData.MatchedCells.Any()) 
-                return;
-            
-            DestroyContent(matchData.MatchedCells);
-            _spawner.Spawn(matchData.ContentToSpawn);
-
-            var cellsToFillContent = matchData.MatchedCellsWithoutDuplicatesInContentToSpawn;
-            _boardGravity.FillContentOnEmptyCells(cellsToFillContent.ToArray());
-            foreach (var matchedCell in matchData.MatchedCells)
-                ContentMatched?.Invoke(matchedCell.Content);
+            _matchDataHandler.Handle(matchData);
+            foreach (var cell in matchData.MatchedCells) 
+                ContentMatched?.Invoke(cell.Content);
         }
-
-        private void DestroyContent(IEnumerable<Cell> cellToDestroyContent)
-        {
-            foreach (var cell in cellToDestroyContent) 
-                cell.Content.Destroy();
-        }
+        
     }
 }

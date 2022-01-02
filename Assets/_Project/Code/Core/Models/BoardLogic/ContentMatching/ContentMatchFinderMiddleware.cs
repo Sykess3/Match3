@@ -12,14 +12,17 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         private readonly CellCollection _cells;
         private readonly DefaultContentMatchFinder _defaultContentMatchFinder;
         private readonly UppedContentMatchFinder _uppedContentMatchFinder;
+        private readonly BombMatchFinder _bombMatchFinder;
 
         public ContentMatchFinderMiddleware(CellCollection cells,
             DefaultContentMatchFinder defaultContentMatchFinder,
-            UppedContentMatchFinder uppedContentMatchFinder)
+            UppedContentMatchFinder uppedContentMatchFinder,
+            BombMatchFinder bombMatchFinder)
         {
             _cells = cells;
             _defaultContentMatchFinder = defaultContentMatchFinder;
             _uppedContentMatchFinder = uppedContentMatchFinder;
+            _bombMatchFinder = bombMatchFinder;
         }
 
         public MatchData FindMatch(Cell cell)
@@ -27,15 +30,17 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             DefaultContentMatchFinder.MatchData defaultMatchData = _defaultContentMatchFinder.Find(cell);
             if (defaultMatchData.GetAll.Count == 0)
                 return new MatchData();
-
+            
             List<Cell> matchedCells = defaultMatchData.GetAll;
             List<ContentToSpawn> resultContentToSpawn = new List<ContentToSpawn>();
-            
-            _uppedContentMatchFinder.OpenExistingUppedContent(matchedCells);
             
             if (_uppedContentMatchFinder.TryFindUppedContentToSpawn(defaultMatchData,
                 out ContentToSpawn contentToSpawn))
                 resultContentToSpawn.Add(contentToSpawn);
+
+            _bombMatchFinder.TryBlowUpBombs(matchedCells);
+            
+            _uppedContentMatchFinder.OpenExistingUppedContent(matchedCells);
 
             return new MatchData
             {
@@ -47,21 +52,23 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         public MatchData FindMatchesByWholeBoard()
         {
             List<Cell> allMatched = new List<Cell>();
+            List<ContentToSpawn> contentToSpawn = new List<ContentToSpawn>();
             foreach (var cell in _cells.GetAll())
             {
-                if (!allMatched.Contains(cell))
-                {
-                    MatchData current = FindMatch(cell);
+                MatchData current = FindMatch(cell);
 
-                    if (current.MatchedCells.Count > 0)
-                        allMatched.AddRange(current.MatchedCells);
+                if (current.MatchedCells.Count > 0)
+                {
+                    allMatched.AddRange(current.MatchedCells);
+                    contentToSpawn.AddRange(current.ContentToSpawn);
                 }
+                
             }
 
             return new MatchData
             {
                 MatchedCells = allMatched.Distinct().ToList(),
-                ContentToSpawn = new List<ContentToSpawn>()
+                ContentToSpawn = contentToSpawn.Distinct().ToList()
             };
         }
     }

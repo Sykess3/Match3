@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Code.Core.Configs;
+using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.BoardLogic;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
@@ -18,17 +19,11 @@ namespace _Project.Code.Infrastructure.Installers.Scene
     public class SceneInstaller : MonoInstaller
     {
         [SerializeField] private BoardView _boardView;
-        [SerializeField] private BoardConfig _boardConfig;
         public override void InstallBindings()
         {
             Container
-                .Bind<IBoardConfig>()
-                .FromInstance(_boardConfig)
-                .AsSingle();
-
-            Container
                 .Bind<BoardView>()
-                .FromComponentInNewPrefab(_boardView)
+                .FromInstance(_boardView)
                 .AsSingle();
             
             Container
@@ -36,6 +31,10 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .AsSingle()
                 .NonLazy();
             
+            Container
+                .Bind<ICellContentFactory>()
+                .To<CellContentFactory>()
+                .AsSingle();
 
 #if UNITY_EDITOR
             Container

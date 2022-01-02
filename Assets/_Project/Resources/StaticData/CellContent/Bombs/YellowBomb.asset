@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
+  m_Name: YellowBomb
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3738849111577106908, guid: 3cee588e9694fde47a62bcaed4bb736e, type: 3}
+  _matchableContent: 060000000d00000013000000
+  _switchable: 1
+  _contentType: 19
+  _amountOfContentToDestroy:
+    _min: 3
+    _max: 5

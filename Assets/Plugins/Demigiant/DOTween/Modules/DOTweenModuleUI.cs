@@ -3,14 +3,13 @@
 
 #if true && (UNITY_4_6 || UNITY_5 || UNITY_2017_1_OR_NEWER) // MODULE_MARKER
 
-using System;
 using System.Globalization;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening.Core;
 using DG.Tweening.Core.Enums;
 using DG.Tweening.Plugins;
 using DG.Tweening.Plugins.Options;
+using UnityEngine.UI;
 using Outline = UnityEngine.UI.Outline;
 using Text = UnityEngine.UI.Text;
 
