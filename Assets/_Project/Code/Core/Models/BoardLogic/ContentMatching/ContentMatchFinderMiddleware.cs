@@ -31,8 +31,8 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             if (defaultMatchData.GetAll.Count == 0)
                 return new MatchData();
             
-            List<Cell> matchedCells = defaultMatchData.GetAll;
-            List<ContentToSpawn> resultContentToSpawn = new List<ContentToSpawn>();
+            HashSet<Cell> matchedCells = defaultMatchData.GetAll;
+            HashSet<ContentToSpawn> resultContentToSpawn = new HashSet<ContentToSpawn>();
             
             if (_uppedContentMatchFinder.TryFindUppedContentToSpawn(defaultMatchData,
                 out ContentToSpawn contentToSpawn))
@@ -51,24 +51,24 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 
         public MatchData FindMatchesByWholeBoard()
         {
-            List<Cell> allMatched = new List<Cell>();
-            List<ContentToSpawn> contentToSpawn = new List<ContentToSpawn>();
+            HashSet<Cell> allMatched = new HashSet<Cell>();
+            HashSet<ContentToSpawn> contentToSpawn = new HashSet<ContentToSpawn>();
             foreach (var cell in _cells.GetAll())
             {
                 MatchData current = FindMatch(cell);
 
                 if (current.MatchedCells.Count > 0)
                 {
-                    allMatched.AddRange(current.MatchedCells);
-                    contentToSpawn.AddRange(current.ContentToSpawn);
+                    allMatched.UnionWith(current.MatchedCells);
+                    contentToSpawn.UnionWith(current.ContentToSpawn);
                 }
                 
             }
 
             return new MatchData
             {
-                MatchedCells = allMatched.Distinct().ToList(),
-                ContentToSpawn = contentToSpawn.Distinct().ToList()
+                MatchedCells = allMatched,
+                ContentToSpawn = contentToSpawn
             };
         }
     }

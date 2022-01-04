@@ -12,21 +12,22 @@ namespace _Project.Code.Core.Presenters
         protected override void OnStart()
         {
             SyncPosition();
-            View.CellContent = Model;
         }
 
         protected override void Subscribe()
         {
             Model.Matched += View.Match;
             Model.PositionChanged += SyncPosition;
-            View.Destroyed += Model.Destroy;
+            Model.Enabled += View.Enable;
+            View.Disabled += Model.Disable;
         }
 
         protected override void UnSubscribe()
         {
             Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;
-            View.Destroyed -= Model.Destroy;
+            Model.Enabled -= View.Enable;
+            View.Disabled -= Model.Disable;
         }
 
         private void SyncPosition() => View.transform.position = Model.Position;

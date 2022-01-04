@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _Project.Code.Core.Models
+namespace _Project.Code.Core.Models.Debug
 {
     public class EventFunctions_DebugCreator : MonoBehaviour
     {

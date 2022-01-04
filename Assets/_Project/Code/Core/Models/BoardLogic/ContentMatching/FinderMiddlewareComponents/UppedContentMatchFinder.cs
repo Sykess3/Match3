@@ -33,28 +33,28 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             return hadCrossMatch;
         }
 
-        public void OpenExistingUppedContent(List<Cell> matchedCells)
+        public void OpenExistingUppedContent(HashSet<Cell> matchedCells)
         {
-            var uppedContent = FindExistingUppedContent(matchedCells).ToList();
-            if (uppedContent.Count <= 0)
+            var uppedContent = FindExistingUppedContent(matchedCells);
+            if (!uppedContent.Any())
                 return;
             
             var exposedUppedContent = ExposeUppedContent(uppedContent);
-            matchedCells.AddRange(exposedUppedContent);
+            matchedCells.UnionWith(exposedUppedContent);
         }
 
 
-        private IEnumerable<Cell> ExposeUppedContent(List<Cell> uppedContent)
+        private HashSet<Cell> ExposeUppedContent(IEnumerable<Cell> uppedContent)
         {
-            List<Cell> matchedContent = new List<Cell>();
+            HashSet<Cell> matchedContent = new HashSet<Cell>();
             foreach (var content in uppedContent)
-                 matchedContent.AddRange(_cellCollection.GetCellsInAllDirections(content));
+                 matchedContent.UnionWith(_cellCollection.GetCellsInAllDirections(content));
 
             return matchedContent;
         }
 
 
-        private IEnumerable<Cell> FindExistingUppedContent(IReadOnlyList<Cell> cells)
+        private IEnumerable<Cell> FindExistingUppedContent(HashSet<Cell> cells)
         {
             foreach (Cell cell in cells)
                 if (cell.Content.Type.IsUpped())

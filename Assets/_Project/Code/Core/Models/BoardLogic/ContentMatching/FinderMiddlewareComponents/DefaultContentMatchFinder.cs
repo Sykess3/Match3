@@ -18,13 +18,13 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         public MatchData Find(Cell cell)
         {
             var matchData = new MatchData();
-            GetMatches(cell, out List<Cell> matchedInVertical, out List<Cell> matchedInHorizontal);
+            GetMatches(cell, out HashSet<Cell> matchedInVertical, out HashSet<Cell> matchedInHorizontal);
 
             if (matchedInVertical.Count >= Constant.MinContentToMatch - 1) 
-                matchData.MatchedInVertical.AddRange(matchedInVertical);
+                matchData.MatchedInVertical.UnionWith(matchedInVertical);
 
             if (matchedInHorizontal.Count >= Constant.MinContentToMatch - 1) 
-                matchData.MatchedInHorizontal.AddRange(matchedInHorizontal);
+                matchData.MatchedInHorizontal.UnionWith(matchedInHorizontal);
 
             if (matchData.GetAll.Count != 0) 
                 matchData.MovedCell = cell;
@@ -32,24 +32,26 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             return matchData;
         }
 
-        private void GetMatches(Cell cell, out List<Cell> matchedInVertical, out List<Cell> matchedInHorizontal)
+        private void GetMatches(Cell cell, out HashSet<Cell> matchedInVertical, out HashSet<Cell> matchedInHorizontal)
         {
             var matchedInEast = MatchInDirection(cell, Direction.East);
             var matchedInWest = MatchInDirection(cell, Direction.West);
             var matchedInNorth = MatchInDirection(cell, Direction.North);
             var matchedInSouth = MatchInDirection(cell, Direction.South);
 
-            matchedInVertical = matchedInNorth
-                .Concat(matchedInSouth)
-                .ToList();
-            matchedInHorizontal = matchedInEast
-                .Concat(matchedInWest)
-                .ToList();
+
+            matchedInVertical = new HashSet<Cell>();
+            matchedInVertical.UnionWith(matchedInNorth);
+            matchedInVertical.UnionWith(matchedInSouth);
+
+            matchedInHorizontal = new HashSet<Cell>();
+            matchedInHorizontal.UnionWith(matchedInEast);
+            matchedInHorizontal.UnionWith(matchedInWest);
         }
 
-        private List<Cell> MatchInDirection(Cell initialCell, Direction direction)
+        private HashSet<Cell> MatchInDirection(Cell initialCell, Direction direction)
         {
-            var matchedCells = new List<Cell>();
+            var matchedCells = new HashSet<Cell>();
             var nextContentPosition = initialCell.Position + direction.GetVector2();
 
             while (NextCellNotStone(nextContentPosition, out var nextCell))
@@ -73,26 +75,29 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         public class MatchData
         {
             
-            public List<Cell> MatchedInVertical { get; }
-            public List<Cell> MatchedInHorizontal { get; }
+            public HashSet<Cell> MatchedInVertical { get; }
+            public HashSet<Cell> MatchedInHorizontal { get; }
             public Cell MovedCell { get; set; }
 
 
             public MatchData()
             {
-                MatchedInVertical = new List<Cell>();
-                MatchedInHorizontal = new List<Cell>();
+                MatchedInVertical = new HashSet<Cell>();
+                MatchedInHorizontal = new HashSet<Cell>();
             }    
             
-            public List<Cell> GetAll
+            public HashSet<Cell> GetAll
             {
                 get
                 {
-                    var cells = MatchedInHorizontal.Concat(MatchedInVertical).ToList();
-                    if (MovedCell != null) 
-                        cells.Add(MovedCell);
+                    var result = new HashSet<Cell>();
+                    result.UnionWith(MatchedInHorizontal);
+                    result.UnionWith(MatchedInVertical);
                     
-                    return cells;
+                    if (MovedCell != null) 
+                        result.Add(MovedCell);
+                    
+                    return result;
                 }
             }
         }

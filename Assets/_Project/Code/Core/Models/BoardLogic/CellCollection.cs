@@ -30,13 +30,13 @@ namespace _Project.Code.Core.Models.BoardLogic
         public bool TryGetCellAbove(Cell cell, out Cell cellAbove) =>
             TryGetCell(cell.Position + Direction.North.GetVector2(), out cellAbove);
 
-        public List<Cell> GetAll(ContentType ofType)
+        public IEnumerable<Cell> GetAll(ContentType ofType)
         {
-            return _cells.Values.Where(TypeIsArgumentType).ToList();
+            return _cells.Values.Where(TypeIsArgumentType);
 
             bool TypeIsArgumentType(Cell cell)
             {
-                return  cell.Content.Type == ofType;
+                return cell.Content.Type == ofType;
             }
         }
 
@@ -47,7 +47,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             var westCells = GetCellsInDirection(relatively, Direction.West);
             var northCells = GetCellsInDirection(relatively, Direction.North);
             var southCells = GetCellsInDirection(relatively, Direction.South);
-            
+
             cells.AddRange(eastCells);
             cells.AddRange(westCells);
             cells.AddRange(northCells);
@@ -65,10 +65,10 @@ namespace _Project.Code.Core.Models.BoardLogic
             if (TryGetCellInDirectionRelativelyTo(cell, Direction.West, out var westCell))
                 neighbours.Add(westCell);
 
-            if (TryGetCellInDirectionRelativelyTo(cell, Direction.East ,out var eastCell))
+            if (TryGetCellInDirectionRelativelyTo(cell, Direction.East, out var eastCell))
                 neighbours.Add(eastCell);
 
-            if (TryGetCellInDirectionRelativelyTo(cell, Direction.South, out  var southCell))
+            if (TryGetCellInDirectionRelativelyTo(cell, Direction.South, out var southCell))
                 neighbours.Add(southCell);
 
             return neighbours;
@@ -82,12 +82,9 @@ namespace _Project.Code.Core.Models.BoardLogic
             return _cells.TryGetValue(new Vector2(x, y), out cell);
         }
 
-        public ReadOnlyCollection<Cell> GetAll() =>
-            _cells
-                .Values
-                .ToList()
-                .AsReadOnly();
-        
+        public IEnumerable<Cell> GetAll() =>
+            _cells.Values;
+
         public void CleanUp()
         {
             UnsubscribeOnCellEvents();
@@ -113,9 +110,9 @@ namespace _Project.Code.Core.Models.BoardLogic
             var current = relatively;
             while (true)
             {
-                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next)) 
+                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next))
                     yield break;
-                
+
                 current = next;
                 yield return current;
             }

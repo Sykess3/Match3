@@ -5,29 +5,31 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 {
     public class MatchData
     {
-        public List<ContentToSpawn> ContentToSpawn { get; set; } = new List<ContentToSpawn>();
-        public List<Cell> MatchedCells { get; set; } = new List<Cell>();
+        public HashSet<ContentToSpawn> ContentToSpawn { get; set; } = new HashSet<ContentToSpawn>();
+        public HashSet<Cell> MatchedCells { get; set; } = new HashSet<Cell>();
 
-        public IEnumerable<Cell> MatchedCellsWithoutDuplicatesInContentToSpawn
+        public HashSet<Cell> MatchedCellsWithoutDuplicatesInContentToSpawn
         {
             get
             {
                 if (ContentToSpawn.Count == 0)
+                    return MatchedCells;
+
+
+                var result = new HashSet<Cell>();
+                foreach (var matchedCell in MatchedCells)
                 {
-                    foreach (var cell in MatchedCells)
-                        yield return cell;
+                    bool isInContentToSpawn = false;
+                    
+                    foreach (var toSpawn in ContentToSpawn)
+                        if (matchedCell.Position == toSpawn.Position)
+                            isInContentToSpawn = true;
+
+                    if (!isInContentToSpawn) 
+                        result.Add(matchedCell);
                 }
 
-                for (int i = 0; i < MatchedCells.Count; i++)
-                {
-                    for (int j = 0; j < ContentToSpawn.Count; j++)
-                    {
-                        if (MatchedCells[i].Position != ContentToSpawn[j].Position)
-                        {
-                            yield return MatchedCells[i];
-                        }
-                    }
-                }
+                return result;
             }
         }
     }

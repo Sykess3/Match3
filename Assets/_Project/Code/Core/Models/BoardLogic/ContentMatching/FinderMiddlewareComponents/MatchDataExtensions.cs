@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 
 namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareComponents
 {
@@ -6,19 +8,15 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
     {
         public static MatchData Concat(this MatchData first, MatchData second)
         {
+            HashSet<Cell> matchedCells = new HashSet<Cell>(first.MatchedCells);
+            matchedCells.UnionWith(second.MatchedCells);
+
+            HashSet<ContentToSpawn> contentToSpawn = new HashSet<ContentToSpawn>(first.ContentToSpawn);
+            contentToSpawn.UnionWith(second.ContentToSpawn);
             return new MatchData
             {
-                MatchedCells = first.MatchedCells.Concat(second.MatchedCells).ToList(),
-                ContentToSpawn = first.ContentToSpawn.Concat(second.ContentToSpawn).ToList()
-            };
-        }
-
-        public static MatchData Distinct(this MatchData obj)
-        {
-            return new MatchData()
-            {
-                MatchedCells = obj.MatchedCells.Distinct().ToList(),
-                ContentToSpawn = obj.ContentToSpawn
+                MatchedCells = matchedCells,
+                ContentToSpawn = contentToSpawn
             };
         }
     }

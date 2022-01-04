@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.Interfaces.Configs;
@@ -18,24 +19,23 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             _bombConfigs = configs.ToDictionary(x => x.ContentType, x => x);
         }
 
-        public void TryBlowUpBombs(List<Cell> matchedCells)
+        public void TryBlowUpBombs(HashSet<Cell> matchedCells)
         {
             var bombs = FindBombs(matchedCells);
             if (bombs == null)
                 return;
 
-            List<Cell> allBlowedUp = new List<Cell>();
+            HashSet<Cell> allBlowedUp = new HashSet<Cell>();
             foreach (Cell bomb in bombs)
             {
                 var blowedUp = BlowUp(bomb, alreadyDestroyedContent: allBlowedUp);
-                allBlowedUp.AddRange(blowedUp);
+                allBlowedUp.UnionWith(blowedUp);
             }
 
-            var result = allBlowedUp.Distinct();
-            matchedCells.AddRange(result);
+            matchedCells.UnionWith(allBlowedUp);
         }
 
-        private IEnumerable<Cell> BlowUp(Cell cell, List<Cell> alreadyDestroyedContent)
+        private IEnumerable<Cell> BlowUp(Cell cell, IEnumerable<Cell> alreadyDestroyedContent)
         {
             var bombType = cell.Content.Type.GetBombType();
             var defaultCellsOfBombType = _cellCollection
@@ -46,31 +46,30 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
                 .GetAll(bombType.GetUppedContent())
                 .Except(alreadyDestroyedContent);
 
-            var cellsOfBombType = defaultCellsOfBombType
-                .Concat(uppedCellsOfBombType)
-                .ToList();
+            HashSet<Cell> cellsOfBombType = new HashSet<Cell>(defaultCellsOfBombType);
+            cellsOfBombType.UnionWith(uppedCellsOfBombType);
 
             int amountCellToDestroy = GetAmountCellToDestroy(cell.Content.Type);
             return BlowUpRandomCells(among: cellsOfBombType, amount: amountCellToDestroy);
         }
 
-        private List<Cell> BlowUpRandomCells(List<Cell> among, int amount)
+        private IEnumerable<Cell> BlowUpRandomCells(HashSet<Cell> among, int amount)
         {
             if (amount >= among.Count)
                 return among;
 
             int blowedUpCellsAlready = 0;
-            List<Cell> blowedUpCells = new List<Cell>(amount);
+            Cell[] blowedUpCells = new Cell[amount];
             while (true)
             {
-                for (int i = 0; i < among.Count; i++)
+                foreach (var cell in among)
                 {
                     if (blowedUpCellsAlready >= amount)
                         return blowedUpCells;
 
-                    if (_systemRandom.RandomBoolean() && !blowedUpCells.Contains(among[i]))
+                    if (_systemRandom.RandomBoolean() && !blowedUpCells.Contains(cell))
                     {
-                        blowedUpCells.Add(among[i]);
+                        blowedUpCells[blowedUpCellsAlready] = cell;
                         blowedUpCellsAlready++;
                     }
                 }
@@ -84,12 +83,12 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             return UnityEngine.Random.Range(min, max + 1);
         }
 
-        private IEnumerable<Cell> FindBombs(List<Cell> matchedCells)
+        private IEnumerable<Cell> FindBombs(HashSet<Cell> matchedCells)
         {
-            for (int i = 0; i < matchedCells.Count; i++)
+            foreach (var cell in matchedCells)
             {
-                if (matchedCells[i].Content.Type.IsBomb())
-                    yield return matchedCells[i];
+                if (cell.Content.Type.IsBomb())
+                    yield return cell;
             }
         }
     }

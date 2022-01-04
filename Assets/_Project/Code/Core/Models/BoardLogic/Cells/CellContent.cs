@@ -26,7 +26,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public event Action PositionChanged;
 
-        public event EventHandler Destroyed;
+        public event EventHandler Disabled;
+
+        public event Action Enabled;
 
         public event Action Matched;
 
@@ -60,6 +62,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
         public void Match() => Matched?.Invoke();
 
-        public void Destroy() => Destroyed?.Invoke(this, EventArgs.Empty);
+        public void Disable() => Disabled?.Invoke(this, EventArgs.Empty);
+
+        public void Enable() => Enabled?.Invoke();
     }
 }

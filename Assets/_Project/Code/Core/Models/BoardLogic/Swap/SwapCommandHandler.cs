@@ -48,8 +48,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
             var matchDataSecondCell = _matchFinder.FindMatch(command.SecondCell);
 
             return matchDataFirstCell
-                .Concat(matchDataSecondCell)
-                .Distinct();
+                .Concat(matchDataSecondCell);
         }
     }
 }

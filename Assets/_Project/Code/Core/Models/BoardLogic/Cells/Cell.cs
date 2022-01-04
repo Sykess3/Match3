@@ -29,13 +29,13 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         {
             if (_content != null)
             {
-                _content.Destroyed -= SetContentToEmpty;
+                _content.Disabled -= SetContentToEmpty;
                 _content.StartedMovement -= OnContentStartedMovement;
             }
 
             
             _content = value;
-            _content.Destroyed += SetContentToEmpty;
+            _content.Disabled += SetContentToEmpty;
             _content.StartedMovement += OnContentStartedMovement;
         }
 

@@ -1,10 +1,12 @@
 ﻿using System;
+using _Project.Code.Core;
 using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.BoardLogic;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
 using _Project.Code.Core.Models.BoardLogic.Swap;
+using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Models.Random;
 using _Project.Code.Core.Presenters;
@@ -34,6 +36,11 @@ namespace _Project.Code.Infrastructure.Installers.Scene
             Container
                 .Bind<ICellContentFactory>()
                 .To<CellContentFactory>()
+                .AsSingle();
+
+            Container
+                .Bind<ICellContentObjectPool>()
+                .To<CellContentObjectPool>()
                 .AsSingle();
 
 #if UNITY_EDITOR

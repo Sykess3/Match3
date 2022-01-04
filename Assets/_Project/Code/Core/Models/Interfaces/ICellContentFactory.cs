@@ -1,10 +1,10 @@
 ﻿using _Project.Code.Core.Models.BoardLogic.Cells;
 using UnityEngine;
 
-namespace _Project.Code.Core.Models
+namespace _Project.Code.Core.Models.Interfaces
 {
     public interface ICellContentFactory
     {
-        CellContent Create(ContentType type, Vector2 position);
+        CellContent Create(ContentType type);
     }
 }

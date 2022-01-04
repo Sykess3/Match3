@@ -28,11 +28,11 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             MatchContent(matchData.MatchedCells);
         }
 
-        private void MatchContent(List<Cell> cellToMatchContent)
+        private void MatchContent(HashSet<Cell> cellToMatchContent)
         {
             foreach (var cell in cellToMatchContent)
             {
-                cell.Content.Destroyed += OnContentDestroy;
+                cell.Content.Disabled += OnContentDestroy;
                 cell.Content.Match();
             }
         }
@@ -40,7 +40,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         private void OnContentDestroy(object sender, EventArgs e)
         {
             var cellContent = (CellContent) sender;
-            cellContent.Destroyed -= OnContentDestroy;
+            cellContent.Disabled -= OnContentDestroy;
             
             _receivedMatchedCells++;
 
@@ -51,7 +51,8 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             _spawner.Spawn(_currentMatchData.ContentToSpawn);
 
             var cellsToFillContent = _currentMatchData.MatchedCellsWithoutDuplicatesInContentToSpawn;
-            _boardGravity.FillContentOnEmptyCells(cellsToFillContent.ToArray());
+            var sortedEmptyCells = cellsToFillContent.OrderBy(LinqArgs.YPosition).ToArray();
+            _boardGravity.FillContentOnEmptyCells(sortedEmptyCells);
             
             _receivedMatchedCells = 0;
         }

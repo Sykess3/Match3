@@ -14,7 +14,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly IPlayerInput _playerInput;
         private readonly ICoroutineRunner _coroutineRunner;
 
-        private SortedList<Cell> _cellsToFill;
+        private readonly SortedList<Cell> _cellsToFill;
 
         public Action FallingEnded;
 
