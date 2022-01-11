@@ -9,18 +9,18 @@ namespace _Project.Code.Core.Models.BoardLogic
 {
     public class CellContentSpawner : ICellContentSpawner
     {
-        private readonly ICellContentObjectPool _cellContentObjectPool;
+        private readonly ICellContentPool _cellContentPool;
         private readonly CellCollection _cellCollection;
 
-        public CellContentSpawner(ICellContentObjectPool cellContentObjectPool, CellCollection cellCollection)
+        public CellContentSpawner(ICellContentPool cellContentPool, CellCollection cellCollection)
         {
-            _cellContentObjectPool = cellContentObjectPool;
+            _cellContentPool = cellContentPool;
             _cellCollection = cellCollection;
         }
 
         public void Spawn(ContentToSpawn contentToSpawn)
         {
-            var cellContent = _cellContentObjectPool.Get(contentToSpawn.Type);
+            var cellContent = _cellContentPool.Get(contentToSpawn.Type);
             cellContent.Position = contentToSpawn.Position;
             
             if (_cellCollection.TryGetCell(contentToSpawn.Position, out var cell))

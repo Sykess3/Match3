@@ -9,12 +9,12 @@ namespace _Project.Code.Core.Models.Random
 {
     public class RandomCellContentGenerator : IRandomCellContentGenerator
     {
-        private readonly ICellContentObjectPool _cellContentObjectPool;
+        private readonly ICellContentPool _cellContentPool;
         private readonly Dictionary<ContentType, float> _contentToSpawn;
 
-        public RandomCellContentGenerator(ICellContentObjectPool cellContentObjectPool, ILevelConfig levelConfig)
+        public RandomCellContentGenerator(ICellContentPool cellContentPool, ILevelConfig levelConfig)
         {
-            _cellContentObjectPool = cellContentObjectPool;
+            _cellContentPool = cellContentPool;
             _contentToSpawn = levelConfig.ContentToSpawnTypeChanceMap;
         }
 
@@ -25,7 +25,7 @@ namespace _Project.Code.Core.Models.Random
             {
                 if (contentKvP.Value >= range)
                 {
-                    var cellContent = _cellContentObjectPool.Get(contentKvP.Key);
+                    var cellContent = _cellContentPool.Get(contentKvP.Key);
                     cellContent.Position = position;
                     return cellContent;
                 }

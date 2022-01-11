@@ -8,5 +8,6 @@ namespace _Project.Code.Infrastructure.Services
         GameObject Load(string path);
         T Load<T>(string path) where T : Component;
         T Instantiate<T>(string path, Vector3 position = default) where T : Component;
+        T Instantiate<T>(GameObject prefab, Transform parent);
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace _Project.Code.Core
 {
-    public class CellContentObjectPool : ObjectPool<ContentType, CellContent>, ICellContentObjectPool
+    public class CellContentPool : ObjectPool<ContentType, CellContent>, ICellContentPool
     {
-        public CellContentObjectPool(ICellContentFactory factory) : base(factory)
+        public CellContentPool(ICellContentFactory factory) : base(factory)
         {
         }
     }

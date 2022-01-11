@@ -2,7 +2,7 @@
 
 namespace _Project.Code.Core
 {
-    public interface ICellContentObjectPool
+    public interface ICellContentPool
     {
         CellContent Get(ContentType type);
     }

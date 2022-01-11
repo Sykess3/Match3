@@ -5,6 +5,7 @@ using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.BoardLogic;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
+using _Project.Code.Core.Models.BoardLogic.Particles;
 using _Project.Code.Core.Models.BoardLogic.Swap;
 using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
@@ -38,10 +39,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .To<CellContentFactory>()
                 .AsSingle();
 
-            Container
-                .Bind<ICellContentObjectPool>()
-                .To<CellContentObjectPool>()
-                .AsSingle();
+            BindObjectPools();
 
 #if UNITY_EDITOR
             Container
@@ -65,6 +63,19 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .To<Board>()
                 .FromSubContainerResolve()
                 .ByInstaller<BoardInstaller>()
+                .AsSingle();
+        }
+
+        private void BindObjectPools()
+        {
+            Container
+                .Bind<ICellContentPool>()
+                .To<CellContentPool>()
+                .AsSingle();
+
+            Container
+                .Bind<IParticlesPool>()
+                .To<ParticlesPool>()
                 .AsSingle();
         }
     }

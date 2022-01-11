@@ -15,24 +15,19 @@ namespace _Project.Code.Core.Configs
         [SerializeField] private Pair[] _contentToSpawn;
         [SerializeField] private ParticlesPair[] _particles;
 
-        private Dictionary<ContentType, ParticleSystem> _particlesKvP;
 
         public Dictionary<ContentType, ParticleSystem> Particles
         {
-            get => _particlesKvP;
-            set
-            {
-                _particlesKvP = value;
-                FillParticlesViewForEditor(value);
-            }
+            get => GetSerializedParticlesConfig();
+            set => SerializeParticlesConfigs(value);
         }
-
+        
         public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
             _contentToSpawn
                 .OrderBy(x => x.ChanceToSpawn.Min)
                 .ToDictionary(x => x.Type, x => x.ChanceToSpawn.Max);
 
-        private void FillParticlesViewForEditor(Dictionary<ContentType, ParticleSystem> value)
+        private void SerializeParticlesConfigs(Dictionary<ContentType, ParticleSystem> value)
         {
             _particles = new ParticlesPair[value.Count];
             int index = 0;
@@ -46,6 +41,9 @@ namespace _Project.Code.Core.Configs
                 index++;
             }
         }
+        
+        private Dictionary<ContentType, ParticleSystem> GetSerializedParticlesConfig() => 
+            _particles.ToDictionary(x => x.Type, x => x.Particle);
 
         [Serializable]
         class Pair
