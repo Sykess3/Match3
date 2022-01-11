@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Project.Code.Core.Models;
+using _Project.Code.Core.Models.DataStructures;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Infrastructure;
 
@@ -10,7 +11,7 @@ using UnityEngine;
 namespace _Project.Code.Core.Models.BoardLogic.Cells
 {
     [Serializable]
-    public class CellContent : IModel
+    public class CellContent : IModel, IPoolItem<ContentType>
     {
         private bool _isFalling;
         private readonly ICellContentConfig _config;

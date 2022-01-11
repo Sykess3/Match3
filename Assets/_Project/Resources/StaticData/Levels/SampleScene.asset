@@ -37,3 +37,16 @@ MonoBehaviour:
     ChanceToSpawn:
       _min: 0.833
       _max: 1
+  _particles:
+  - Type: 1
+    Particle: {fileID: 4472947477021509607, guid: 0ee23cafc8461f042b46e4eae0f366be, type: 3}
+  - Type: 2
+    Particle: {fileID: 8086026490276324966, guid: 25298a3d92e132b4ba0c01ebe73e4bd9, type: 3}
+  - Type: 3
+    Particle: {fileID: 3083520475810140028, guid: 960e0f4b7d41e5247bb26e7f1fd5c7b3, type: 3}
+  - Type: 4
+    Particle: {fileID: 7104714368689211068, guid: ad8d7934715612244b5fa77f7c368274, type: 3}
+  - Type: 5
+    Particle: {fileID: 4665315610100848504, guid: 0cc6c89d7d43ec94981e2d05f23a1833, type: 3}
+  - Type: 6
+    Particle: {fileID: 573145275923811302, guid: e90367be8b6e0a44ebde6c04087a230c, type: 3}

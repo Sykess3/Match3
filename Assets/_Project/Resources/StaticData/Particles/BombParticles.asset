@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241c1ccbb6594877994b1959d9bf2061, type: 3}
   m_Name: BombParticles
   m_EditorClassIdentifier: 
-  _particles: []
+  _particles:
+  - ContentType: 14
+    Particle: {fileID: 4472947477021509607, guid: 0ee23cafc8461f042b46e4eae0f366be, type: 3}
+  - ContentType: 15
+    Particle: {fileID: 8086026490276324966, guid: 25298a3d92e132b4ba0c01ebe73e4bd9, type: 3}
+  - ContentType: 16
+    Particle: {fileID: 3083520475810140028, guid: 960e0f4b7d41e5247bb26e7f1fd5c7b3, type: 3}
+  - ContentType: 17
+    Particle: {fileID: 7104714368689211068, guid: ad8d7934715612244b5fa77f7c368274, type: 3}
+  - ContentType: 18
+    Particle: {fileID: 4665315610100848504, guid: 0cc6c89d7d43ec94981e2d05f23a1833, type: 3}
+  - ContentType: 19
+    Particle: {fileID: 573145275923811302, guid: e90367be8b6e0a44ebde6c04087a230c, type: 3}

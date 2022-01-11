@@ -13,19 +13,52 @@ namespace _Project.Code.Core.Configs
     public class LevelConfig : ScriptableObject, ILevelConfig
     {
         [SerializeField] private Pair[] _contentToSpawn;
+        [SerializeField] private ParticlesPair[] _particles;
 
-        public Dictionary<ContentType, float> ContentToSpawn =>
+        private Dictionary<ContentType, ParticleSystem> _particlesKvP;
+
+        public Dictionary<ContentType, ParticleSystem> Particles
+        {
+            get => _particlesKvP;
+            set
+            {
+                _particlesKvP = value;
+                FillParticlesViewForEditor(value);
+            }
+        }
+
+        public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
             _contentToSpawn
                 .OrderBy(x => x.ChanceToSpawn.Min)
                 .ToDictionary(x => x.Type, x => x.ChanceToSpawn.Max);
-        
+
+        private void FillParticlesViewForEditor(Dictionary<ContentType, ParticleSystem> value)
+        {
+            _particles = new ParticlesPair[value.Count];
+            int index = 0;
+            foreach (var patricles in value)
+            {
+                _particles[index] = new ParticlesPair
+                {
+                    Particle = patricles.Value,
+                    Type = patricles.Key
+                };
+                index++;
+            }
+        }
+
         [Serializable]
         class Pair
         {
             public ContentType Type;
-            [FloatRangeSlider(0,1)]
-            public FloatRange ChanceToSpawn;
-        }    
+            [FloatRangeSlider(0, 1)] public FloatRange ChanceToSpawn;
+        }
+
+        [Serializable]
+        class ParticlesPair
+        {
+            public ContentType Type;
+            public ParticleSystem Particle;
+        }
     }
-    
 }

@@ -15,7 +15,7 @@ namespace _Project.Code.Core.Models.Random
         public RandomCellContentGenerator(ICellContentObjectPool cellContentObjectPool, ILevelConfig levelConfig)
         {
             _cellContentObjectPool = cellContentObjectPool;
-            _contentToSpawn = levelConfig.ContentToSpawn;
+            _contentToSpawn = levelConfig.ContentToSpawnTypeChanceMap;
         }
 
         public CellContent Generate(Vector2 position)
