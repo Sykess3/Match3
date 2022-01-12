@@ -10,11 +10,11 @@ namespace _Project.Code.Core.Models
 
         public static class Board
         {
-            public static Vector2Int BoardSize => new Vector2Int(9, 9);
-            public static Vector2 OffsetFromCenter => new Vector2((BoardSize.x - 1)
-                                                                  * 0.5f, (BoardSize.y - 1) * 0.5f);
+            public static Vector2Int Size => new Vector2Int(9, 9);
+            public static Vector2 OffsetFromCenter => new Vector2((Size.x - 1)
+                                                                  * 0.5f, (Size.y - 1) * 0.5f);
 
-            public static int CellCount => BoardSize.x * BoardSize.y;
+            public static int CellCount => Size.x * Size.y;
         }
     }
 }

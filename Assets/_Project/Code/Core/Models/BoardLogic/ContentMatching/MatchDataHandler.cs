@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 
 namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 {
@@ -33,7 +34,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             foreach (var cell in cellToMatchContent)
             {
                 cell.Content.Disabled += OnContentDestroy;
-                cell.Content.Match();
+                cell.MatchContent();
             }
         }
 
@@ -50,11 +51,16 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             
             _spawner.Spawn(_currentMatchData.ContentToSpawn);
 
+            FillContentOnEmptyCells();
+
+            _receivedMatchedCells = 0;
+        }
+
+        private void FillContentOnEmptyCells()
+        {
             var cellsToFillContent = _currentMatchData.MatchedCellsWithoutDuplicatesInContentToSpawn;
             var sortedEmptyCells = cellsToFillContent.OrderBy(LinqArgs.YPosition).ToArray();
             _boardGravity.FillContentOnEmptyCells(sortedEmptyCells);
-            
-            _receivedMatchedCells = 0;
         }
     }
 }

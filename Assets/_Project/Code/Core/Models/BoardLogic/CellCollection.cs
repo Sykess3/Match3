@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
 using _Project.Code.Core.Models.Directions;
 using UnityEngine;

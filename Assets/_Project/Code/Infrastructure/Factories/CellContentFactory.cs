@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.BoardLogic.Particles;
 using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
@@ -21,9 +22,11 @@ namespace _Project.Code.Infrastructure.Factories
         private readonly Dictionary<ContentType, ICellContentConfig> _cellContentConfigsMap;
         private readonly Transform _parent;
         
-        public CellContentFactory(IEnumerable<ICellContentConfig> configs, IAssetProvider _assetProvider, IParticlesPool particlesPool)
+        public CellContentFactory(IEnumerable<ICellContentConfig> configs, 
+            IAssetProvider assetProvider,
+            IParticlesPool particlesPool)
         {
-            this._assetProvider = _assetProvider;
+            _assetProvider = assetProvider;
             _particlesPool = particlesPool;
             _cellContentConfigsMap = configs
                 .ToDictionary(x => x.ContentType, x => x);

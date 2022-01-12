@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells
@@ -21,26 +22,26 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             Position = position;
         }
 
-
-        public void SetContentToEmpty() => Content = new EmptyCellContent();
+        /// <summary>
+        /// Use this instead of Content.Match()
+        /// </summary>
+        public void MatchContent()
+        {
+            var nextContent = Content.Match();
+            Content = nextContent;
+        }
         
-
+        public void SetContentToEmpty() => Content = EmptyCellContent.GetCached;
+        
         private void ChangeContent(CellContent value)
         {
-            if (_content != null)
-            {
-                _content.Disabled -= SetContentToEmpty;
+            if (_content != null) 
                 _content.StartedMovement -= OnContentStartedMovement;
-            }
 
-            
             _content = value;
-            _content.Disabled += SetContentToEmpty;
             _content.StartedMovement += OnContentStartedMovement;
         }
-
-        private void SetContentToEmpty(object sender, EventArgs e) => Content = new EmptyCellContent();
-
+        
         private void OnContentStartedMovement() => ContentStartedMovement?.Invoke(this, EventArgs.Empty);
     }
 }

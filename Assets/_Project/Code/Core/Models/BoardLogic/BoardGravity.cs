@@ -78,7 +78,6 @@ namespace _Project.Code.Core.Models.BoardLogic
 
             _playerInput.Enable();
             FallingEnded?.Invoke();
-            _cellsToFill.Clear();
         }
     }
 

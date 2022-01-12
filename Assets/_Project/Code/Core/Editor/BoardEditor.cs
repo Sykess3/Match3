@@ -1,5 +1,6 @@
 ﻿using _Project.Code.Core.Models.BoardLogic;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
 using UnityEditor;
 using UnityEngine;

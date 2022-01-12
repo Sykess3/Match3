@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Random;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly CellCollection _cellCollection;
         private readonly IRandomCellContentGenerator _contentGenerator;
         private readonly ICellContentMover _mover;
-        private readonly int[] _ySpawnPositions = new int[Constant.Board.BoardSize.x];
+        private readonly int[] _ySpawnPositions = new int[Constant.Board.Size.x];
         private bool _isResetSpawnPositions;
 
         public CellContentFalling(CellCollection cellCollection, IRandomCellContentGenerator contentGenerator,
@@ -85,7 +86,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             var currentCell = emptyCell;
             while (_cellCollection.TryGetCellAbove(currentCell, out var cellAbove))
             {
-                if (cellAbove.Content.IsFalling || cellAbove.Content.Type == ContentType.Empty || !cellAbove.Content.Switchable)
+                if (cellAbove.Content.IsFalling || !cellAbove.Content.Switchable)
                 {
                     currentCell = cellAbove;
                     continue;

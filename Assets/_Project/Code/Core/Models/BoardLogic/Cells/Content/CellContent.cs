@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.DataStructures;
 using _Project.Code.Core.Models.Interfaces.Configs;
-using _Project.Code.Infrastructure;
-
 using UnityEngine;
 
-namespace _Project.Code.Core.Models.BoardLogic.Cells
+namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
 {
     [Serializable]
     public class CellContent : IModel, IPoolItem<ContentType>
@@ -61,7 +57,14 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             PositionChanged?.Invoke();
         }
 
-        public void Match() => Matched?.Invoke();
+        
+        public CellContent Match()
+        {
+            Matched?.Invoke();
+            return GetDecorator();
+        }
+
+        protected virtual CellContent GetDecorator() => EmptyCellContent.GetCached;
 
         public void Disable() => Disabled?.Invoke(this, EventArgs.Empty);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _Project.Code.Core.Models.BoardLogic.Cells;
+using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
 using _Project.Code.Core.Models.BoardLogic.Swap;
 using UnityEngine;
@@ -67,9 +68,9 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private void HandleMatchData(MatchData matchData)
         {
-            _matchDataHandler.Handle(matchData);
             foreach (var cell in matchData.MatchedCells) 
                 ContentMatched?.Invoke(cell.Content);
+            _matchDataHandler.Handle(matchData);
         }
         
     }

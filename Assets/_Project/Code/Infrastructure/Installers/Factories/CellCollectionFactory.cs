@@ -21,7 +21,7 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         /// </summary>
         public CellCollection Create()
         {
-            var size = Constant.Board.BoardSize;
+            var size = Constant.Board.Size;
             var offset = Constant.Board.OffsetFromCenter;
             
             Cell[] cells = CreateCellsWithRandomGeneratedCellContent(size, offset);
