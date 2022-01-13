@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36eac7727b54426eb9e1c6794d50289a, type: 3}
+  m_Name: DefaultAndUppedContent
+  m_EditorClassIdentifier: 
+  _contentToSpawn:
+  - Type: 1
+    ChanceToSpawn:
+      _min: 0
+      _max: 0.13722222
+  - Type: 2
+    ChanceToSpawn:
+      _min: 0.13722222
+      _max: 0.27444443
+  - Type: 3
+    ChanceToSpawn:
+      _min: 0.27444443
+      _max: 0.41166666
+  - Type: 4
+    ChanceToSpawn:
+      _min: 0.41166666
+      _max: 0.54888886
+  - Type: 5
+    ChanceToSpawn:
+      _min: 0.54888886
+      _max: 0.6861111
+  - Type: 6
+    ChanceToSpawn:
+      _min: 0.6861111
+      _max: 0.8233333
+  - Type: 8
+    ChanceToSpawn:
+      _min: 0.8233333
+      _max: 0.8438889
+  - Type: 9
+    ChanceToSpawn:
+      _min: 0.8438889
+      _max: 0.86444443
+  - Type: 10
+    ChanceToSpawn:
+      _min: 0.86444443
+      _max: 0.885
+  - Type: 11
+    ChanceToSpawn:
+      _min: 0.885
+      _max: 0.90555555
+  - Type: 12
+    ChanceToSpawn:
+      _min: 0.90555555
+      _max: 0.9261111
+  - Type: 13
+    ChanceToSpawn:
+      _min: 0.9261111
+      _max: 0.94666666
+  _particles:
+  - Type: 1
+    Particle: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}
+  - Type: 2
+    Particle: {fileID: 6265562019343719401, guid: 2223d3809307c684288d0ad4affbdaf1, type: 3}
+  - Type: 3
+    Particle: {fileID: 3932947538947779982, guid: 05ccb840b4bc75744aa20e114241eade, type: 3}
+  - Type: 4
+    Particle: {fileID: 8030658075521078671, guid: bb452d4890b67fd4ab4d39dde000b86c, type: 3}
+  - Type: 5
+    Particle: {fileID: 4787750259875651218, guid: 6e8e17344b5a71f4586cece8c2f3d02d, type: 3}
+  - Type: 6
+    Particle: {fileID: 8343840256942218899, guid: 280ff15217e5f324688e381527d48a18, type: 3}
+  - Type: 8
+    Particle: {fileID: 4519459242478761928, guid: 59e77aaa9cb2b6d48b4676d5dfd63e7d, type: 3}
+  - Type: 9
+    Particle: {fileID: 4935851700272215701, guid: 086c138aed50aee42b94558192ff75de, type: 3}
+  - Type: 10
+    Particle: {fileID: 6860711928593555312, guid: 32052fb75c10e514cb3d7e0f270d19c4, type: 3}
+  - Type: 11
+    Particle: {fileID: 3799463886543435720, guid: ade76a25da45b584aaa5ae9778b7351b, type: 3}
+  - Type: 12
+    Particle: {fileID: 1571637710986312653, guid: dbd008d8c3d0c1c43b5f4a45f6e8ab79, type: 3}
+  - Type: 13
+    Particle: {fileID: 5420040425364188581, guid: 9b69cf1133549df4083a62fe745729dc, type: 3}

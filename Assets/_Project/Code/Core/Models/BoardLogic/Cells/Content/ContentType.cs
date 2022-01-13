@@ -32,10 +32,16 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
     {
         private const string Upped = "Upped";
         private const string Bomb = "Bomb";
-        public static bool IsUpped(this ContentType contentType) => contentType.ToString().Contains(Upped);
+        public static bool IsUpped(this ContentType contentType) => contentType.ToString().StartsWith(Upped);
 
-        public static bool IsBomb(this ContentType contentType) => contentType.ToString().Contains(Bomb);
-        
+        public static bool IsBomb(this ContentType contentType) => contentType.ToString().StartsWith(Bomb);
+
+        public static bool IsDefault(this ContentType contentType)
+        {
+            return contentType == ContentType.Red || contentType == ContentType.Blue || contentType == ContentType.Green
+                   || contentType == ContentType.Orange || contentType == ContentType.Purple ||
+                   contentType == ContentType.Yellow;
+        }
 
         public static ContentType GetUppedContent(this ContentType contentType)
         {

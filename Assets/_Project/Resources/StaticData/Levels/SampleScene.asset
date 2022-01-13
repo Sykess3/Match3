@@ -12,50 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5565b6ead7ee4136baeaefc1e94f6a1a, type: 3}
   m_Name: SampleScene
   m_EditorClassIdentifier: 
-  _contentToSpawn:
-  - Type: 1
-    ChanceToSpawn:
-      _min: 0
-      _max: 0.1666
-  - Type: 2
-    ChanceToSpawn:
-      _min: 0.1666
-      _max: 0.3332
-  - Type: 3
-    ChanceToSpawn:
-      _min: 0.3332
-      _max: 0.4998
-  - Type: 4
-    ChanceToSpawn:
-      _min: 0.4998
-      _max: 0.6664
-  - Type: 5
-    ChanceToSpawn:
-      _min: 0.6664
-      _max: 0.833
-  - Type: 6
-    ChanceToSpawn:
-      _min: 0.833
-      _max: 1
-  _particles:
-  - Type: 1
-    Particle: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}
-  - Type: 2
-    Particle: {fileID: 6265562019343719401, guid: 2223d3809307c684288d0ad4affbdaf1, type: 3}
-  - Type: 3
-    Particle: {fileID: 3932947538947779982, guid: 05ccb840b4bc75744aa20e114241eade, type: 3}
-  - Type: 4
-    Particle: {fileID: 8030658075521078671, guid: bb452d4890b67fd4ab4d39dde000b86c, type: 3}
-  - Type: 5
-    Particle: {fileID: 4787750259875651218, guid: 6e8e17344b5a71f4586cece8c2f3d02d, type: 3}
-  - Type: 6
-    Particle: {fileID: 8343840256942218899, guid: 280ff15217e5f324688e381527d48a18, type: 3}
+  levelContentConfigs: {fileID: 0}
   _contentEditorSettings:
   - Position: {x: -4, y: -4}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 1
   - Position: {x: -4, y: -3}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: -4, y: -2}
     IsStone: 0

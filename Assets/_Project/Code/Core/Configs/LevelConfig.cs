@@ -11,31 +11,21 @@ using UnityEngine.UIElements;
 
 namespace _Project.Code.Core.Configs
 {
-    [CreateAssetMenu(fileName = "", menuName = "StaticData/Level")]
+    [CreateAssetMenu(fileName = "", menuName = "StaticData/Level/LevelConfig")]
     public class LevelConfig : ScriptableObject, ILevelConfig
     {
-        [SerializeField] private Pair[] _contentToSpawn;
-        [SerializeField] private ParticlesPair[] _particles;
-
+        [SerializeField] private LevelContentConfigs levelContentConfigs;
+        
         [SerializeField] private CellContentEditorSettings[] _contentEditorSettings = 
             new CellContentEditorSettings[Constant.Board.Size.x * Constant.Board.Size.y];
         
-        public CellContentEditorSettings[] ContentEditorSettings
-        {
-            get => _contentEditorSettings;
-            set => _contentEditorSettings = value;
-        }
+        public CellContentEditorSettings[] ContentEditorSettings => _contentEditorSettings;
 
-        public Dictionary<ContentType, ParticleSystem> Particles
-        {
-            get => GetSerializedParticlesConfig();
-            set => SerializeParticlesConfigs(value);
-        }
 
         public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
-            _contentToSpawn
-                .OrderBy(x => x.ChanceToSpawn.Min)
-                .ToDictionary(x => x.Type, x => x.ChanceToSpawn.Max);
+            levelContentConfigs.ContentToSpawnTypeChanceMap;
+
+        public Dictionary<ContentType, ParticleSystem> Particles => levelContentConfigs.Particles;
 
         public DecoratorType GetDecorator(Vector2 position)
         {
@@ -69,38 +59,6 @@ namespace _Project.Code.Core.Configs
                     _contentEditorSettings[index].Position = position;
                 }
             }
-        }
-
-        private void SerializeParticlesConfigs(Dictionary<ContentType, ParticleSystem> value)
-        {
-            _particles = new ParticlesPair[value.Count];
-            int index = 0;
-            foreach (var patricles in value)
-            {
-                _particles[index] = new ParticlesPair
-                {
-                    Particle = patricles.Value,
-                    Type = patricles.Key
-                };
-                index++;
-            }
-        }
-
-        private Dictionary<ContentType, ParticleSystem> GetSerializedParticlesConfig() =>
-            _particles.ToDictionary(x => x.Type, x => x.Particle);
-
-        [Serializable]
-        class Pair
-        {
-            public ContentType Type;
-            [FloatRangeSlider(0, 1)] public FloatRange ChanceToSpawn;
-        }
-
-        [Serializable]
-        class ParticlesPair
-        {
-            public ContentType Type;
-            public ParticleSystem Particle;
         }
 
         [Serializable]
