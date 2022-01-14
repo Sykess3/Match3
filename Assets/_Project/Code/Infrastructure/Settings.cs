@@ -9,10 +9,10 @@ namespace _Project.Code.Infrastructure
     {
         [SerializeField] private LoadingCurtain _loadingCurtain;
         [SerializeField] private string _firstSceneToLoad;
-        [SerializeField] private CellContentConfig[] _cellContentConfigs;
+        //[SerializeField] private CellContentConfig[] _cellContentConfigs;
         
         public LoadingCurtain LoadingCurtain => _loadingCurtain;
         public string FirstSceneToLoad => _firstSceneToLoad;
-        public IEnumerable<CellContentConfig> CellContentConfigs => _cellContentConfigs;
+        //public IEnumerable<CellContentConfig> CellContentConfigs => _cellContentConfigs;
     }
 }

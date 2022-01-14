@@ -14,7 +14,8 @@ namespace _Project.Code.Core.Configs
     [CreateAssetMenu(fileName = "", menuName = "StaticData/Level/LevelConfig")]
     public class LevelConfig : ScriptableObject, ILevelConfig
     {
-        [SerializeField] private LevelContentConfigs levelContentConfigs;
+        [SerializeField] private LevelContentConfigs _levelContentConfigs;
+        [SerializeField] private LevelDecoratorsConfigs _levelDecoratorsConfigs;
         
         [SerializeField] private CellContentEditorSettings[] _contentEditorSettings = 
             new CellContentEditorSettings[Constant.Board.Size.x * Constant.Board.Size.y];
@@ -23,9 +24,13 @@ namespace _Project.Code.Core.Configs
 
 
         public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
-            levelContentConfigs.ContentToSpawnTypeChanceMap;
+            _levelContentConfigs.ContentToSpawnTypeChanceMap;
 
-        public Dictionary<ContentType, ParticleSystem> Particles => levelContentConfigs.Particles;
+        public Dictionary<ContentType, ParticleSystem> Particles => _levelContentConfigs.Particles;
+        public IEnumerable<ICellContentConfig> CellContentConfigs => _levelContentConfigs.ContentConfigs;
+
+        public Dictionary<DecoratorType, ICellContentConfig> DecoratorsConfigs =>
+            _levelDecoratorsConfigs.DecoratorConfigs;
 
         public DecoratorType GetDecorator(Vector2 position)
         {

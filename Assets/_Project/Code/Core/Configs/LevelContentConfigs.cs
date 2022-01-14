@@ -12,6 +12,7 @@ namespace _Project.Code.Core.Configs
     {
         [SerializeField] private ContentToSpawnPair[] _contentToSpawn;
         [SerializeField] private ParticlesPair[] _particles;
+        [SerializeField] private CellContentConfig[] _contentConfigs;
 
         public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
             _contentToSpawn
@@ -20,13 +21,19 @@ namespace _Project.Code.Core.Configs
 
         public Dictionary<ContentType, ParticleSystem> Particles
         {
-            get => GetSerializedParticlesConfig();
-            set => SerializeParticlesConfigs(value);
+            get => GetSerializedInEditor_ParticlesConfig();
+            set => SerializeForEditor_ParticlesConfigs(value);
         }
 
+        public CellContentConfig[] ContentConfigs
+        {
+            get => _contentConfigs;
+            set => _contentConfigs = value;
+        }
+        
         public void SetContentToSpawn_Editor(ContentToSpawnPair[] contentToSpawn) => _contentToSpawn = contentToSpawn;
 
-        private void SerializeParticlesConfigs(Dictionary<ContentType, ParticleSystem> value)
+        private void SerializeForEditor_ParticlesConfigs(Dictionary<ContentType, ParticleSystem> value)
         {
             _particles = new ParticlesPair[value.Count];
             int index = 0;
@@ -41,9 +48,9 @@ namespace _Project.Code.Core.Configs
             }
         }
 
-        private Dictionary<ContentType, ParticleSystem> GetSerializedParticlesConfig() =>
+        private Dictionary<ContentType, ParticleSystem> GetSerializedInEditor_ParticlesConfig() =>
             _particles.ToDictionary(x => x.Type, x => x.Particle);
-
+        
         [Serializable]
         public class ContentToSpawnPair
         {
@@ -56,6 +63,13 @@ namespace _Project.Code.Core.Configs
         {
             public ContentType Type;
             public ParticleSystem Particle;
+        }
+
+        [Serializable]
+        public class CellContentPair
+        {
+            public ContentType Type;
+            public CellContentConfig CellContentConfig;
         }
     }
 }

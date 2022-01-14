@@ -17,6 +17,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             _cellContentPool = cellContentPool;
             _cellCollection = cellCollection;
         }
+        
 
         public void Spawn(ContentToSpawn contentToSpawn)
         {

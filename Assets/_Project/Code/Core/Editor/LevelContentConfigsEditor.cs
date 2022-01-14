@@ -23,11 +23,13 @@ namespace _Project.Code.Core.Editor
             {
                 var contentToSpawn = Calculate(levelContentConfigs.ContentToSpawnTypeChanceMap.Keys.ToArray());
                 levelContentConfigs.SetContentToSpawn_Editor(contentToSpawn);
+                EditorUtility.SetDirty(target);
             }
 
-            if (GUILayout.Button("Collect Particles"))
+            if (GUILayout.Button("Collect suitable static data"))
             {
                 CollectParticles(ref levelContentConfigs);
+                CollectContentConfigs(ref levelContentConfigs);
                 EditorUtility.SetDirty(target);
             }
         }
@@ -43,7 +45,8 @@ namespace _Project.Code.Core.Editor
             {
                 foreach (var contentType in all)
                 {
-                    if (genericTypeChanceKvP.Key == ContentChanceToSpawn.GetGenericType(contentType))
+                    var genericContentType = ContentChanceToSpawn.GetGenericType(contentType);
+                    if (genericTypeChanceKvP.Key == genericContentType)
                     {
                         var nextSum = previousSum + genericTypeChanceKvP.Value /
                             ContentChanceToSpawn.GetSubTypesCount(genericTypeChanceKvP.Key);
@@ -57,6 +60,21 @@ namespace _Project.Code.Core.Editor
                         previousSum = nextSum;
                         index++;
                     }
+
+                    if (genericContentType == ContentChanceToSpawn.GenericContentType.Immovable)
+                    {
+                        var spawnPair = result.FirstOrDefault(x => x?.Type == contentType);
+
+                        if (spawnPair == null)
+                        {
+                            result[index] = new LevelContentConfigs.ContentToSpawnPair
+                            {
+                                Type = contentType,
+                                ChanceToSpawn = new FloatRange(0, 0)
+                            };
+                            index++;
+                        }
+                    }
                 }
             }
 
@@ -64,20 +82,35 @@ namespace _Project.Code.Core.Editor
             return result;
         }
 
+        private void CollectContentConfigs(ref LevelContentConfigs levelContentConfigs)
+        {
+            string[] paths = GetCellContentPaths().ToArray();
+
+            CellContentConfig[] allCellContentConfigs = EditorLoadHelper.LoadAssets<CellContentConfig>(paths);
+
+            var resultConfigs = new CellContentConfig[levelContentConfigs.ContentToSpawnTypeChanceMap.Keys.Count];
+            int index = 0;
+            foreach (var cellContentConfig in allCellContentConfigs)
+            {
+                foreach (var contentType in levelContentConfigs.ContentToSpawnTypeChanceMap.Keys)
+                {
+                    if (cellContentConfig.ContentType == contentType)
+                    {
+                        resultConfigs[index] = cellContentConfig;
+                        index++;
+                    }
+                }
+            }
+            levelContentConfigs.ContentConfigs = resultConfigs;
+        }
+
         private void CollectParticles(ref LevelContentConfigs levelConfig)
         {
-            var resultParticles = new Dictionary<ContentType, ParticleSystem>();
             string[] paths = GetParticlesPaths();
 
-            ParticlesConfig[] particlesConfig = new ParticlesConfig[paths.Length];
-            for (int i = 0;
-                i < paths.Length;
-                i++)
-            {
-                particlesConfig[i] =
-                    AssetDatabase.LoadAssetAtPath(paths[i], typeof(ParticlesConfig)) as ParticlesConfig;
-            }
+            ParticlesConfig[] particlesConfig = EditorLoadHelper.LoadAssets<ParticlesConfig>(paths);
 
+            var resultParticles = new Dictionary<ContentType, ParticleSystem>();
             foreach (var config in particlesConfig)
             {
                 foreach (var contentType in levelConfig.ContentToSpawnTypeChanceMap.Keys)
@@ -91,7 +124,7 @@ namespace _Project.Code.Core.Editor
                     }
                 }
             }
-            
+
             levelConfig.Particles = resultParticles;
         }
 
@@ -101,18 +134,26 @@ namespace _Project.Code.Core.Editor
                 new DirectoryInfo(Application.dataPath + "/_Project/Resources/StaticData/Particles");
 
             FileInfo[] files = particlesDirectoryInfo.GetFiles("*.asset", SearchOption.AllDirectories);
-            string[] resultPaths = new string[files.Length];
-
-            int dataPathLength = Application.dataPath.Length;
-            int charsCountToAssetFolder =
-                Application.dataPath.Remove(dataPathLength - "/Assets".Length - 1, "/Assets".Length).Length;
-
-            for (int i = 0; i < files.Length; i++)
-            {
-                resultPaths[i] = files[i].FullName.Remove(0, charsCountToAssetFolder + 1);
-            }
+            var resultPaths = EditorLoadHelper.SetPathsStartFromAssets(files);
 
             return resultPaths;
         }
+
+        private List<string> GetCellContentPaths()
+        {
+            var cellContentDirectoryInfo =
+                new DirectoryInfo(Application.dataPath + "/_Project/Resources/StaticData/CellContent");
+
+            var allSubFoldersInfos = cellContentDirectoryInfo.GetDirectories();
+            List<string> configsPaths = new List<string>();
+            foreach (var subFolderInfo in allSubFoldersInfos)
+            {
+                var fileInfos = subFolderInfo.GetFiles("*.asset", SearchOption.AllDirectories);
+                configsPaths.AddRange(EditorLoadHelper.SetPathsStartFromAssets(fileInfos));
+            }
+
+            return configsPaths;
+        }
+        
     }
 }

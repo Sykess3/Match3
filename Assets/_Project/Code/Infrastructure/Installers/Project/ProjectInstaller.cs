@@ -48,30 +48,7 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .To<InternalSceneLoader>()
                 .AsSingle();
             
-                    
-            BindConfigs();
-            
         }
-
-        private void BindConfigs()
-        {
-            Container
-                .Bind<IEnumerable<ICellContentConfig>>()
-                .FromInstance(_settings.CellContentConfigs)
-                .AsCached();
-
-            BindBombConfigs();
-        }
-
-        private void BindBombConfigs()
-        {
-            IEnumerable<IBombConfig> bombConfigs =
-                _settings.CellContentConfigs.Where(x => x is IBombConfig).Cast<IBombConfig>();
-
-            Container
-                .Bind<IEnumerable<IBombConfig>>()
-                .FromInstance(bombConfigs)
-                .AsCached();
-        }
+        
     }
 }

@@ -34,6 +34,9 @@ namespace _Project.Code.Core.Input
         {
             if (_board.TryGetCell(position, out var cell))
             {
+                if (!cell.Content.Switchable)
+                    return;
+
                 if (_selectedCell == null)
                 {
                     _selectedCell = cell;

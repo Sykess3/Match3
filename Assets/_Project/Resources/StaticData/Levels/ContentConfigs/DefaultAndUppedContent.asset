@@ -16,51 +16,55 @@ MonoBehaviour:
   - Type: 1
     ChanceToSpawn:
       _min: 0
-      _max: 0.13722222
+      _max: 0.14166667
+  - Type: 7
+    ChanceToSpawn:
+      _min: 0
+      _max: 0
   - Type: 2
     ChanceToSpawn:
-      _min: 0.13722222
-      _max: 0.27444443
+      _min: 0.14166667
+      _max: 0.28333333
   - Type: 3
     ChanceToSpawn:
-      _min: 0.27444443
-      _max: 0.41166666
+      _min: 0.28333333
+      _max: 0.425
   - Type: 4
     ChanceToSpawn:
-      _min: 0.41166666
-      _max: 0.54888886
+      _min: 0.425
+      _max: 0.56666666
   - Type: 5
     ChanceToSpawn:
-      _min: 0.54888886
-      _max: 0.6861111
+      _min: 0.56666666
+      _max: 0.7083333
   - Type: 6
     ChanceToSpawn:
-      _min: 0.6861111
-      _max: 0.8233333
+      _min: 0.7083333
+      _max: 0.84999996
   - Type: 8
     ChanceToSpawn:
-      _min: 0.8233333
-      _max: 0.8438889
+      _min: 0.84999996
+      _max: 0.87499994
   - Type: 9
     ChanceToSpawn:
-      _min: 0.8438889
-      _max: 0.86444443
+      _min: 0.87499994
+      _max: 0.8999999
   - Type: 10
     ChanceToSpawn:
-      _min: 0.86444443
-      _max: 0.885
+      _min: 0.8999999
+      _max: 0.9249999
   - Type: 11
     ChanceToSpawn:
-      _min: 0.885
-      _max: 0.90555555
+      _min: 0.9249999
+      _max: 0.94999987
   - Type: 12
     ChanceToSpawn:
-      _min: 0.90555555
-      _max: 0.9261111
+      _min: 0.94999987
+      _max: 0.97499985
   - Type: 13
     ChanceToSpawn:
-      _min: 0.9261111
-      _max: 0.94666666
+      _min: 0.97499985
+      _max: 1
   _particles:
   - Type: 1
     Particle: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}
@@ -86,3 +90,17 @@ MonoBehaviour:
     Particle: {fileID: 1571637710986312653, guid: dbd008d8c3d0c1c43b5f4a45f6e8ab79, type: 3}
   - Type: 13
     Particle: {fileID: 5420040425364188581, guid: 9b69cf1133549df4083a62fe745729dc, type: 3}
+  _contentConfigs:
+  - {fileID: 11400000, guid: 5336a9082245ae44b841eda2fa9c0812, type: 2}
+  - {fileID: 11400000, guid: d9e139ea1d1953c45af3ad0f2bbf2f76, type: 2}
+  - {fileID: 11400000, guid: 6ff74127479639445ad98b355f168da6, type: 2}
+  - {fileID: 11400000, guid: 211527a42565fed4fa5b2410ff7bac69, type: 2}
+  - {fileID: 11400000, guid: e5cecfa2c8d59e84490dd0ec4ca0cd3c, type: 2}
+  - {fileID: 11400000, guid: 61bfae3182c56274294e7ef4e529ae17, type: 2}
+  - {fileID: 11400000, guid: d2dba9423c96db54f877def4ca0cbcbb, type: 2}
+  - {fileID: 11400000, guid: 0001ea0e0b2748344a10c7d2533d52ec, type: 2}
+  - {fileID: 11400000, guid: 0e67597b98879b44a8d58cc0aafea904, type: 2}
+  - {fileID: 11400000, guid: 611011f97ff0fad41a4e60207c30f474, type: 2}
+  - {fileID: 11400000, guid: c9829560255743c45b4fe11af70cfed0, type: 2}
+  - {fileID: 11400000, guid: b49205ddde3a864468743e513e3a066c, type: 2}
+  - {fileID: 0}

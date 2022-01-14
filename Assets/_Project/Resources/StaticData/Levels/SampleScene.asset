@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5565b6ead7ee4136baeaefc1e94f6a1a, type: 3}
   m_Name: SampleScene
   m_EditorClassIdentifier: 
-  levelContentConfigs: {fileID: 0}
+  levelContentConfigs: {fileID: 11400000, guid: 678f3ca2873dfa6428045ea6bef642b3, type: 2}
   _contentEditorSettings:
   - Position: {x: -4, y: -4}
     IsStone: 1

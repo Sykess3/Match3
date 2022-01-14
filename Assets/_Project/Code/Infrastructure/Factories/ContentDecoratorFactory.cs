@@ -16,6 +16,9 @@ namespace _Project.Code.Infrastructure.Factories
 
         public CellContent Decorate(CellContent contentToDecorate, DecoratorType type)
         {
+            if (type == DecoratorType.None)
+                return contentToDecorate;
+            
             var config = _decoratorsConfigs[type];
 
             int packCount = type.PackCount();

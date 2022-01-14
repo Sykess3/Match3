@@ -73,6 +73,7 @@ namespace _Project.Code.Core.Models
 
         public enum GenericContentType
         {
+            Immovable,
             Default,
             Upped,
             Bomb
@@ -87,7 +88,8 @@ namespace _Project.Code.Core.Models
             if (contentType.IsUpped())
                 return GenericContentType.Upped;
 
-            throw new ArgumentOutOfRangeException();
+
+            return GenericContentType.Immovable;
         }
 
         public static int GetSubTypesCount(GenericContentType genericContentType)
@@ -101,7 +103,7 @@ namespace _Project.Code.Core.Models
             foreach (var item in all)
             {
                 var genericType = GetGenericType(item);
-                if (!alreadyIncluded.Contains(genericType))
+                if (!alreadyIncluded.Contains(genericType) && genericType != GenericContentType.Immovable)
                     alreadyIncluded.Add(genericType);
             }
 
