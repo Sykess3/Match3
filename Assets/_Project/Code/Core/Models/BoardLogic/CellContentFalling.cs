@@ -67,30 +67,41 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private bool TryMoveExistingContentToEmptyCells(Cell emptyCell, Action<Cell> onLanded)
         {
-            if (TryGetFilledCellAbove(emptyCell, out var filledCell))
+            if (TryGetFilledCellAbove(emptyCell.Position, out var filledCell))
             {
                 _mover.MoveCellContent(
                     @from: filledCell,
                     to: emptyCell,
                     speed: FallingSpeed,
-                    callback: () => onLanded(emptyCell));
+                    callback: CallCallback);
                 return true;
             }
+            
+            
 
             return false;
+
+            void CallCallback()
+            {
+                onLanded(emptyCell);
+            }
         }
 
-        private bool TryGetFilledCellAbove(Cell emptyCell, out Cell filledCell)
+        private bool TryGetFilledCellAbove(Vector2 position, out Cell filledCell)
         {
             filledCell = null;
-            var currentCell = emptyCell;
-            while (_cellCollection.TryGetCellAbove(currentCell, out var cellAbove))
+            var currentPosition = position;
+            while (_cellCollection.TryGetCellAbove(currentPosition, out var cellAbove))
             {
-                if (cellAbove.Content.IsFalling || !cellAbove.Content.Switchable)
+                if (cellAbove.Content.IsFalling)
                 {
-                    currentCell = cellAbove;
+                    currentPosition = cellAbove.Position;
                     continue;
                 }
+
+                var contentIsImmovable = !cellAbove.Content.Switchable && cellAbove.Content.Type != ContentType.Empty;
+                if (contentIsImmovable)
+                    return false;
 
                 filledCell = cellAbove;
                 return true;

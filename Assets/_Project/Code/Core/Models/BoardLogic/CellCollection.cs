@@ -31,6 +31,9 @@ namespace _Project.Code.Core.Models.BoardLogic
         public bool TryGetCellAbove(Cell cell, out Cell cellAbove) =>
             TryGetCell(cell.Position + Direction.North.GetVector2(), out cellAbove);
 
+        public bool TryGetCellAbove(Vector2 position, out Cell cellAbove) =>
+            TryGetCell(position + Direction.North.GetVector2(), out cellAbove);
+
         public IEnumerable<Cell> GetAll(ContentType ofType)
         {
             return _cells.Values.Where(TypeIsArgumentType);

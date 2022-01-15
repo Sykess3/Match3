@@ -40,7 +40,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             }
         }
 
-        public bool IsDecorated => GetDecorator() != EmptyCellContent.GetCached;
+        public bool IsDecorated => GetDecorator().Type != ContentType.Empty;
 
         public Vector2 Position
         {
