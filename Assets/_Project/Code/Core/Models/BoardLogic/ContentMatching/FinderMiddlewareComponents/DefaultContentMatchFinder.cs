@@ -18,9 +18,14 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         
         public MatchData Find(Cell cell)
         {
-            var matchData = new MatchData();
+            if (cell.Content.Type == ContentType.Empty)
+                return new MatchData();
+
+
             GetMatches(cell, out HashSet<Cell> matchedInVertical, out HashSet<Cell> matchedInHorizontal);
 
+            var matchData = new MatchData();
+            
             if (matchedInVertical.Count >= Constant.MinContentToMatch - 1) 
                 matchData.MatchedInVertical.UnionWith(matchedInVertical);
 

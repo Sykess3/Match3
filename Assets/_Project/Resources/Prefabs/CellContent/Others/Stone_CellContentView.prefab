@@ -127,3 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 0}
+  _animationParametersNames:
+  - NONE
+  _hashedAnimationStringsNames: 7bed0549

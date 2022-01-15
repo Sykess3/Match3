@@ -49,7 +49,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         {
             HashSet<Cell> matchedContent = new HashSet<Cell>();
             foreach (var content in uppedContent)
-                 matchedContent.UnionWith(_cellCollection.GetCellsInAllDirections(content));
+                 matchedContent.UnionWith(_cellCollection.GetCellsInAllDirections(content, ContentType.Stone));
 
             return matchedContent;
         }

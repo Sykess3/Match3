@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecd1022f4354892900522bad4c008d9, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 8198095465476599752, guid: 81794b42eabee79459acc0d9ac123721, type: 3}
   _matchableContent: 
   _switchable: 0
   _contentType: 7

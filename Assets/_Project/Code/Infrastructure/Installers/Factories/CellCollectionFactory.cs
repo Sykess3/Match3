@@ -6,6 +6,7 @@ using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Models.Random;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using Zenject;
 
@@ -15,12 +16,13 @@ namespace _Project.Code.Infrastructure.Installers.Factories
     {
         private readonly IRandomCellContentGenerator _randomCellContentGenerator;
         private readonly ILevelConfig _levelConfig;
+
         private readonly ICellContentFactory _cellContentFactory;
         private readonly IContentDecoratorsFactory _decoratorsFactory;
 
         public CellCollectionFactory(
-            IRandomCellContentGenerator randomCellContentGenerator, 
-            ILevelConfig levelConfig, 
+            IRandomCellContentGenerator randomCellContentGenerator,
+            ILevelConfig levelConfig,
             ICellContentFactory cellContentFactory,
             IContentDecoratorsFactory decoratorsFactory)
         {
@@ -37,9 +39,9 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         {
             var size = Constant.Board.Size;
             var offset = Constant.Board.OffsetFromCenter;
-            
+
             Cell[] cells = CreateCellsWithRandomGeneratedCellContent(size, offset);
-            
+
             return new CellCollection(cells);
         }
 
@@ -75,7 +77,8 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         {
             var cellContent = _randomCellContentGenerator.Generate(position);
             var decoratorType = _levelConfig.GetDecorator(position);
-            var decoratedContent = _decoratorsFactory.Decorate(contentToDecorate: cellContent, type: decoratorType);
+            CellContent decoratedContent =
+                _decoratorsFactory.Decorate(contentToDecorate: cellContent, type: decoratorType);
             return decoratedContent;
         }
     }

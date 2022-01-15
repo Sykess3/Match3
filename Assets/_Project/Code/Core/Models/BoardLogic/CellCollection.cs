@@ -41,13 +41,13 @@ namespace _Project.Code.Core.Models.BoardLogic
             }
         }
 
-        public IEnumerable<Cell> GetCellsInAllDirections(Cell relatively)
+        public IEnumerable<Cell> GetCellsInAllDirections(Cell relatively, ContentType toEndTypeInEachDirection)
         {
             var cells = new List<Cell>(16);
-            var eastCells = GetCellsInDirection(relatively, Direction.East);
-            var westCells = GetCellsInDirection(relatively, Direction.West);
-            var northCells = GetCellsInDirection(relatively, Direction.North);
-            var southCells = GetCellsInDirection(relatively, Direction.South);
+            var eastCells = GetCellsInDirection(relatively, Direction.East, toEndTypeInEachDirection);
+            var westCells = GetCellsInDirection(relatively, Direction.West, toEndTypeInEachDirection);
+            var northCells = GetCellsInDirection(relatively, Direction.North, toEndTypeInEachDirection);
+            var southCells = GetCellsInDirection(relatively, Direction.South, toEndTypeInEachDirection);
 
             cells.AddRange(eastCells);
             cells.AddRange(westCells);
@@ -106,14 +106,14 @@ namespace _Project.Code.Core.Models.BoardLogic
                 cellKvP.Value.ContentStartedMovement -= OnCellContentStartedMovement;
         }
 
-        private IEnumerable<Cell> GetCellsInDirection(Cell relatively, Direction direction)
+        private IEnumerable<Cell> GetCellsInDirection(Cell relatively, Direction direction, ContentType toEndType)
         {
             var current = relatively;
             while (true)
             {
-                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next))
+                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next) || next?.Content.Type == toEndType)
                     yield break;
-
+                
                 current = next;
                 yield return current;
             }

@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _matchVFX: {fileID: 3799463886543435720, guid: ade76a25da45b584aaa5ae9778b7351b, type: 3}
   Animator: {fileID: 7224391856671106541}
+  _animationParametersNames:
+  - FadeIn
+  _hashedAnimationStringsNames: a3c778bd
 --- !u!1 &7666630374679753080
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +130,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &7224391856671106541
 Animator:

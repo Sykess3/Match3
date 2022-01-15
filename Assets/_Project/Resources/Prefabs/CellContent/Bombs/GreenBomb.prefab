@@ -82,7 +82,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &4176480577443194152
 Animator:
@@ -159,5 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _matchVFX: {fileID: 4665315610100848504, guid: 0cc6c89d7d43ec94981e2d05f23a1833, type: 3}
   Animator: {fileID: 4176480577443194152}
+  _animationParametersNames:
+  - FadeIn
+  _hashedAnimationStringsNames: a3c778bd

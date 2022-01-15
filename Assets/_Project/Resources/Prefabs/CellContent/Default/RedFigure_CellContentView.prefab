@@ -159,5 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _matchVFX: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}
   Animator: {fileID: 4306375830199353044}
+  _animationParametersNames:
+  - FadeIn
+  _hashedAnimationStringsNames: a3c778bd

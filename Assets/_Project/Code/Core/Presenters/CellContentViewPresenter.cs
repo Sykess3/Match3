@@ -1,4 +1,5 @@
-﻿using _Project.Code.Core.Models.BoardLogic.Cells;
+﻿using System;
+using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Views;
 
@@ -20,7 +21,7 @@ namespace _Project.Code.Core.Presenters
             Model.Matched += View.Match;
             Model.PositionChanged += SyncPosition;
             Model.Enabled += View.Enable;
-            View.Disabled += Model.Disable;
+            View.Disabled += OnViewDisable;
         }
 
         protected override void UnSubscribe()
@@ -28,7 +29,13 @@ namespace _Project.Code.Core.Presenters
             Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;
             Model.Enabled -= View.Enable;
-            View.Disabled -= Model.Disable;
+            View.Disabled -= OnViewDisable;
+        }
+
+        protected virtual void OnViewDisable()
+        {
+            Model.Disable();
+            View.gameObject.SetActive(false);
         }
 
         private void SyncPosition() => View.transform.position = Model.Position;

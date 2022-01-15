@@ -15,7 +15,8 @@ namespace Zenject
         [NonSerialized]
         GuiRenderableManager _guiRenderableManager;
 
-        [NonSerialized] protected DiContainer _container;
+        [NonSerialized]
+        DiContainer _container;
 
         [NonSerialized]
         Exception _fatalError;

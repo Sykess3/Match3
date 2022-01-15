@@ -39,10 +39,10 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .To<CellContentFactory>()
                 .AsSingle();
 
-            Container
-                .Bind<IContentDecoratorsFactory>()
-                .To<ContentDecoratorFactory>()
-                .AsSingle();
+             Container
+                 .Bind<IContentDecoratorsFactory>()
+                 .To<ContentDecoratorFactory>()
+                 .AsSingle();
 
             BindObjectPools();
 

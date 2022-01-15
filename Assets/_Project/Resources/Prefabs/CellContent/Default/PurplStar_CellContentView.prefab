@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6771741f6b9f4da582d83c02aad3861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _matchVFX: {fileID: 8030658075521078671, guid: bb452d4890b67fd4ab4d39dde000b86c, type: 3}
   Animator: {fileID: 2579294900042126581}
+  _animationParametersNames:
+  - FadeIn
+  _hashedAnimationStringsNames: a3c778bd
 --- !u!1 &6153798422835938651
 GameObject:
   m_ObjectHideFlags: 0

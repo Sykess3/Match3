@@ -29,7 +29,7 @@ namespace _Project.Code.Core.Configs
         public Dictionary<ContentType, ParticleSystem> Particles => _levelContentConfigs.Particles;
         public IEnumerable<ICellContentConfig> CellContentConfigs => _levelContentConfigs.ContentConfigs;
 
-        public Dictionary<DecoratorType, ICellContentConfig> DecoratorsConfigs =>
+        public IEnumerable<IContentDecoratorConfig> DecoratorsConfigs =>
             _levelDecoratorsConfigs.DecoratorConfigs;
 
         public DecoratorType GetDecorator(Vector2 position)

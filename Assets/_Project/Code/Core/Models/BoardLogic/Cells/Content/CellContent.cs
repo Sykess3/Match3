@@ -10,14 +10,14 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
     public class CellContent : IModel, IPoolItem<ContentType>
     {
         private bool _isFalling;
-        private readonly ICellContentConfig _config;
+        protected internal readonly ICellContentConfig Config;
         private Vector2 _position;
+        
+        public virtual IEnumerable<ContentType> MatchableContent => Config.MatchableContent;
 
-        public virtual IEnumerable<ContentType> MatchableContent => _config.MatchableContent;
+        public virtual bool Switchable => Config.Switchable;
 
-        public virtual bool Switchable => _config.Switchable;
-
-        public virtual ContentType Type => _config.ContentType;
+        public virtual ContentType Type => Config.ContentType;
 
         public event Action StartedMovement;
 
@@ -40,6 +40,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             }
         }
 
+        public bool IsDecorated => GetDecorator() != EmptyCellContent.GetCached;
+
         public Vector2 Position
         {
             get => _position;
@@ -48,7 +50,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
         
         public CellContent(ICellContentConfig config)
         {
-            _config = config;
+            Config = config;
         }
 
         private void ChangePosition(Vector2 value)

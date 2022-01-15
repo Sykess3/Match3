@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5565b6ead7ee4136baeaefc1e94f6a1a, type: 3}
   m_Name: SampleScene
   m_EditorClassIdentifier: 
-  levelContentConfigs: {fileID: 11400000, guid: 678f3ca2873dfa6428045ea6bef642b3, type: 2}
+  _levelContentConfigs: {fileID: 11400000, guid: 678f3ca2873dfa6428045ea6bef642b3, type: 2}
+  _levelDecoratorsConfigs: {fileID: 11400000, guid: 60babe0a378641045989d71578eb1d92, type: 2}
   _contentEditorSettings:
   - Position: {x: -4, y: -4}
     IsStone: 1
-    DecoratorType: 1
+    DecoratorType: 0
   - Position: {x: -4, y: -3}
     IsStone: 1
     DecoratorType: 0

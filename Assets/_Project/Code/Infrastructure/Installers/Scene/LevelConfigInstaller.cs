@@ -11,6 +11,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
     public class LevelConfigInstaller : MonoInstaller
     {
         [SerializeField] private LevelConfig _levelConfig;
+
         public override void InstallBindings()
         {
             Container
@@ -19,12 +20,13 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .AsSingle();
 
             Container
-                .Bind<Dictionary<DecoratorType, ICellContentConfig>>()
-                .FromInstance(_levelConfig.DecoratorsConfigs);
-
-            Container
                 .Bind<IEnumerable<ICellContentConfig>>()
                 .FromInstance(_levelConfig.CellContentConfigs)
+                .AsCached();
+
+            Container
+                .Bind<IEnumerable<IContentDecoratorConfig>>()
+                .FromInstance(_levelConfig.DecoratorsConfigs)
                 .AsCached();
 
             BindBombConfigs();

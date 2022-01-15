@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df713a9770b4b9ba481b037ba38c7d9, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
+  _configs:
+  - {fileID: 11400000, guid: 9149d99310a589c4fa169dba3bf2bf4c, type: 2}
