@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7c21fd210bd40c39e6e4ee972a39b3c, type: 3}
-  m_Name: Ice
+  m_Name: Ice_x2
   m_EditorClassIdentifier: 
   _type: 1
   _switchable: 0

@@ -9,13 +9,13 @@ using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Factories
 {
-    public class ContentDecoratorFactory : IContentDecoratorsFactory
+    public class ContentDecorator : IContentDecorator
     {
         private readonly IAssetProvider _provider;
         private readonly Dictionary<DecoratorType, IContentDecoratorConfig> _decoratorConfigs;
-        private Transform _parent;
+        private readonly Transform _parent;
 
-        public ContentDecoratorFactory(IEnumerable<IContentDecoratorConfig> decoratorConfigs, IAssetProvider provider)
+        public ContentDecorator(IEnumerable<IContentDecoratorConfig> decoratorConfigs, IAssetProvider provider)
         {
             _provider = provider;
             _decoratorConfigs = decoratorConfigs.ToDictionary(x => x.Type, x => x);

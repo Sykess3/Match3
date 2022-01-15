@@ -18,17 +18,17 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         private readonly ILevelConfig _levelConfig;
 
         private readonly ICellContentFactory _cellContentFactory;
-        private readonly IContentDecoratorsFactory _decoratorsFactory;
+        private readonly IContentDecorator _decorator;
 
         public CellCollectionFactory(
             IRandomCellContentGenerator randomCellContentGenerator,
             ILevelConfig levelConfig,
             ICellContentFactory cellContentFactory,
-            IContentDecoratorsFactory decoratorsFactory)
+            IContentDecorator decorator)
         {
             _levelConfig = levelConfig;
             _cellContentFactory = cellContentFactory;
-            _decoratorsFactory = decoratorsFactory;
+            _decorator = decorator;
             _randomCellContentGenerator = randomCellContentGenerator;
         }
 
@@ -78,7 +78,7 @@ namespace _Project.Code.Infrastructure.Installers.Factories
             var cellContent = _randomCellContentGenerator.Generate(position);
             var decoratorType = _levelConfig.GetDecorator(position);
             CellContent decoratedContent =
-                _decoratorsFactory.Decorate(contentToDecorate: cellContent, type: decoratorType);
+                _decorator.Decorate(contentToDecorate: cellContent, type: decoratorType);
             return decoratedContent;
         }
     }

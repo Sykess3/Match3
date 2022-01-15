@@ -2,7 +2,7 @@
 
 namespace _Project.Code.Core.Models.Interfaces
 {
-    public interface IContentDecoratorsFactory
+    public interface IContentDecorator
     {
         CellContent Decorate(CellContent contentToDecorate, DecoratorType type);
     }

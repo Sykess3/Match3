@@ -11,6 +11,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
         {
             _decorateTarget = decorateTarget;
             _contentDecoratorConfig = contentDecoratorConfig;
+            Position = decorateTarget.Position;
         }
 
         protected override CellContent GetDecorator() => _decorateTarget;

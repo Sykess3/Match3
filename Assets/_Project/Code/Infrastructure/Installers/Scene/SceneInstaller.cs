@@ -40,8 +40,8 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .AsSingle();
 
              Container
-                 .Bind<IContentDecoratorsFactory>()
-                 .To<ContentDecoratorFactory>()
+                 .Bind<IContentDecorator>()
+                 .To<ContentDecorator>()
                  .AsSingle();
 
             BindObjectPools();
