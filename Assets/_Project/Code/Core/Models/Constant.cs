@@ -11,6 +11,8 @@ namespace _Project.Code.Core.Models
         public const int MinContentToMatch = 3;
         public const int MinContentToUp = 6;
         public const float Tolerance = 0.01f;
+        public const float FallingSpeed = 6f;
+        public const float SwapSpeed = 2f;
 
         public static class Board
         {
@@ -25,9 +27,9 @@ namespace _Project.Code.Core.Models
 
     public static class ContentChanceToSpawn
     {
-        private const float Default = 0.85f;
-        private const float Upped = 0.15f;
-        private const float Bomb = 0.08f;
+        private const float Default = 0.90f;
+        private const float Upped = 0.03f;
+        private const float Bomb = 0.02f;
 
         private const int DefaultSubTypesCount = 6;
 
@@ -38,36 +40,12 @@ namespace _Project.Code.Core.Models
             float sum = 0;
             foreach (var genericContentType in genericContentTypes)
                 sum += GetChanceOf(genericContentType);
-
-            if (genericContentTypes.Count == 1)
-            {
-                return new Dictionary<GenericContentType, float>
-                {
-                    {genericContentTypes.First(), 1}
-                };
-            }
-
-            if (sum <= 1)
-            {
-                var genericChances = new Dictionary<GenericContentType, float>();
-                foreach (var genericContentType in genericContentTypes)
-                {
-                    genericChances.Add(genericContentType, GetChanceOf(genericContentType));
-                }
-
-                return genericChances;
-            }
-
-            float redundant = sum - 1;
-            float redundantByOne = redundant / genericContentTypes.Count;
-
+            
             var result = new Dictionary<GenericContentType, float>();
-            foreach (var genericContentType in genericContentTypes)
-            {
-                var constantChance = GetChanceOf(genericContentType);
-                result.Add(genericContentType, constantChance - redundantByOne);
-            }
 
+            foreach (var genericContentType in genericContentTypes)
+                result.Add(genericContentType, GetChanceOf(genericContentType) / sum);
+            
             return result;
         }
 

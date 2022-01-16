@@ -9,7 +9,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
         private Action<SwapCommand> _onCommandRevertedCallBack;
         public Cell FirstCell { get; }
         public Cell SecondCell { get; }
-        public float Speed { get; set; } = 2;
         public ICellContentSwapper Swapper { get; set; }
 
         public SwapCommand(
@@ -26,7 +25,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
             Swapper.SwapContent(
                 FirstCell,
                 SecondCell,
-                Speed,
                 InvokeOnCommandExecuted);
         }
 
@@ -36,7 +34,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
             Swapper.SwapContent(
                 FirstCell,
                 SecondCell,
-                Speed,
                 InvokeOnCommandReverted);
         }
 

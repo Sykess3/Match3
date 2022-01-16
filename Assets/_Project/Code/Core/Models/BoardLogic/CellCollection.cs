@@ -34,6 +34,17 @@ namespace _Project.Code.Core.Models.BoardLogic
         public bool TryGetCellAbove(Vector2 position, out Cell cellAbove) =>
             TryGetCell(position + Direction.North.GetVector2(), out cellAbove);
 
+        public bool TryGetCellGoesDiagonallyUpwards(Vector2 position, Direction diagonalDirection, out Cell cellDiagonallyUpwards)
+        {
+            if (diagonalDirection == Direction.East)
+                return TryGetCell(position + new Vector2(1, 1), out cellDiagonallyUpwards);
+
+            if (diagonalDirection == Direction.West)
+                return TryGetCell(position + new Vector2(-1, 1), out cellDiagonallyUpwards);
+
+            throw new ArgumentException("Direction must be either east either west!");
+        }
+
         public IEnumerable<Cell> GetAll(ContentType ofType)
         {
             return _cells.Values.Where(TypeIsArgumentType);
@@ -114,9 +125,10 @@ namespace _Project.Code.Core.Models.BoardLogic
             var current = relatively;
             while (true)
             {
-                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next) || next?.Content.Type == toEndType)
+                if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next) ||
+                    next?.Content.Type == toEndType)
                     yield break;
-                
+
                 current = next;
                 yield return current;
             }

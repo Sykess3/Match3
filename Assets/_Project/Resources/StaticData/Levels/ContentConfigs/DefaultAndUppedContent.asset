@@ -16,54 +16,54 @@ MonoBehaviour:
   - Type: 1
     ChanceToSpawn:
       _min: 0
-      _max: 0.14166667
+      _max: 0.16129033
   - Type: 7
     ChanceToSpawn:
       _min: 0
       _max: 0
   - Type: 2
     ChanceToSpawn:
-      _min: 0.14166667
-      _max: 0.28333333
+      _min: 0.16129033
+      _max: 0.32258067
   - Type: 3
     ChanceToSpawn:
-      _min: 0.28333333
-      _max: 0.425
+      _min: 0.32258067
+      _max: 0.48387098
   - Type: 4
     ChanceToSpawn:
-      _min: 0.425
-      _max: 0.56666666
+      _min: 0.48387098
+      _max: 0.64516133
   - Type: 5
     ChanceToSpawn:
-      _min: 0.56666666
-      _max: 0.7083333
+      _min: 0.64516133
+      _max: 0.8064517
   - Type: 6
     ChanceToSpawn:
-      _min: 0.7083333
-      _max: 0.84999996
+      _min: 0.8064517
+      _max: 0.967742
   - Type: 8
     ChanceToSpawn:
-      _min: 0.84999996
-      _max: 0.87499994
+      _min: 0.967742
+      _max: 0.97311836
   - Type: 9
     ChanceToSpawn:
-      _min: 0.87499994
-      _max: 0.8999999
+      _min: 0.97311836
+      _max: 0.9784947
   - Type: 10
     ChanceToSpawn:
-      _min: 0.8999999
-      _max: 0.9249999
+      _min: 0.9784947
+      _max: 0.98387104
   - Type: 11
     ChanceToSpawn:
-      _min: 0.9249999
-      _max: 0.94999987
+      _min: 0.98387104
+      _max: 0.9892474
   - Type: 12
     ChanceToSpawn:
-      _min: 0.94999987
-      _max: 0.97499985
+      _min: 0.9892474
+      _max: 0.9946237
   - Type: 13
     ChanceToSpawn:
-      _min: 0.97499985
+      _min: 0.9946237
       _max: 1
   _particles:
   - Type: 1

@@ -66,7 +66,9 @@ namespace _Project.Code.Core.Models.BoardLogic
             _playerInput.Disable();
             for (int i = 0; i < _cellsToFill.Count; i++)
             {
-                _contentFalling.FillContentOnEmptyCell(_cellsToFill[i], OnCellLanded);
+                if (!_contentFalling.TryFillContentOnEmptyCell(_cellsToFill[i], OnCellLanded))
+                    _cellsToFill.Remove(_cellsToFill[i]);
+
             }
         }
 

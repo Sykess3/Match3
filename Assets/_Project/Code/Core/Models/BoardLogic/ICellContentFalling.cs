@@ -5,6 +5,6 @@ namespace _Project.Code.Core.Models.BoardLogic
 {
     public interface ICellContentFalling
     {
-        void FillContentOnEmptyCell(Cell emptyCell, Action<Cell> onLandedCallback);
+        bool TryFillContentOnEmptyCell(Cell emptyCell, Action<Cell> onLandedCallback);
     }
 }
