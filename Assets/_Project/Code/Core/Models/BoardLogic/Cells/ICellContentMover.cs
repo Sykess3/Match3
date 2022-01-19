@@ -10,11 +10,11 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
     public interface ICellContentMover
     {
         void MoveCellContent(Cell from, Cell to, Action callback = null);
-        void MoveCellContent(CellContent contentToMove, Cell to, Action callback = null);
+        void MoveCellContent(CellContentBase contentBaseToMove, Cell to, Action callback = null);
 
         void MoveCellContent(Cell @from, Cell to, ContentRoute route, Action callback = null);
         
-        void MoveCellContent(CellContent contentToMove, Cell to, ContentRoute route, Action callback = null);
+        void MoveCellContent(CellContentBase contentBaseToMove, Cell to, ContentRoute route, Action callback = null);
     }
     
     public class ContentRoute 
@@ -35,5 +35,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         }
 
         public Vector2 PopPoint() => _points.Pop();
+
+        public Vector2 StartPoint() => _points.Peek();
     }
 }

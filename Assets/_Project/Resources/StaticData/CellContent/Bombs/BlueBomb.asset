@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
   m_Name: BlueBomb
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 547886472501410721, guid: 7b1f4e8994a3f8746961e63196bb8b0a, type: 3}
+  _prefab: {fileID: 103434931322052253, guid: 04a6da8ac0d38a04e8328d240616ad67, type: 3}
   _matchableContent: 02000000090000000f000000
   _switchable: 1
   _contentType: 15

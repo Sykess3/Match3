@@ -1,12 +1,13 @@
 using System;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Views;
+using _Project.Code.Core.Views.Framework;
 
 namespace _Project.Code.Core.Presenters
 {
     public abstract class Presenter<TModel, TView>
     where TModel : IModel
-    where TView : View
+    where TView : IView
     {
         protected readonly TModel Model;
         protected readonly TView View;
@@ -24,21 +25,12 @@ namespace _Project.Code.Core.Presenters
         
         private void OnCreate()
         {
-            if (UnityCallBackFunctionsContractIsCorrect<IUpdatable, UpdatableView>(
-                out var updatableModel, out var updatableView))
-                updatableView.OnUpdate += updatableModel.Update;
-
             Subscribe();
             OnStart();
         }
 
         private void OnDestroy()
         {
-
-            if (UnityCallBackFunctionsContractIsCorrect<IUpdatable, UpdatableView>(
-                out var updatableModel, out var updatableView))
-                updatableView.OnUpdate -= updatableModel.Update;
-
             UnSubscribe();
             Destroyed?.Invoke(this, EventArgs.Empty);
         }

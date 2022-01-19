@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecd1022f4354892900522bad4c008d9, type: 3}
   m_Name: Green
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 8165203109867420895, guid: 5572f462cf3ba994b9ae2d662686ddf2, type: 3}
+  _prefab: {fileID: 6257952970333902139, guid: c40bcf4d34be5974ca0bc7f11f04de5f, type: 3}
   _matchableContent: 050000000c00000012000000
   _switchable: 1
   _contentType: 5

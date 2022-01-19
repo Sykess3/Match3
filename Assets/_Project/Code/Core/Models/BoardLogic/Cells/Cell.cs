@@ -6,12 +6,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 {
     public class Cell : IModel
     {
-        private CellContent _content;
+        private CellContentBase _content;
 
         public Vector2 Position { get; }
         public event EventHandler ContentStartedMovement; 
 
-        public CellContent Content
+        public CellContentBase Content
         {
             get => _content;
             set => ChangeContent(value);
@@ -31,9 +31,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             Content = nextContent;
         }
         
-        public void SetContentToEmpty() => Content = EmptyCellContent.GetCached;
+        public void SetContentToEmpty() => Content = CellContentBase.GetEmptyCached;
         
-        private void ChangeContent(CellContent value)
+        private void ChangeContent(CellContentBase value)
         {
             if (_content != null) 
                 _content.StartedMovement -= OnContentStartedMovement;

@@ -39,7 +39,7 @@ namespace _Project.Code.Infrastructure.Factories
             var config = _cellContentConfigsMap[type];
 
             var view = _assetProvider.Instantiate<CellContentView>(config.Prefab, _parent);
-            var model = new CellContent(config);
+            var model = new CellContent(config.MatchableContent, config.ContentType, config.Switchable);
             new CellContentViewPresenter(model, view.GetComponent<CellContentView>());
 
             model.Disabled += ModelOnDisabled;
@@ -49,8 +49,8 @@ namespace _Project.Code.Infrastructure.Factories
 
         private void ModelOnDisabled(object sender, EventArgs e)
         {
-            var cellContent = (CellContent) sender;
-            var particlesWrapper = _particlesPool.Get(cellContent.Type);
+            var cellContent = (CellContentBase) sender;
+            var particlesWrapper = _particlesPool.Get(cellContent.MatchType);
             particlesWrapper.Position = cellContent.Position;
         }
     }

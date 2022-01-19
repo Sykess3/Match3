@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.BoardLogic.ContentMatching;
+using _Project.Code.Core.Models.BoardLogic.Gravity;
 using _Project.Code.Core.Models.BoardLogic.Swap;
 using UnityEngine;
 using Zenject;
@@ -18,7 +19,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly CellCollection _cellCollection;
         private readonly MatchDataHandler _matchDataHandler;
         private readonly IContentMatchFinder _matchFinder;
-        public event Action<CellContent> ContentMatched;
+        public event Action<CellContentBase> ContentMatched;
 
         public Board(SwapCommandHandler swapCommandHandler,
             BoardGravity boardGravity,

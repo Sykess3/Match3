@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
   m_Name: RedBomb
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1369848748711065197, guid: 9d13c027960818541b0d0207bf75bf81, type: 3}
+  _prefab: {fileID: 3362515480955928208, guid: 9d13c027960818541b0d0207bf75bf81, type: 3}
   _matchableContent: 01000000080000000e000000
   _switchable: 1
   _contentType: 14

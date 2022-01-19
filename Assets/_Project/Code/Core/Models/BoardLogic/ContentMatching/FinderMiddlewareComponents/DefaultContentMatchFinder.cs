@@ -18,7 +18,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         
         public MatchData Find(Cell cell)
         {
-            if (cell.Content.Type == ContentType.Empty)
+            if (cell.Content.MatchType == ContentType.Empty)
                 return new MatchData();
 
 
@@ -73,10 +73,10 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         }
         
         private static bool NextCellCanNotBeMatchedWithInitialCell(Cell cell, Cell nextCell) => 
-            cell.Content.MatchableContent.All(x => x != nextCell.Content.Type);
+            cell.Content.MatchableContent.All(x => x != nextCell.Content.MatchType);
 
         private bool NextCellNotStone(Vector2 nextContentPosition, out Cell nextCell) => 
-            _cells.TryGetCell(nextContentPosition, out nextCell) && nextCell.Content.Type != ContentType.Stone;
+            _cells.TryGetCell(nextContentPosition, out nextCell) && nextCell.Content.MatchType != ContentType.Stone;
         
         public class MatchData
         {

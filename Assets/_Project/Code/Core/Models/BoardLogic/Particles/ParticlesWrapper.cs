@@ -2,7 +2,7 @@
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.DataStructures;
-using _Project.Code.Core.Views.Helpers;
+using _Project.Code.Core.Views.Particles;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Particles
@@ -13,7 +13,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
 
         public event EventHandler Disabled;
 
-        public ContentType Type { get; }
+        public ContentType MatchType { get; }
 
         public Vector2 Position
         {
@@ -23,7 +23,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
 
         public ParticlesWrapper(ParticleSystem particles, ContentType type)
         {
-            Type = type;
+            MatchType = type;
             _particles = particles;
             if (!particles.gameObject.TryGetComponent(out ParticlesDisabledEvent @event))
                 throw new ArgumentException("Add ParticlesDisabledEvent to ParticleSystem prefab");

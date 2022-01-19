@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c21fd210bd40c39e6e4ee972a39b3c, type: 3}
   m_Name: Ice_x2
   m_EditorClassIdentifier: 
-  _type: 1
+  _type: 2
   _switchable: 0
-  _prefab: {fileID: 1400889182394570, guid: 351a07e7d4f94924ca89ac897d494be2, type: 3}
+  _prefab: {fileID: 7423748336072477458, guid: 16604a371a9f5854995ca1ba94c4eb10, type: 3}

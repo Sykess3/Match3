@@ -73,13 +73,13 @@ namespace _Project.Code.Infrastructure.Installers.Factories
             return cells;
         }
 
-        private CellContent GetRandomCellContent(Vector2 position)
+        private CellContentBase GetRandomCellContent(Vector2 position)
         {
             var cellContent = _randomCellContentGenerator.Generate(position);
             var decoratorType = _levelConfig.GetDecorator(position);
-            CellContent decoratedContent =
-                _decorator.Decorate(contentToDecorate: cellContent, type: decoratorType);
-            return decoratedContent;
+            CellContentBase decoratedContentBase =
+                _decorator.Decorate(contentBaseToDecorate: cellContent, type: decoratorType);
+            return decoratedContentBase;
         }
     }
 }

@@ -16,10 +16,10 @@ MonoBehaviour:
   _levelDecoratorsConfigs: {fileID: 11400000, guid: 60babe0a378641045989d71578eb1d92, type: 2}
   _contentEditorSettings:
   - Position: {x: -4, y: -4}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -4, y: -3}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -4, y: -2}
     IsStone: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -4, y: 0}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -4, y: 1}
     IsStone: 1
@@ -58,7 +58,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -3, y: 1}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: -3, y: 2}
     IsStone: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -2, y: 1}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: -2, y: 2}
     IsStone: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -1, y: 1}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: -1, y: 2}
     IsStone: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: 0, y: -4}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: 0, y: -3}
     IsStone: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: 1, y: 0}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: 1, y: 1}
     IsStone: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: 2, y: 1}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: 2, y: 2}
     IsStone: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
   m_Name: GreenBomb
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 2460120544047278328, guid: 0ae6c61e85b63624baed9bfe313ee9cb, type: 3}
+  _prefab: {fileID: 56774935557205425, guid: 0ae6c61e85b63624baed9bfe313ee9cb, type: 3}
   _matchableContent: 050000000c00000012000000
   _switchable: 1
   _contentType: 18

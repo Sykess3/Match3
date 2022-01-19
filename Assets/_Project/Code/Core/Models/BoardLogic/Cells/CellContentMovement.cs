@@ -15,7 +15,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             var cachedContent = from.Content;
             //TODO: NULLREF ABOVE
             await FallContent(
-                contentToMove: from.Content,
+                contentBaseToMove: from.Content,
                 targetCell: to,
                 speed: Constant.FallingSpeed,
                 movementType: Ease.Linear);
@@ -25,15 +25,15 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             callback?.Invoke();
         }
 
-        public async void MoveCellContent(CellContent contentToMove, Cell to, Action callback = null)
+        public async void MoveCellContent(CellContentBase contentBaseToMove, Cell to, Action callback = null)
         {
             await DoTweenMovement(
-                contentToMove: contentToMove,
+                contentBaseToMove: contentBaseToMove,
                 targetPosition: to.Position,
                 speed: Constant.FallingSpeed,
                 movementType: Ease.Linear);
 
-            to.Content = contentToMove;
+            to.Content = contentBaseToMove;
             callback?.Invoke();
         }
 
@@ -41,18 +41,20 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         {
             var contentToMove = from.Content;
             
+            contentToMove.IsFalling = true;
             await MoveContentByRoute(contentToMove, to, route);
-
+            contentToMove.IsFalling = false;
+            
             if (contentToMove == from.Content)
                 @from.SetContentToEmpty();
 
             callback?.Invoke();
         }
 
-        public async void MoveCellContent(CellContent contentToMove, Cell to, ContentRoute route,
+        public async void MoveCellContent(CellContentBase contentBaseToMove, Cell to, ContentRoute route,
             Action callback = null)
         {
-            await MoveContentByRoute(contentToMove, to, route);
+            await MoveContentByRoute(contentBaseToMove, to, route);
             
             callback?.Invoke();
         }
@@ -60,12 +62,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         public async void SwapContent(Cell firstCell, Cell secondCell, Action callback = null)
         {
             var task1 = DoTweenMovement(
-                contentToMove: firstCell.Content,
+                contentBaseToMove: firstCell.Content,
                 targetPosition: secondCell.Position,
                 speed: Constant.SwapSpeed,
                 movementType: Ease.InOutSine);
             var task2 = DoTweenMovement(
-                contentToMove: secondCell.Content,
+                contentBaseToMove: secondCell.Content,
                 targetPosition: firstCell.Position,
                 speed: Constant.SwapSpeed,
                 movementType: Ease.InOutSine);
@@ -84,14 +86,14 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
             }
         }
 
-        private static async Task MoveContentByRoute(CellContent contentToMove, Cell targetCell, ContentRoute route)
+        private static async Task MoveContentByRoute(CellContentBase contentBaseToMove, Cell targetCell, ContentRoute route)
         {
-            targetCell.Content = contentToMove;
+            targetCell.Content = contentBaseToMove;
             while (route.Count > 0)
             {
                 Vector2 nextPoint = route.PopPoint();
                 await DoTweenMovement(
-                    contentToMove: contentToMove,
+                    contentBaseToMove: contentBaseToMove,
                     targetPosition: nextPoint,
                     speed: Constant.FallingSpeed,
                     movementType: Ease.Linear);
@@ -100,24 +102,24 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
 
         private async Task FallContent(
-            CellContent contentToMove,
+            CellContentBase contentBaseToMove,
             Cell targetCell,
             float speed,
             Ease movementType)
         {
-            contentToMove.IsFalling = true;
+            contentBaseToMove.IsFalling = true;
             
-            targetCell.Content = contentToMove;
-            await DoTweenMovement(contentToMove, targetCell.Position, speed, movementType);
+            targetCell.Content = contentBaseToMove;
+            await DoTweenMovement(contentBaseToMove, targetCell.Position, speed, movementType);
             
-            contentToMove.IsFalling = false;
+            contentBaseToMove.IsFalling = false;
         }
 
-        private static async Task DoTweenMovement(CellContent contentToMove, Vector2 targetPosition, float speed,
+        private static async Task DoTweenMovement(CellContentBase contentBaseToMove, Vector2 targetPosition, float speed,
             Ease movementType)
         {
             await DOVirtual.Vector3(
-                    @from: contentToMove.Position,
+                    @from: contentBaseToMove.Position,
                     to: targetPosition,
                     duration: speed,
                     onVirtualUpdate: ChangePosition)
@@ -127,7 +129,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
 
             void ChangePosition(Vector3 x)
             {
-                contentToMove.Position = x;
+                contentBaseToMove.Position = x;
             }
         }
     }

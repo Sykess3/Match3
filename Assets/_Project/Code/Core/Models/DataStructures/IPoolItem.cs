@@ -6,6 +6,6 @@ namespace _Project.Code.Core.Models.DataStructures
     {
         event EventHandler Disabled;
         void Enable();
-        TArg Type { get; }
+        TArg MatchType { get; }
     }
 }

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Ice
   m_EditorClassIdentifier: 
   _configs:
+  - {fileID: 11400000, guid: 803048977ae4d74468cfaa643ce08ac2, type: 2}
+  - {fileID: 11400000, guid: 15fe3e5fef017ce408f55e7bf30ddae8, type: 2}
   - {fileID: 11400000, guid: 9149d99310a589c4fa169dba3bf2bf4c, type: 2}

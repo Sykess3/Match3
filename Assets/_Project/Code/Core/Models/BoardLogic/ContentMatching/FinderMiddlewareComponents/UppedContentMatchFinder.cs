@@ -28,7 +28,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             if (hadCrossMatch)
             {
                 var centralCell = matchData.MovedCell;
-                contentToSpawn = new ContentToSpawn(centralCell.Content.Type.GetUppedContent(), centralCell.Position);
+                contentToSpawn = new ContentToSpawn(centralCell.Content.MatchType.GetUppedContent(), centralCell.Position);
             }
 
             return hadCrossMatch;
@@ -45,20 +45,34 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         }
 
 
-        private HashSet<Cell> ExposeUppedContent(IEnumerable<Cell> uppedContent)
+        private HashSet<Cell> ExposeUppedContent(IEnumerable<Cell> uppedCells)
         {
             HashSet<Cell> matchedContent = new HashSet<Cell>();
-            foreach (var content in uppedContent)
-                 matchedContent.UnionWith(_cellCollection.GetCellsInAllDirections(content, ContentType.Stone));
+            foreach (var uppedCell in uppedCells)
+            {
+                if (!uppedCell.Content.IsDecorated)
+                {
+                    var cellsInAllDirections =
+                        _cellCollection.GetCellsInAllDirections(uppedCell, ContentType.Stone)
+                            .Where(NotEmptyContent);
+                    
+                    matchedContent.UnionWith(cellsInAllDirections);
+                }
+            }
 
             return matchedContent;
+
+            bool NotEmptyContent(Cell x)
+            {
+                return x.Content.MatchType != ContentType.Empty;
+            }
         }
 
 
         private IEnumerable<Cell> FindExistingUppedContent(HashSet<Cell> cells)
         {
             foreach (Cell cell in cells)
-                if (cell.Content.Type.IsUpped())
+                if (cell.Content.MatchType.IsUpped())
                     yield return cell;
         }
     }

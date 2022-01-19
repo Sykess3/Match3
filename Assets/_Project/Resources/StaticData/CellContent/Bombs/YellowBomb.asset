@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4768ec009f040febd49e8b2d27ed1c6, type: 3}
   m_Name: YellowBomb
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3738849111577106908, guid: 3cee588e9694fde47a62bcaed4bb736e, type: 3}
+  _prefab: {fileID: 2684744764377219136, guid: 3cee588e9694fde47a62bcaed4bb736e, type: 3}
   _matchableContent: 060000000d00000013000000
   _switchable: 1
   _contentType: 19

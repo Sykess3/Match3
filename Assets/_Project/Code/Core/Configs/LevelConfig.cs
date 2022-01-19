@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Project.Code.Core.CustomAttributes;
 using _Project.Code.Core.Models;
-using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace _Project.Code.Core.Configs
 {
@@ -64,6 +61,12 @@ namespace _Project.Code.Core.Configs
                     _contentEditorSettings[index].Position = position;
                 }
             }
+        }
+
+        [ContextMenu("Reset CellContentEditorSettings")]
+        public void ResetStonesAndDecorators()
+        {
+            _contentEditorSettings = new CellContentEditorSettings[Constant.Board.Size.x * Constant.Board.Size.y];
         }
 
         [Serializable]

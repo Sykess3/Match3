@@ -21,7 +21,7 @@ namespace _Project.Code.Core.Presenters
             Model.Matched += View.Match;
             Model.PositionChanged += SyncPosition;
             Model.Enabled += View.Enable;
-            View.Disabled += OnViewDisable;
+            View.AnimationEnded += Model.Disable;
         }
 
         protected override void UnSubscribe()
@@ -29,14 +29,9 @@ namespace _Project.Code.Core.Presenters
             Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;
             Model.Enabled -= View.Enable;
-            View.Disabled -= OnViewDisable;
+            View.AnimationEnded -= Model.Disable;
         }
-
-        protected virtual void OnViewDisable()
-        {
-            Model.Disable();
-            View.gameObject.SetActive(false);
-        }
+        
 
         private void SyncPosition() => View.transform.position = Model.Position;
     }

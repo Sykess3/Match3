@@ -30,23 +30,44 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             DefaultContentMatchFinder.MatchData defaultMatchData = _defaultContentMatchFinder.Find(cell);
             if (defaultMatchData.GetAll.Count == 0)
                 return new MatchData();
-            
+
             HashSet<Cell> matchedCells = defaultMatchData.GetAll;
             HashSet<ContentToSpawn> resultContentToSpawn = new HashSet<ContentToSpawn>();
-            
+
             if (_uppedContentMatchFinder.TryFindUppedContentToSpawn(defaultMatchData,
                 out ContentToSpawn contentToSpawn))
                 resultContentToSpawn.Add(contentToSpawn);
 
             _bombMatchFinder.TryBlowUpBombs(matchedCells);
-            
+
             _uppedContentMatchFinder.OpenExistingUppedContent(matchedCells);
 
-            return new MatchData
+            var matchData = new MatchData
             {
                 MatchedCells = matchedCells,
                 ContentToSpawn = resultContentToSpawn
             };
+
+            return GetSortedMatchData(matchData);
+        }
+
+        private MatchData GetSortedMatchData(MatchData matchData)
+        {
+            var dataToSort = matchData.MatchedCells;
+            dataToSort
+                .OrderBy(IsStoneAbove)
+                .OrderBy(LinqArgs.YPosition);
+
+            return new MatchData
+            {
+                MatchedCells = dataToSort,
+                ContentToSpawn = matchData.ContentToSpawn
+            };
+
+            bool IsStoneAbove(Cell x)
+            {
+                return _cells.IsStoneAbove(x.Position);
+            }
         }
 
         public MatchData FindMatchesByWholeBoard()
@@ -62,7 +83,6 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
                     allMatched.UnionWith(current.MatchedCells);
                     contentToSpawn.UnionWith(current.ContentToSpawn);
                 }
-                
             }
 
             return new MatchData
@@ -73,4 +93,3 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         }
     }
 }
-

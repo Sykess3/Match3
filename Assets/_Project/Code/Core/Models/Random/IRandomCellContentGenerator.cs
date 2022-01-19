@@ -6,6 +6,6 @@ namespace _Project.Code.Core.Models.Random
 {
     public interface IRandomCellContentGenerator
     {
-        CellContent Generate(Vector2 position);
+        CellContentBase Generate(Vector2 position);
     }
 }

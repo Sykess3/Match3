@@ -27,19 +27,19 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             if (bombs == null)
                 return;
 
-            HashSet<Cell> allBlowedUp = new HashSet<Cell>();
+            HashSet<Cell> alreadyBlowedUp = new HashSet<Cell>();
             foreach (Cell bomb in bombs)
             {
-                var blowedUp = BlowUp(bomb, alreadyDestroyedContent: allBlowedUp);
-                allBlowedUp.UnionWith(blowedUp);
+                var blowedUp = BlowUp(bomb, alreadyDestroyedContent: alreadyBlowedUp);
+                alreadyBlowedUp.UnionWith(blowedUp);
             }
 
-            matchedCells.UnionWith(allBlowedUp);
+            matchedCells.UnionWith(alreadyBlowedUp);
         }
 
         private IEnumerable<Cell> BlowUp(Cell cell, IEnumerable<Cell> alreadyDestroyedContent)
         {
-            var bombType = cell.Content.Type.GetBombType();
+            var bombType = cell.Content.MatchType.GetBombType();
             var defaultCellsOfBombType = _cellCollection
                 .GetAll(bombType)
                 .Except(alreadyDestroyedContent);
@@ -51,7 +51,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             HashSet<Cell> cellsOfBombType = new HashSet<Cell>(defaultCellsOfBombType);
             cellsOfBombType.UnionWith(uppedCellsOfBombType);
 
-            int amountCellToDestroy = GetAmountCellToDestroy(cell.Content.Type);
+            int amountCellToDestroy = GetAmountCellToDestroy(cell.Content.MatchType);
             return BlowUpRandomCells(among: cellsOfBombType, amount: amountCellToDestroy);
         }
 
@@ -89,7 +89,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
         {
             foreach (var cell in matchedCells)
             {
-                if (cell.Content.Type.IsBomb())
+                if (cell.Content.MatchType.IsBomb())
                     yield return cell;
             }
         }

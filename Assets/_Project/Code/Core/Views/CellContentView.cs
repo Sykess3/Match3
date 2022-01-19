@@ -1,67 +1,29 @@
 ﻿using System;
-using _Project.Code.Core.Views.Helpers;
+using _Project.Code.Core.Views.Animation;
+using _Project.Code.Core.Views.Framework;
 using UnityEngine;
 
 namespace _Project.Code.Core.Views
 {
     [SelectionBase]
-    public class CellContentView : View, IAnimatorEvent
+    public class CellContentView : View, ICellContentView
     {
-        [SerializeField] protected Animator Animator;
-
-        [SerializeField] private string[] _animationParametersNames;
-
-        [SerializeField] private int[] _hashedAnimationStringsNames;
-
-        private int _nextAnimationParameterIndex;
-
-        private void OnValidate() => HashAnimationParameters();
-
-        protected override void OnStart() =>
-            Array.Clear(_animationParametersNames, 0, _animationParametersNames.Length - 1);
-
-        public event Action Disabled;
-
+        public event Action AnimationEnded;
+        public event Action Enabled;
+        public event Action Matched;
+        
         public void Enable()
         {
-            Animator.SetBool(_hashedAnimationStringsNames[_nextAnimationParameterIndex], false);
             gameObject.SetActive(true);
-            _nextAnimationParameterIndex = 0;
+            Enabled?.Invoke();
         }
 
-        private void Disable() => Disabled?.Invoke();
-
-        public void Match()
+        public void Match() => Matched?.Invoke();
+        
+        public void Disable()
         {
-            var isLastOrFirstAnimationParameter = _nextAnimationParameterIndex == _animationParametersNames.Length - 1;
-            if (isLastOrFirstAnimationParameter)
-                PlayFirstOrLastAnimation();
-            else
-                PlayNextAnimation();
-        }
-
-        private void PlayNextAnimation()
-        {
-            int previousAnimation = _hashedAnimationStringsNames[_nextAnimationParameterIndex];
-            Animator.SetBool(previousAnimation, false);
-            
-            _nextAnimationParameterIndex++;
-            
-            int currentAnimation = _hashedAnimationStringsNames[_nextAnimationParameterIndex];
-            Animator.SetBool(currentAnimation, true);
-        }
-
-        private void PlayFirstOrLastAnimation() =>
-            Animator.SetBool(_hashedAnimationStringsNames[_nextAnimationParameterIndex], true);
-
-        public void OnEventExecute() => Disable();
-
-        private void HashAnimationParameters()
-        {
-            _hashedAnimationStringsNames = new int[_animationParametersNames.Length];
-
-            for (int i = 0; i < _animationParametersNames.Length; i++)
-                _hashedAnimationStringsNames[i] = Animator.StringToHash(_animationParametersNames[i]);
+            gameObject.SetActive(false);
+            AnimationEnded?.Invoke();
         }
     }
 }

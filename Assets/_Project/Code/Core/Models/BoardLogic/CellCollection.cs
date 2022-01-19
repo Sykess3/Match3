@@ -34,6 +34,20 @@ namespace _Project.Code.Core.Models.BoardLogic
         public bool TryGetCellAbove(Vector2 position, out Cell cellAbove) =>
             TryGetCell(position + Direction.North.GetVector2(), out cellAbove);
 
+        public bool IsStoneAbove(Vector2 position)
+        {
+            while (TryGetCellAbove(position, out Cell cellAbove))
+            {
+                if (cellAbove.Content.MatchType == ContentType.Stone)
+                    return true;
+
+                position = cellAbove.Position;
+
+            }
+
+            return false;
+        }
+
         public bool TryGetCellGoesDiagonallyUpwards(Vector2 position, Direction diagonalDirection, out Cell cellDiagonallyUpwards)
         {
             if (diagonalDirection == Direction.East)
@@ -51,7 +65,7 @@ namespace _Project.Code.Core.Models.BoardLogic
 
             bool TypeIsArgumentType(Cell cell)
             {
-                return cell.Content.Type == ofType;
+                return cell.Content.MatchType == ofType;
             }
         }
 
@@ -126,7 +140,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             while (true)
             {
                 if (!TryGetCellInDirectionRelativelyTo(current, direction, out var next) ||
-                    next?.Content.Type == toEndType)
+                    next?.Content.MatchType == toEndType)
                     yield break;
 
                 current = next;

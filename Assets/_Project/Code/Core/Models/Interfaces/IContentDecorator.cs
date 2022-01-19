@@ -4,6 +4,6 @@ namespace _Project.Code.Core.Models.Interfaces
 {
     public interface IContentDecorator
     {
-        CellContent Decorate(CellContent contentToDecorate, DecoratorType type);
+        CellContentBase Decorate(CellContentBase contentBaseToDecorate, DecoratorType type);
     }
 }

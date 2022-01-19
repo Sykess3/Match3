@@ -27,7 +27,7 @@ namespace _Project.Code.Core.Models.DataStructures
         }
 
         private void ReturnToPool(TReturn itemToReturn) =>
-            _content[itemToReturn.Type].Enqueue(itemToReturn);
+            _content[itemToReturn.MatchType].Enqueue(itemToReturn);
 
         private void AddObjects(TArg type, int count)
         {

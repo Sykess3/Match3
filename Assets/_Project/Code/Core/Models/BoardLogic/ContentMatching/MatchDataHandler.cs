@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
+using _Project.Code.Core.Models.BoardLogic.Gravity;
+using _Project.Code.Core.Models.BoardLogic.Spawner;
 
 namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 {
@@ -19,7 +21,6 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             _boardGravity = boardGravity;
             _spawner = spawner;
         }
-        
         public void Handle(MatchData matchData)
         {
             _currentMatchData = matchData;
@@ -40,7 +41,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 
         private void OnContentDestroy(object sender, EventArgs e)
         {
-            var cellContent = (CellContent) sender;
+            var cellContent = (CellContentBase) sender;
             cellContent.Disabled -= OnContentDestroy;
             
             _receivedMatchedCells++;
@@ -51,16 +52,10 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             
             _spawner.Spawn(_currentMatchData.ContentToSpawn);
 
-            FillContentOnEmptyCells();
+            var emptyCells = _currentMatchData.MatchedCellsWithoutDuplicatesInContentToSpawn.ToArray();
+            _boardGravity.FillContentOnEmptyCells(emptyCells);
 
             _receivedMatchedCells = 0;
-        }
-
-        private void FillContentOnEmptyCells()
-        {
-            var cellsToFillContent = _currentMatchData.MatchedCellsWithoutDuplicatesInContentToSpawn;
-            var sortedEmptyCells = cellsToFillContent.OrderBy(LinqArgs.YPosition).ToArray();
-            _boardGravity.FillContentOnEmptyCells(sortedEmptyCells);
         }
     }
 }
