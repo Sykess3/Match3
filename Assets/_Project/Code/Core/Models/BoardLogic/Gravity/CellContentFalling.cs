@@ -59,6 +59,10 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
                 if (contentStateInDiagonalFinding == FindingContentState.FoundMovable)
                 {
+                    if (filledDiagonalCell == null)
+                    {
+                        UnityEngine.Debug.Log("f");
+                    }
                     _mover.MoveCellContent(
                         @from: filledDiagonalCell,
                         to: emptyCell,
@@ -189,7 +193,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
                         westContentFindingState == FindingContentState.GenerateNew)
                     {
                         route = westRoute;
-                        return FindingContentState.FoundMovable;
+                        return westContentFindingState;
                     }
                     
                     if (westContentFindingState == FindingContentState.ImmovableDiagonalNeighbour ||

@@ -68,6 +68,46 @@ PrefabInstance:
       value: IceBlock_x2
       objectReference: {fileID: 0}
     - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _names.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _hashed.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _names.Array.data[0].AnimationName
+      value: from_2_to_3_block
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _names.Array.data[0].ParameterName
+      value: 2_to_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _names.Array.data[1].AnimationName
+      value: from_3_to_destroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _names.Array.data[1].ParameterName
+      value: 3_to_destroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _hashed.Array.data[0].AnimationName
+      value: -2066517281
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _hashed.Array.data[0].ParameterName
+      value: 1729545284
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _hashed.Array.data[1].AnimationName
+      value: -549846425
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _hashed.Array.data[1].ParameterName
+      value: -495134591
+      objectReference: {fileID: 0}
+    - target: {fileID: 6970489926875608427, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
       propertyPath: _animationParametersNames.Array.size
       value: 2
       objectReference: {fileID: 0}

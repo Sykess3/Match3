@@ -117,11 +117,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 6719252219280701101}
   _decoratedView: {fileID: 3281542007305333654}
-  _animationParametersNames:
-  - 1_to_2
-  - 2_to_3
-  - 3_to_destroy
-  _hashedAnimationParametersNames: 7c86859644c4166781d87ce2
+  _names:
+  - ParameterName: 1_to_2
+    AnimationName: from_1_to_2_block
+  - ParameterName: 2_to_3
+    AnimationName: from_2_to_3_block
+  - ParameterName: 3_to_destroy
+    AnimationName: from_3_to_destroy
+  _hashed:
+  - ParameterName: -1769634180
+    AnimationName: 1429908379
+  - ParameterName: 1729545284
+    AnimationName: -2066517281
+  - ParameterName: -495134591
+    AnimationName: -549846425
 --- !u!1 &6719252220670889913
 GameObject:
   m_ObjectHideFlags: 0

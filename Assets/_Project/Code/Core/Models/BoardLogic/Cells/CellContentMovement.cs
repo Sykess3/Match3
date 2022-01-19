@@ -13,7 +13,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         public async void MoveCellContent(Cell from, Cell to, Action callback = null)
         {
             var cachedContent = from.Content;
-            //TODO: NULLREF ABOVE
             await FallContent(
                 contentBaseToMove: from.Content,
                 targetCell: to,

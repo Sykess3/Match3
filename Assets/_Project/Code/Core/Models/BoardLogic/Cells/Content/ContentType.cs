@@ -76,9 +76,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
                 case ContentType.Yellow:
                     return ContentType.Upped_Yellow;
                 
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
+
+            if (contentType.IsUpped())
+                return contentType;
+
+            throw new ArgumentOutOfRangeException();
         }
 
         public static ContentType GetDefaultBombType(ContentType contentType)

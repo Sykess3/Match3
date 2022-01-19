@@ -7,17 +7,12 @@ namespace _Project.Code.Core.Views
     {
         public event Action AnimationEnded;
         public event Action Matched;
-        public event Action Destroying;
 
 
-        public void Match()
-        {
-            Matched?.Invoke();
-        }
+        public void Match() => Matched?.Invoke();
 
-        public void OnAnimationEnded()
-        {
-            AnimationEnded?.Invoke();
-        }
+        public void OnAnimationEnded() => AnimationEnded?.Invoke();
+
+        public void Destroy() => Destroy(gameObject);
     }
 }

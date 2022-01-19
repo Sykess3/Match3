@@ -52,10 +52,18 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             
             _spawner.Spawn(_currentMatchData.ContentToSpawn);
 
-            var emptyCells = _currentMatchData.MatchedCellsWithoutDuplicatesInContentToSpawn.ToArray();
+            var emptyCells = _currentMatchData
+                .MatchedCellsWithoutDuplicatesInContentToSpawn
+                .Where(NotDecorated).ToArray();
+            
             _boardGravity.FillContentOnEmptyCells(emptyCells);
 
             _receivedMatchedCells = 0;
+
+            bool NotDecorated(Cell x)
+            {
+                return x.Content.MatchType == ContentType.Empty;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Code.Core.Models.Framework;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells.Content

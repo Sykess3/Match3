@@ -22,7 +22,10 @@ namespace _Project.Code.Infrastructure.Factories
             _decoratorConfigs = decoratorConfigs.ToDictionary(x => x.Type, x => x);
             _parent = new GameObject("Decorators").transform;
         }
-
+        
+        /// <param name="contentBaseToDecorate"></param>
+        /// <param name="type"></param>
+        /// <returns>Last decorator</returns>
         public CellContentBase Decorate(CellContentBase contentBaseToDecorate, DecoratorType type)
         {
             if (type == DecoratorType.None)
@@ -31,30 +34,28 @@ namespace _Project.Code.Infrastructure.Factories
             var config = _decoratorConfigs[type];
 
             var view = _provider.Instantiate<Decorator_CellContentView>(config.Prefab, _parent);
-            var decoratedModel = DecorateModel(contentBaseToDecorate, type, config, view);
-            var contentDecoratorPresenter = new Decorated_CellContentViewPresenter(decoratedModel, view);
+            var decoratorsModels = DecorateModel(contentBaseToDecorate, type, config);
+            var contentDecoratorPresenter = new Decorator_CellContentViewPresenter(decoratorsModels, view);
 
-            return decoratedModel;
+            return decoratorsModels.Last();
         }
 
-        private static Decorator_CellContent DecorateModel(CellContentBase contentToDecorate, DecoratorType type,
-            IContentDecoratorConfig config, Decorator_CellContentView view)
+        private static Decorator_CellContent[] DecorateModel(CellContentBase contentToDecorate, DecoratorType type,
+            IContentDecoratorConfig config)
         {
             int packCount = type.PackCount();
-            var previousContent  = GetContentDecorator(contentToDecorate, view, config);
-            for (int i = 0; i < packCount - 1; i++)
+            Decorator_CellContent[] decorators = new Decorator_CellContent[packCount];
+            
+            var nextDecoratedModel = new Decorator_CellContent(contentToDecorate, config.Switchable);
+            decorators[0] = nextDecoratedModel;
+            for (int i = 1; i < packCount; i++)
             {
-                previousContent = GetContentDecorator(contentToDecorate: previousContent, view, config);
+                nextDecoratedModel = new Decorator_CellContent(nextDecoratedModel, config.Switchable);
+                decorators[i] = nextDecoratedModel;
             }
-            return previousContent;
-        }
 
-        private static Decorator_CellContent GetContentDecorator(CellContentBase contentToDecorate,
-            Decorator_CellContentView view, IContentDecoratorConfig config)
-        {
-            var decorator = new Decorator_CellContent(contentToDecorate, config.Switchable);
-            new Decorated_CellContentViewPresenter(decorator, view);
-            return decorator;
+            return decorators;
         }
+        
     }
 }

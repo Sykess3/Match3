@@ -11,8 +11,8 @@ namespace _Project.Code.Core.Views.Animation
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             FindStateReader(animator);
-            
-            _stateReader.EnteredState(stateInfo.shortNameHash);
+
+            _stateReader.EnteredState(stateInfo.shortNameHash, stateInfo.length);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo,
@@ -20,8 +20,8 @@ namespace _Project.Code.Core.Views.Animation
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
             FindStateReader(animator);
-            
-            _stateReader.ExitedState(stateInfo.shortNameHash);
+
+            _stateReader.ExitedState(stateInfo.shortNameHash, stateInfo.length);
         }
 
         private void FindStateReader(Animator animator)

@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
+using _Project.Code.Core.Models.Framework;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells

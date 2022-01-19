@@ -32,13 +32,13 @@ MonoBehaviour:
     DecoratorType: 0
   - Position: {x: -4, y: 1}
     IsStone: 1
-    DecoratorType: 0
+    DecoratorType: 1
   - Position: {x: -4, y: 2}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 2
   - Position: {x: -4, y: 3}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 3
   - Position: {x: -4, y: 4}
     IsStone: 0
     DecoratorType: 0
