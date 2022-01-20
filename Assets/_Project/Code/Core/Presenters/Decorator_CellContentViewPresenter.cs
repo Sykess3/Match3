@@ -25,7 +25,6 @@ namespace _Project.Code.Core.Presenters
         private void SubscribeInternal(Decorator_CellContent model)
         {
             model.Matched += View.Match;
-            ;
             model.PositionChanged += SyncPosition;
             View.AnimationEnded += OnAnimationEnded;
             View.Destroyed += model.Disable;
@@ -37,7 +36,7 @@ namespace _Project.Code.Core.Presenters
             model.PositionChanged -= SyncPosition;
             View.AnimationEnded -= OnAnimationEnded;
             View.Destroyed -= model.Disable;
-        }//TODO: Уменньшить длительность анимации декоратора
+        }
 
         private void OnAnimationEnded()
         {

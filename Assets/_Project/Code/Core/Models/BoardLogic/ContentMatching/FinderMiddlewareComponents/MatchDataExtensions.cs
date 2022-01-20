@@ -13,10 +13,14 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
 
             HashSet<ContentToSpawn> contentToSpawn = new HashSet<ContentToSpawn>(first.ContentToSpawn);
             contentToSpawn.UnionWith(second.ContentToSpawn);
+
+            HashSet<Cell> decoratedCells = new HashSet<Cell>(first.Decorators);
+            decoratedCells.UnionWith(second.Decorators);
             return new MatchData
             {
                 MatchedCells = matchedCells,
-                ContentToSpawn = contentToSpawn
+                ContentToSpawn = contentToSpawn,
+                Decorators =  decoratedCells
             };
         }
     }

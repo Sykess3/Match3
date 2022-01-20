@@ -8,7 +8,9 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         public HashSet<ContentToSpawn> ContentToSpawn { get; set; } = new HashSet<ContentToSpawn>();
         public HashSet<Cell> MatchedCells { get; set; } = new HashSet<Cell>();
 
-        public HashSet<Cell> MatchedCellsWithoutDuplicatesInContentToSpawn
+        public HashSet<Cell> Decorators { get; set; } = new HashSet<Cell>();
+
+        public HashSet<Cell> CellsToFill
         {
             get
             {

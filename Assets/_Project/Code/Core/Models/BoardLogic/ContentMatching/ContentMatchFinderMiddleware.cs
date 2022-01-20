@@ -13,16 +13,19 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         private readonly DefaultContentMatchFinder _defaultContentMatchFinder;
         private readonly UppedContentMatchFinder _uppedContentMatchFinder;
         private readonly BombMatchFinder _bombMatchFinder;
+        private readonly DecoratorsFinder _decoratorsFinder;
 
         public ContentMatchFinderMiddleware(CellCollection cells,
             DefaultContentMatchFinder defaultContentMatchFinder,
             UppedContentMatchFinder uppedContentMatchFinder,
-            BombMatchFinder bombMatchFinder)
+            BombMatchFinder bombMatchFinder,
+            DecoratorsFinder decoratorsFinder)
         {
             _cells = cells;
             _defaultContentMatchFinder = defaultContentMatchFinder;
             _uppedContentMatchFinder = uppedContentMatchFinder;
             _bombMatchFinder = bombMatchFinder;
+            _decoratorsFinder = decoratorsFinder;
         }
 
         public MatchData FindMatch(Cell cell)
@@ -42,33 +45,18 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
 
             _uppedContentMatchFinder.OpenExistingUppedContent(matchedCells);
 
-            var matchData = new MatchData
-            {
-                MatchedCells = matchedCells,
-                ContentToSpawn = resultContentToSpawn
-            };
-
-            return GetSortedMatchData(matchData);
-        }
-
-        private MatchData GetSortedMatchData(MatchData matchData)
-        {
-            var dataToSort = matchData.MatchedCells;
-            dataToSort
-                .OrderBy(IsStoneAbove)
-                .OrderBy(LinqArgs.YPosition);
+            HashSet<Cell> decoratedCells = _decoratorsFinder.Filter(matchedCells);
+            HashSet<Cell> decoratedNeighbours = _decoratorsFinder.FindDecoratedNeighboursOf(matchedCells);
+            decoratedCells.UnionWith(decoratedNeighbours);
 
             return new MatchData
             {
-                MatchedCells = dataToSort,
-                ContentToSpawn = matchData.ContentToSpawn
+                MatchedCells = matchedCells,
+                ContentToSpawn = resultContentToSpawn,
+                Decorators = decoratedCells 
             };
-
-            bool IsStoneAbove(Cell x)
-            {
-                return _cells.IsStoneAbove(x.Position);
-            }
         }
+
 
         public MatchData FindMatchesByWholeBoard()
         {

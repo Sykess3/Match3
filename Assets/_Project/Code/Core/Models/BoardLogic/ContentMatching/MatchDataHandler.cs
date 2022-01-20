@@ -28,6 +28,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
                 return;
 
             MatchContent(matchData.MatchedCells);
+            HitDecorators(matchData.Decorators);
         }
 
         private void MatchContent(HashSet<Cell> cellToMatchContent)
@@ -37,6 +38,12 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
                 cell.Content.Disabled += OnContentDestroy;
                 cell.MatchContent();
             }
+        }
+
+        private void HitDecorators(HashSet<Cell> decorators)
+        {
+            foreach (var cell in decorators) 
+                cell.MatchContent();
         }
 
         private void OnContentDestroy(object sender, EventArgs e)
@@ -53,17 +60,12 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             _spawner.Spawn(_currentMatchData.ContentToSpawn);
 
             var emptyCells = _currentMatchData
-                .MatchedCellsWithoutDuplicatesInContentToSpawn
-                .Where(NotDecorated).ToArray();
+                .CellsToFill
+                .ToArray();
             
             _boardGravity.FillContentOnEmptyCells(emptyCells);
 
             _receivedMatchedCells = 0;
-
-            bool NotDecorated(Cell x)
-            {
-                return x.Content.MatchType == ContentType.Empty;
-            }
         }
     }
 }

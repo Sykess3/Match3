@@ -84,7 +84,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             return cells;
         }
 
-        public IEnumerable<Cell> GetNeighboursOf(Cell cell)
+        public List<Cell> GetNeighboursOf(Cell cell)
         {
             var neighbours = new List<Cell>(4);
 

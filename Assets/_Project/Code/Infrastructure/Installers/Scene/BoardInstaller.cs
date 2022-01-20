@@ -46,7 +46,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
 
             MovementBindings();
 
-            MatchBindings();
+            MatchFinderMiddlewareBindings();
 
             Container
                 .Bind<SwapCommandHandler>()
@@ -78,7 +78,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .AsCached();
         }
 
-        private void MatchBindings()
+        private void MatchFinderMiddlewareBindings()
         {
             // Container
             //     .Bind<IContentMatchFinder>()
@@ -103,6 +103,10 @@ namespace _Project.Code.Infrastructure.Installers.Scene
 
             Container
                 .Bind<BombMatchFinder>()
+                .AsSingle();
+
+            Container
+                .Bind<DecoratorsFinder>()
                 .AsSingle();
         }
     }
