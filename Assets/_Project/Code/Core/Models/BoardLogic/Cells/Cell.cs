@@ -44,5 +44,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         }
         
         private void OnContentStartedMovement() => ContentStartedMovement?.Invoke(this, EventArgs.Empty);
+
+        public void Select() => _content.Select();
+
+        public void Deselect() => _content.Deselect();
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Gravity
 {
+    // Bullshit refactors this
     public class CellContentFalling : ICellContentFalling
     {
         private const int YMinSpawnPosition = 5;
@@ -31,7 +32,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
         {
             _isResetSpawnPositions = false;
 
-            var aboveContentType = GetFilledCellAbove(emptyCell.Position, out Cell filledAboveCell);
+            var aboveContentType = GetFilledCellAbove(emptyCell.Position, out Cell filledAboveCell,
+                out Vector2 beforeImmovablePos);
 
             if (aboveContentType == FindingContentState.FoundMovable)
             {
@@ -51,18 +53,16 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
             if (aboveContentType == FindingContentState.FoundImmovable)
             {
+                ContentRoute route = new ContentRoute(targetPosition: emptyCell.Position);
+
                 var contentStateInDiagonalFinding = GetFilledCellInDiagonal(emptyCell.Position,
-                    out Cell filledDiagonalCell, out ContentRoute route);
+                    out Cell filledDiagonalCell, out route, route);
 
                 if (contentStateInDiagonalFinding == FindingContentState.DoesNotExist)
                     return false;
 
                 if (contentStateInDiagonalFinding == FindingContentState.FoundMovable)
                 {
-                    if (filledDiagonalCell == null)
-                    {
-                        UnityEngine.Debug.Log("f");
-                    }
                     _mover.MoveCellContent(
                         @from: filledDiagonalCell,
                         to: emptyCell,
@@ -115,13 +115,13 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
                 onLandedCallback?.Invoke(to);
             }
-        } 
-        
+        }
+
         private void GenerateNew(Cell to, ContentRoute route, Action<Cell> onLandedCallback)
         {
             int xIndexOnMatrixOfEmptyCell = Mathf.RoundToInt(route.StartPoint().x + Constant.Board.OffsetFromCenter.x);
             var randomContent = _contentGenerator.Generate(
-                new Vector2(to.Position.x, _ySpawnPositions[xIndexOnMatrixOfEmptyCell]));
+                new Vector2(route.StartPoint().x, _ySpawnPositions[xIndexOnMatrixOfEmptyCell]));
 
             _mover.MoveCellContent(
                 contentBaseToMove: randomContent,
@@ -146,23 +146,35 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
 
         private FindingContentState GetFilledCellInDiagonal(Vector2 emptyCellPosition, out Cell resultCell,
-            out ContentRoute route)
+            out ContentRoute route, ContentRoute beginOfRoute = null)
         {
             bool continueFindInWest = true;
             Vector2 westPosition = emptyCellPosition;
-            ContentRoute westRoute = new ContentRoute(targetPosition: emptyCellPosition);
-
+            
             bool continueFindInEast = true;
             Vector2 eastPosition = emptyCellPosition;
-            ContentRoute eastRoute = new ContentRoute(targetPosition: emptyCellPosition);
+            
+            ContentRoute westRoute;
+            ContentRoute eastRoute;
+            if (beginOfRoute != null)
+            {
+                westRoute = new ContentRoute(targetPosition: emptyCellPosition, beginOfRoute);
+                eastRoute = new ContentRoute(targetPosition: emptyCellPosition, beginOfRoute);
+            }
+            else
+            {
+                westRoute = new ContentRoute(targetPosition: emptyCellPosition);
+                eastRoute = new ContentRoute(targetPosition: emptyCellPosition);
+            }
+
             while (continueFindInWest || continueFindInEast)
             {
                 if (continueFindInEast)
                 {
                     FindingContentState eastContentFindingState =
                         GetCellFromDiagonallyUpwardNeighbourOrNeighboursAboveCell(eastPosition, Direction.East,
-                            out resultCell);
-                    
+                            out resultCell, out Vector2 beforeImmovablePos);
+
                     eastPosition += new Vector2(1, 1);
                     eastRoute.AddPoint(eastPosition);
 
@@ -184,8 +196,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
                 {
                     FindingContentState westContentFindingState =
                         GetCellFromDiagonallyUpwardNeighbourOrNeighboursAboveCell(westPosition, Direction.West,
-                            out resultCell);
-                    
+                            out resultCell, out Vector2 beforeImmovablePos);
+
                     westPosition += new Vector2(-1, 1);
                     westRoute.AddPoint(westPosition);
 
@@ -195,13 +207,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
                         route = westRoute;
                         return westContentFindingState;
                     }
-                    
+
                     if (westContentFindingState == FindingContentState.ImmovableDiagonalNeighbour ||
                         westContentFindingState == FindingContentState.BeyondTheBoard)
                     {
                         continueFindInWest = false;
                     }
-                    
                 }
             }
 
@@ -212,8 +223,11 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
         private FindingContentState GetCellFromDiagonallyUpwardNeighbourOrNeighboursAboveCell(
             in Vector2 emptyCellPosition,
-            Direction upwardDirection, out Cell resultCell)
+            Direction upwardDirection,
+            out Cell resultCell,
+            out Vector2 beforeImmovablePos)
         {
+            beforeImmovablePos = Vector2.positiveInfinity;
             resultCell = null;
             if (_cellCollection.TryGetCellGoesDiagonallyUpwards(emptyCellPosition, upwardDirection,
                 out Cell cell))
@@ -221,21 +235,23 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
                 bool contentIsImmovable = !cell.Content.Switchable && cell.Content.MatchType != ContentType.Empty;
                 if (contentIsImmovable)
                     return FindingContentState.ImmovableDiagonalNeighbour;
-                
+
                 if (cell.Content.MatchType != ContentType.Empty && !cell.Content.IsFalling)
                 {
                     resultCell = cell;
                     return FindingContentState.FoundMovable;
                 }
 
-                return GetFilledCellAbove(cell.Position, out resultCell);
+                return GetFilledCellAbove(cell.Position, out resultCell, out beforeImmovablePos);
             }
 
             return FindingContentState.BeyondTheBoard;
         }
 
-        private FindingContentState GetFilledCellAbove(in Vector2 position, out Cell filledCell)
+        private FindingContentState GetFilledCellAbove(in Vector2 position, out Cell filledCell,
+            out Vector2 beforeImmovablePos)
         {
+            beforeImmovablePos = Vector2.positiveInfinity;
             filledCell = null;
             var currentPosition = position;
             while (_cellCollection.TryGetCellAbove(currentPosition, out var cellAbove))
@@ -253,6 +269,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
                     return FindingContentState.FoundMovable;
                 }
 
+                beforeImmovablePos = currentPosition + new Vector2(0, -1);
                 return FindingContentState.FoundImmovable;
             }
 

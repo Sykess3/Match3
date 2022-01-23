@@ -23,6 +23,10 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
 
         public event Action Matched;
 
+        public event Action Selected;
+
+        public event Action Deselected;
+
         public bool IsFalling
         {
             get => _isFalling;
@@ -48,6 +52,9 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             MatchType = matchType;
             Switchable = switchable;
         }
+
+        public void Deselect() => Deselected?.Invoke();
+        public void Select() => Selected?.Invoke();
 
         public CellContentBase Match()
         {

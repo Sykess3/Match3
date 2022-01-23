@@ -18,13 +18,15 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
         public BoardGravity(
             ICellContentFalling contentFalling,
-            IPlayerInput playerInput, ICoroutineRunner coroutineRunner)
+            IPlayerInput playerInput, 
+            ICoroutineRunner coroutineRunner,
+            CellCollection cellCollection)
         {
             _contentFalling = contentFalling;
             _playerInput = playerInput;
             _coroutineRunner = coroutineRunner;
 
-            _cellsToFill = new SortedList<Cell>(new ByYCellPosition());
+            _cellsToFill = new SortedList<Cell>(new ByYCellPosition(cellCollection));
         }
 
 
@@ -144,14 +146,15 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
         public bool Remove(T item)
         {
-            int index = IndexOf(item);
-            if (index >= 0)
-            {
-                m_innerList.RemoveAt(index);
-                return true;
-            }
+            // int index = IndexOf(item);
+            // if (index >= 0)
+            // {
+            //     m_innerList.RemoveAt(index);
+            //     return true;
+            // }
 
-            return false;
+            m_innerList.Remove(item);
+            return true;
         }
 
         public void RemoveAt(int index)
@@ -245,10 +248,30 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
 
     public class ByYCellPosition : Comparer<Cell>
     {
+        private readonly CellCollection _cellCollection;
+
+        public ByYCellPosition(CellCollection cellCollection)
+        {
+            _cellCollection = cellCollection;
+        }
+
         public override int Compare(Cell x, Cell y)
         {
             if (x.Position.y > y.Position.y)
                 return 1;
+
+            if (x.Position.y == y.Position.y)
+            {
+                bool isStoneAboveX = _cellCollection.IsStoneAbove(x.Position);
+                bool isStoneAboveY = _cellCollection.IsStoneAbove(y.Position);
+                if (isStoneAboveX && isStoneAboveY)
+                    return 0;
+
+                if (isStoneAboveX)
+                    return 1;
+                
+                return -1;
+            }
 
             if (x.Position.y < y.Position.y)
                 return -1;

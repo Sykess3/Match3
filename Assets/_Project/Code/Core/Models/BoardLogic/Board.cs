@@ -72,6 +72,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         {
             foreach (var cell in matchData.MatchedCells) 
                 ContentMatched?.Invoke(cell.Content);
+            
             _matchDataHandler.Handle(matchData);
         }
         

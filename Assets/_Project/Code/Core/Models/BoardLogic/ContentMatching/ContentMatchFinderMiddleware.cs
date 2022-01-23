@@ -61,6 +61,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         public MatchData FindMatchesByWholeBoard()
         {
             HashSet<Cell> allMatched = new HashSet<Cell>();
+            HashSet<Cell> decorators = new HashSet<Cell>();
             HashSet<ContentToSpawn> contentToSpawn = new HashSet<ContentToSpawn>();
             foreach (var cell in _cells.GetAll())
             {
@@ -70,13 +71,15 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
                 {
                     allMatched.UnionWith(current.MatchedCells);
                     contentToSpawn.UnionWith(current.ContentToSpawn);
+                    decorators.UnionWith(current.Decorators);
                 }
             }
 
             return new MatchData
             {
                 MatchedCells = allMatched,
-                ContentToSpawn = contentToSpawn
+                ContentToSpawn = contentToSpawn,
+                Decorators = decorators
             };
         }
     }

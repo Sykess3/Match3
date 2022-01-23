@@ -22,6 +22,9 @@ namespace _Project.Code.Core.Presenters
             Model.Matched += View.Match;
             Model.PositionChanged += SyncPosition;
             Model.Enabled += View.Enable;
+            Model.Selected += View.Select;
+            Model.Deselected += View.Deselect;
+            
             View.AnimationEnded += Model.Disable;
         }
 
@@ -30,6 +33,9 @@ namespace _Project.Code.Core.Presenters
             Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;
             Model.Enabled -= View.Enable;
+            Model.Selected -= View.Select;
+            Model.Deselected -= View.Deselect;
+            
             View.AnimationEnded -= Model.Disable;
         }
         

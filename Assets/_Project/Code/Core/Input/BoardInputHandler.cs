@@ -34,6 +34,11 @@ namespace _Project.Code.Core.Input
         {
             if (_board.TryGetCell(position, out var cell))
             {
+                if (_selectedCell == cell)
+                    return;
+
+                cell.Select();
+
                 if (!cell.Content.Switchable)
                     return;
 
@@ -43,8 +48,11 @@ namespace _Project.Code.Core.Input
                     return;
                 }
 
-                if (IsNeighbourOfSelectedCell(cell) && _selectedCell != cell && cell.Content.Switchable)
+                _selectedCell.Deselect();
+
+                if (IsNeighbourOfSelectedCell(cell) && cell.Content.Switchable)
                 {
+                    cell.Deselect();
                     _board.TryMatch(
                         new SwapCommand(
                             firstCell: _selectedCell,
@@ -59,7 +67,7 @@ namespace _Project.Code.Core.Input
 
         private bool IsNeighbourOfSelectedCell(Cell cell)
         {
-            var cellNeighbours= _board.GetNeighboursOf(cell);
+            var cellNeighbours = _board.GetNeighboursOf(cell);
             return cellNeighbours.Any(neighbour => neighbour == _selectedCell);
         }
     }

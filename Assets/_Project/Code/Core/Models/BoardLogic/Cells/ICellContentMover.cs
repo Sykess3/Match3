@@ -13,11 +13,11 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         void MoveCellContent(CellContentBase contentBaseToMove, Cell to, Action callback = null);
 
         void MoveCellContent(Cell @from, Cell to, ContentRoute route, Action callback = null);
-        
+
         void MoveCellContent(CellContentBase contentBaseToMove, Cell to, ContentRoute route, Action callback = null);
     }
-    
-    public class ContentRoute 
+
+    public class ContentRoute
     {
         private readonly Stack<Vector2> _points;
 
@@ -26,6 +26,12 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells
         public ContentRoute(Vector2 targetPosition)
         {
             _points = new Stack<Vector2>();
+            _points.Push(targetPosition);
+        }
+
+        public ContentRoute(Vector2 targetPosition, ContentRoute routeToMerge)
+        {
+            _points = new Stack<Vector2>(routeToMerge._points);
             _points.Push(targetPosition);
         }
 

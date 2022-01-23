@@ -8,15 +8,21 @@ namespace _Project.Code.Core.Views
     [SelectionBase]
     public class CellContentView : View, ICellContentView
     {
+        public event Action Selected;
         public event Action AnimationEnded;
         public event Action Enabled;
         public event Action Matched;
+
+        public event Action Deselected;
         
         public void Enable()
         {
             gameObject.SetActive(true);
             Enabled?.Invoke();
         }
+
+        public void Select() => Selected?.Invoke();
+        public void Deselect() => Deselected?.Invoke();
 
         public void Match() => Matched?.Invoke();
         
