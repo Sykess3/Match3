@@ -80,13 +80,6 @@ namespace _Project.Code.Infrastructure.Installers.Scene
 
         private void MatchFinderMiddlewareBindings()
         {
-            // Container
-            //     .Bind<IContentMatchFinder>()
-            //     .To<ContentMatchFinderMiddleware>()
-            //     .FromSubContainerResolve()
-            //     .ByInstaller<MatchFinderMiddlewareInstaller>()
-            //     .AsSingle();
-            //TODO: Make this with subcontainers
 
             Container
                 .Bind<IContentMatchFinder>()

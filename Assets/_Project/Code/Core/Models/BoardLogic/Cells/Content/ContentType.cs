@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
 {
@@ -43,17 +44,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
                    contentType == ContentType.Yellow;
         }
 
-        public static ContentType GetDefault(this ContentType contentType)
-        {
-            if (contentType.IsBomb())
-                return GetDefaultBombType(contentType);
-            
-            if (contentType.IsUpped())
-                return GetDefaultUppedType(contentType);
-
-            return contentType;
-        }
-
         public static ContentType GetUppedContent(this ContentType contentType)
         {
             switch (contentType)
@@ -63,19 +53,18 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
 
                 case ContentType.Blue:
                     return ContentType.Upped_Blue;
-                
+
                 case ContentType.Orange:
                     return ContentType.Upped_Orange;
-                
+
                 case ContentType.Purple:
                     return ContentType.Upped_Purple;
-                
+
                 case ContentType.Green:
                     return ContentType.Upped_Green;
-                
+
                 case ContentType.Yellow:
                     return ContentType.Upped_Yellow;
-                
             }
 
             if (contentType.IsUpped())
@@ -166,6 +155,39 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             var numberInChar = decoratorInString[decoratorInString.Length - 1];
             return numberInChar.ToInt();
         }
+
+        public static ContentType GetAnother(this ContentType contentType)
+        {
+            int subTypeCount = 6;
+            int firstTypeId = GetFirstTypeId(contentType); 
+            int lastTypeIdExclusive = firstTypeId + subTypeCount;
+
+            ContentType resultType = GetRandom();
+            while (resultType == contentType) 
+                resultType = GetRandom();
+
+            return resultType;
+            
+            ContentType GetRandom()
+            {
+                return (ContentType)(UnityEngine.Random.Range(firstTypeId, lastTypeIdExclusive));
+            }
+        }
+
+        public static int GetFirstTypeId(this ContentType contentType)
+        {
+            if (contentType.IsDefault())
+                return (int) ContentType.Red;
+
+            if (contentType.IsUpped())
+                return (int) ContentType.Upped_Red;
+
+            if (contentType.IsBomb())
+                return (int) ContentType.Bomb_Red;
+
+            throw new ArgumentException();
+        }
+        
 
         private static int ToInt(this char character) => character - '0';
     }

@@ -72,8 +72,15 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             return matchedCells;
         }
         
-        private static bool NextCellCanNotBeMatchedWithInitialCell(Cell cell, Cell nextCell) => 
-            cell.Content.MatchableContent.All(x => x != nextCell.Content.MatchType);
+        private static bool NextCellCanNotBeMatchedWithInitialCell(Cell cell, Cell nextCell)
+        {
+            return cell.Content.MatchableContent.All(AnyContainsInMatchType);
+
+            bool AnyContainsInMatchType(ContentType x)
+            {
+                return x != nextCell.Content.MatchType;
+            }
+        }
 
         private bool NextCellNotStone(Vector2 nextContentPosition, out Cell nextCell) => 
             _cells.TryGetCell(nextContentPosition, out nextCell) && nextCell.Content.MatchType != ContentType.Stone;

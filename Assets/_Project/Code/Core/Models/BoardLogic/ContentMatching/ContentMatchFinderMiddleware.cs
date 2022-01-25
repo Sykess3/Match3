@@ -14,7 +14,6 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
         private readonly UppedContentMatchFinder _uppedContentMatchFinder;
         private readonly BombMatchFinder _bombMatchFinder;
         private readonly DecoratorsFinder _decoratorsFinder;
-
         public ContentMatchFinderMiddleware(CellCollection cells,
             DefaultContentMatchFinder defaultContentMatchFinder,
             UppedContentMatchFinder uppedContentMatchFinder,
@@ -28,6 +27,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching
             _decoratorsFinder = decoratorsFinder;
         }
 
+        
         public MatchData FindMatch(Cell cell)
         {
             DefaultContentMatchFinder.MatchData defaultMatchData = _defaultContentMatchFinder.Find(cell);
