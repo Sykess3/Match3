@@ -1,7 +1,7 @@
 ﻿using _Project.Code.Core.Models.BoardLogic;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces.Configs;
-using _Project.Code.Infrastructure.Services;
+using _Project.Code.Infrastructure.Loading;
 using _Project.Code.Meta.Models;
 using _Project.Code.Meta.Models.Hud;
 using _Project.Code.Meta.Presenters.Hud;

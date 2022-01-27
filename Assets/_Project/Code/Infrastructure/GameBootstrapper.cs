@@ -1,30 +1,31 @@
-using _Project.Code.Infrastructure.GameStates;
+using _Project.Code.Infrastructure.Loading;
 using Zenject;
 
 namespace _Project.Code.Infrastructure
 {
     public class GameBootstrapper : IInitializable
     {
-        private readonly GameStateMachine _stateMachine;
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly SceneLoader _sceneLoader;
+        private readonly LevelLoader _levelLoader;
         private readonly Settings _settings;
+        private readonly IPersistentProgressLoader _persistentProgress;
 
-        public GameBootstrapper(GameStateMachine stateMachine, 
-            LoadingCurtain loadingCurtain, 
-            SceneLoader sceneLoader,
-            Settings settings)
+        public GameBootstrapper(LoadingCurtain loadingCurtain, 
+            LevelLoader levelLoader,
+            Settings settings,
+            IPersistentProgressLoader persistentProgress)
         {
-            _stateMachine = stateMachine;
             _loadingCurtain = loadingCurtain;
-            _sceneLoader = sceneLoader;
+            _levelLoader = levelLoader;
             _settings = settings;
+            _persistentProgress = persistentProgress;
         }
         public void Initialize()
         {
             _loadingCurtain.Show();
-            _stateMachine.Enter<Load_ProgressState>();
-            _sceneLoader.Load(_settings.FirstSceneToLoad);
+            _persistentProgress.Load(onLoaded: LoadFirstScene);
         }
+
+        private void LoadFirstScene() => _levelLoader.Load(_settings.FirstSceneToLoad);
     }
 }

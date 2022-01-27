@@ -5,7 +5,7 @@ using _Project.Code.Core.Configs;
 using _Project.Code.Core.Models;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Infrastructure.Factories;
-using _Project.Code.Infrastructure.Services;
+using _Project.Code.Infrastructure.Loading;
 using UnityEngine;
 using Zenject;
 
@@ -17,8 +17,7 @@ namespace _Project.Code.Infrastructure.Installers.Project
 
         public override void InstallBindings()
         {
-            ProvidersInstaller.Install(Container);
-            StateMachineInstaller.Install(Container);
+            LoadInstaller.Install(Container);
 
             Container
                 .BindInterfacesTo<GameBootstrapper>()
@@ -40,14 +39,13 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .AsSingle();
 
             Container
-                .Bind<SceneLoader>()
+                .Bind<LevelLoader>()
                 .AsSingle();
 
             Container
-                .Bind<ISceneLoader>()
-                .To<InternalSceneLoader>()
+                .Bind<IUnitySceneLoader>()
+                .To<UnitySceneLoader>()
                 .AsSingle();
-            
         }
         
     }

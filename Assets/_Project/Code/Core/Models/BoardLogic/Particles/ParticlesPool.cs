@@ -3,7 +3,7 @@ using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.DataStructures;
 using _Project.Code.Core.Models.Interfaces.Configs;
-using _Project.Code.Infrastructure.Services;
+using _Project.Code.Infrastructure.Loading;
 using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Particles

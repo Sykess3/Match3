@@ -17,6 +17,7 @@ using _Project.Code.Core.Views;
 using _Project.Code.Infrastructure.Factories;
 using _Project.Code.Infrastructure.Factories.Core;
 using _Project.Code.Infrastructure.Installers.Factories;
+using _Project.Code.Infrastructure.Installers.Factories.Core;
 using UnityEngine;
 using Zenject;
 

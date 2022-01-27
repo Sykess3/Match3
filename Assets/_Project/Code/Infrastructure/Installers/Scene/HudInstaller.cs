@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Code.Infrastructure.Factories.Meta.Hud;
+using _Project.Code.Infrastructure.Installers.Factories.Meta;
 using _Project.Code.Meta.Models;
 using _Project.Code.Meta.Models.Hud;
 using _Project.Code.Meta.Views.Hud;

@@ -1,0 +1,263 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5565b6ead7ee4136baeaefc1e94f6a1a, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  _levelContentConfigs: {fileID: 11400000, guid: 678f3ca2873dfa6428045ea6bef642b3, type: 2}
+  _levelDecoratorsConfigs: {fileID: 11400000, guid: 60babe0a378641045989d71578eb1d92, type: 2}
+  _levelGoalAndStepsCount:
+    Member1: {fileID: 11400000, guid: 2debea81ed78e124ebd36c1b2f909b33, type: 2}
+    Member2: 20
+  _contentEditorSettings:
+  - Position: {x: -4, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -4, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -4, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -4, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -4, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -4, y: 1}
+    IsStone: 1
+    DecoratorType: 1
+  - Position: {x: -4, y: 2}
+    IsStone: 0
+    DecoratorType: 2
+  - Position: {x: -4, y: 3}
+    IsStone: 0
+    DecoratorType: 3
+  - Position: {x: -4, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: 1}
+    IsStone: 1
+    DecoratorType: 0
+  - Position: {x: -3, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -3, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: 1}
+    IsStone: 1
+    DecoratorType: 0
+  - Position: {x: -2, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -2, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: 1}
+    IsStone: 1
+    DecoratorType: 0
+  - Position: {x: -1, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: -1, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: 1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 0, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: 1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 1, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: 1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 2, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: 1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 3, y: 4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: -4}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: -3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: -2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: -1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: 0}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: 1}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: 2}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: 3}
+    IsStone: 0
+    DecoratorType: 0
+  - Position: {x: 4, y: 4}
+    IsStone: 0
+    DecoratorType: 0

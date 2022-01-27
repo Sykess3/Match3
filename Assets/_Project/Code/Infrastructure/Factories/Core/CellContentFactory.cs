@@ -7,7 +7,7 @@ using _Project.Code.Core.Models.Interfaces;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
-using _Project.Code.Infrastructure.Services;
+using _Project.Code.Infrastructure.Loading;
 using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Factories.Core
