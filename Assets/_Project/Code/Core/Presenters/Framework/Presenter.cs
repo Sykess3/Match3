@@ -1,6 +1,8 @@
 using System;
 using _Project.Code.Core.Models.Framework;
 using _Project.Code.Core.Views.Framework;
+using _Project.Code.Meta.Models;
+using _Project.Code.Meta.Views;
 
 namespace _Project.Code.Core.Presenters.Framework
 {
@@ -13,7 +15,6 @@ namespace _Project.Code.Core.Presenters.Framework
 
         protected readonly TView View;
 
-        public event EventHandler Destroyed;
 
         protected Presenter(TModel model, TView view)
         {
@@ -32,7 +33,7 @@ namespace _Project.Code.Core.Presenters.Framework
             View.Created += OnCreate;
             View.Destroyed += OnDestroy;
         }
-
+        
 
         private void OnCreate()
         {
@@ -40,11 +41,7 @@ namespace _Project.Code.Core.Presenters.Framework
             OnStart();
         }
 
-        private void OnDestroy()
-        {
-            UnSubscribe();
-            Destroyed?.Invoke(this, EventArgs.Empty);
-        }
+        private void OnDestroy() => CleanUp();
 
         private bool UnityCallBackFunctionsContractIsCorrect<TModel_, TView_>(out TModel_ upcastedModel,
             out TView_ upcastedView)
@@ -62,7 +59,7 @@ namespace _Project.Code.Core.Presenters.Framework
             return false;
         }
 
-        protected virtual void UnSubscribe()
+        protected virtual void CleanUp()
         {
         }
 

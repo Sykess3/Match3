@@ -11,24 +11,23 @@ using Zenject;
 
 namespace _Project.Code.Core.Input
 {
-    public class BoardInputHandler : MonoBehaviour
+    public class BoardInputHandler : IInitializable, IDisposable
     {
-        private IPlayerInput _input;
-        private Board _board;
+        private readonly IPlayerInput _input;
+        private readonly Board _board;
         private Cell _selectedCell;
 
-        [Inject]
-        private void Construct(
-            IPlayerInput input,
-            Board board)
+        public event Action Swapped;
+
+        public BoardInputHandler(Board board, IPlayerInput input)
         {
-            _input = input;
             _board = board;
+            _input = input;
         }
 
-        private void Start() => _input.ClickedOnPosition += InputOnClickedOnPosition;
+        void IInitializable.Initialize() => _input.ClickedOnPosition += InputOnClickedOnPosition;
 
-        private void OnDestroy() => _input.ClickedOnPosition -= InputOnClickedOnPosition;
+        void IDisposable.Dispose() => _input.ClickedOnPosition -= InputOnClickedOnPosition;
 
         private void InputOnClickedOnPosition(Vector2 position)
         {
@@ -56,7 +55,7 @@ namespace _Project.Code.Core.Input
                     _board.TryMatch(
                         new SwapCommand(
                             firstCell: _selectedCell,
-                            secondCell: cell));
+                            secondCell: cell), OnSpawnSucceed);
                     _selectedCell = null;
                     return;
                 }
@@ -64,6 +63,8 @@ namespace _Project.Code.Core.Input
                 _selectedCell = cell;
             }
         }
+
+        private void OnSpawnSucceed() => Swapped?.Invoke();
 
         private bool IsNeighbourOfSelectedCell(Cell cell)
         {

@@ -34,7 +34,7 @@ namespace _Project.Code.Core.Models
         private const int DefaultSubTypesCount = 6;
 
 
-        public static Dictionary<GenericContentType, float> CalculateGenericChances(ContentType[] all)
+        public static Dictionary<GenericContentType, float> CalculateGenericChances(DefaultContentType[] all)
         {
             var genericContentTypes = GetGenericTypesOf(all);
             float sum = 0;
@@ -57,13 +57,13 @@ namespace _Project.Code.Core.Models
             Bomb
         }
 
-        public static GenericContentType GetGenericType(ContentType contentType)
+        public static GenericContentType GetGenericType(DefaultContentType defaultContentType)
         {
-            if (contentType.IsDefault())
+            if (defaultContentType.IsDefault())
                 return GenericContentType.Default;
-            if (contentType.IsBomb())
+            if (defaultContentType.IsBomb())
                 return GenericContentType.Bomb;
-            if (contentType.IsUpped())
+            if (defaultContentType.IsUpped())
                 return GenericContentType.Upped;
 
 
@@ -75,7 +75,7 @@ namespace _Project.Code.Core.Models
             return DefaultSubTypesCount;
         }
 
-        private static List<GenericContentType> GetGenericTypesOf(ContentType[] all)
+        private static List<GenericContentType> GetGenericTypesOf(DefaultContentType[] all)
         {
             List<GenericContentType> alreadyIncluded = new List<GenericContentType>();
             foreach (var item in all)

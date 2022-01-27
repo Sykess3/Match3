@@ -18,7 +18,7 @@ namespace _Project.Code.Core.Models.Random
     public class RandomCellContentGenerator : IRandomCellContentGenerator
     {
         private readonly ICellContentPool _cellContentPool;
-        private readonly Dictionary<ContentType, float> _contentToSpawn;
+        private readonly Dictionary<DefaultContentType, float> _contentToSpawn;
 
         public RandomCellContentGenerator(ICellContentPool cellContentPool, ILevelConfig levelConfig)
         {
@@ -62,33 +62,33 @@ namespace _Project.Code.Core.Models.Random
                                                 "contentToSpawn is empty");
         }
 
-        private ContentType GetUnmatchable(ContentType contentType, Tuple<Cell, Cell> southNeighbours,
+        private DefaultContentType GetUnmatchable(DefaultContentType defaultContentType, Tuple<Cell, Cell> southNeighbours,
             Tuple<Cell, Cell> westNeighbours)
         {
-            while (IsAnyMatches(contentType, southNeighbours) || IsAnyMatches(contentType, westNeighbours))
-                contentType = contentType.GetAnother();
+            while (IsAnyMatches(defaultContentType, southNeighbours) || IsAnyMatches(defaultContentType, westNeighbours))
+                defaultContentType = defaultContentType.GetAnother();
 
-            return contentType;
+            return defaultContentType;
         }
 
-        private bool IsAnyMatches(ContentType contentType, Tuple<Cell, Cell> neighbours)
+        private bool IsAnyMatches(DefaultContentType defaultContentType, Tuple<Cell, Cell> neighbours)
         {
             if (neighbours != null)
             {
                 bool isSouthNeighboursSimilar = IsAnyMatches(neighbours.Item1.Content.MatchableContent,
                     neighbours.Item2.Content.MatchableContent);
                 if (isSouthNeighboursSimilar)
-                    return IsAnyMatches(contentType, neighbours.Item1.Content.MatchableContent);
+                    return IsAnyMatches(defaultContentType, neighbours.Item1.Content.MatchableContent);
             }
 
             return false;
         }
 
-        private bool IsAnyMatches(ContentType single, IEnumerable<ContentType> contentMatchableContent) =>
+        private bool IsAnyMatches(DefaultContentType single, IEnumerable<DefaultContentType> contentMatchableContent) =>
             contentMatchableContent.Any(contentType => single == contentType);
 
-        private bool IsAnyMatches(IEnumerable<ContentType> matchableContent1,
-            IEnumerable<ContentType> matchableContent2)
+        private bool IsAnyMatches(IEnumerable<DefaultContentType> matchableContent1,
+            IEnumerable<DefaultContentType> matchableContent2)
         {
             foreach (var content1 in matchableContent1)
             foreach (var content2 in matchableContent2)

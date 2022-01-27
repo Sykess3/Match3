@@ -6,9 +6,9 @@ using _Project.Code.Core.Views;
 
 namespace _Project.Code.Core.Presenters
 {
-    public class CellContentViewPresenter : Presenter<CellContent, CellContentView>
+    public class CellContentViewPresenter : Presenter<DefaultCellContent, CellContentView>
     {
-        public CellContentViewPresenter(CellContent model, CellContentView view) : base(model, view)
+        public CellContentViewPresenter(DefaultCellContent model, CellContentView view) : base(model, view)
         {
         }
 
@@ -28,7 +28,7 @@ namespace _Project.Code.Core.Presenters
             View.AnimationEnded += Model.Disable;
         }
 
-        protected override void UnSubscribe()
+        protected override void CleanUp()
         {
             Model.Matched -= View.Match;
             Model.PositionChanged -= SyncPosition;

@@ -232,11 +232,11 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
             if (_cellCollection.TryGetCellGoesDiagonallyUpwards(emptyCellPosition, upwardDirection,
                 out Cell cell))
             {
-                bool contentIsImmovable = !cell.Content.Switchable && cell.Content.MatchType != ContentType.Empty;
+                bool contentIsImmovable = !cell.Content.Switchable && cell.Content.MatchType != DefaultContentType.Empty;
                 if (contentIsImmovable)
                     return FindingContentState.ImmovableDiagonalNeighbour;
 
-                if (cell.Content.MatchType != ContentType.Empty && !cell.Content.IsFalling)
+                if (cell.Content.MatchType != DefaultContentType.Empty && !cell.Content.IsFalling)
                 {
                     resultCell = cell;
                     return FindingContentState.FoundMovable;
@@ -256,7 +256,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Gravity
             var currentPosition = position;
             while (_cellCollection.TryGetCellAbove(currentPosition, out var cellAbove))
             {
-                if (cellAbove.Content.MatchType == ContentType.Empty ||
+                if (cellAbove.Content.MatchType == DefaultContentType.Empty ||
                     cellAbove.Content.IsFalling)
                 {
                     currentPosition = cellAbove.Position;

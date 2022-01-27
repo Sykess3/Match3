@@ -29,6 +29,11 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .FromInstance(_levelConfig.DecoratorsConfigs)
                 .AsCached();
 
+            Container
+                .Bind<ILevelGoalConfig>()
+                .FromInstance(_levelConfig.LevelGoal)
+                .AsSingle();
+
             BindBombConfigs();
         }
 

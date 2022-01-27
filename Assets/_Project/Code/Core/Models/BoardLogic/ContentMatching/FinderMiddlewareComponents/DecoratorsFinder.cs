@@ -49,7 +49,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             HashSet<Cell> decoratedCells = new HashSet<Cell>();
             foreach (var cell in neighboursOfMatchedCell)
             {
-                if (cell.Content.MatchType != ContentType.Stone && cell.Content.IsDecorated)
+                if (cell.Content.MatchType != DefaultContentType.Stone && cell.Content.IsDecorated)
                 {
                     decoratedCells.Add(cell);
                 }

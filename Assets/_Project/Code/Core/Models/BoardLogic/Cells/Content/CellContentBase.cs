@@ -11,9 +11,10 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
     {
         private bool _isFalling;
         private Vector2 _position;
-        public IEnumerable<ContentType> MatchableContent { get; }
+        public IEnumerable<DefaultContentType> MatchableContent { get; }
         public bool Switchable { get; }
-        public ContentType MatchType { get; }
+        public DefaultContentType MatchType { get; }
+        public DecoratorType DecoratorType { get; }
 
         public event Action StartedMovement;
 
@@ -38,7 +39,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             }
         }
 
-        public bool IsDecorated => GetDecorator().MatchType != ContentType.Empty;
+        public bool IsDecorated => GetDecorator().MatchType != DefaultContentType.Empty;
 
         public Vector2 Position
         {
@@ -46,11 +47,13 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             set => ChangePosition(value);
         }
 
-        protected CellContentBase(IEnumerable<ContentType> matchableContent, ContentType matchType, bool switchable)
+        protected CellContentBase(IEnumerable<DefaultContentType> matchableContent, DefaultContentType matchType, bool switchable,
+            DecoratorType decoratorType)
         {
             MatchableContent = matchableContent;
             MatchType = matchType;
             Switchable = switchable;
+            DecoratorType = decoratorType;
         }
 
         public void Deselect() => Deselected?.Invoke();
@@ -61,7 +64,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
             Matched?.Invoke();
             return GetDecorator();
         }
-        
+
         public void Disable() => Disabled?.Invoke(this, EventArgs.Empty);
         protected abstract CellContentBase GetDecorator();
 
@@ -72,6 +75,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Cells.Content
         }
 
         public static CellContentBase GetEmptyCached { get; } =
-            new CellContent(Enumerable.Empty<ContentType>(), ContentType.Empty, false);
+            new DefaultCellContent(Enumerable.Empty<DefaultContentType>(), DefaultContentType.Empty, false);
     }
 }

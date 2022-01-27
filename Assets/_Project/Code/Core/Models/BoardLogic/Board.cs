@@ -20,7 +20,10 @@ namespace _Project.Code.Core.Models.BoardLogic
         private readonly CellCollection _cellCollection;
         private readonly MatchDataHandler _matchDataHandler;
         private readonly IContentMatchFinder _matchFinder;
-        public event Action<CellContentBase> ContentMatched;
+        public event Action<CellContentBase> DefaultMatched;
+        public event Action<CellContentBase> DecoratedMatched;
+
+        public event Action FallingEnded;
 
         public Board(SwapCommandHandler swapCommandHandler,
             BoardGravity boardGravity,
@@ -43,7 +46,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         /// Swap cellsContent and match they if condition is satisfied(3 content is the same)
         /// if it not satisfied swap back
         /// </summary>
-        public void TryMatch(SwapCommand swapCommand) => _swapCommandHandler.Swap(swapCommand);
+        public void TryMatch(SwapCommand swapCommand, Action onSwapSucceed) => _swapCommandHandler.Swap(swapCommand, onSwapSucceed);
 
         void IInitializable.Initialize()
         {
@@ -71,9 +74,15 @@ namespace _Project.Code.Core.Models.BoardLogic
         private void HandleMatchData(MatchData matchData)
         {
             foreach (var cell in matchData.MatchedCells) 
-                ContentMatched?.Invoke(cell.Content);
-            
+                DefaultMatched?.Invoke(cell.Content);
+            foreach (var cell in matchData.Decorators) 
+                DecoratedMatched?.Invoke(cell.Content);
+
             _matchDataHandler.Handle(matchData);
+            
+            bool isNoCellsToFill = matchData.CellsToFill.Count == 0;
+            if (isNoCellsToFill) 
+                FallingEnded?.Invoke();
         }
         
     }

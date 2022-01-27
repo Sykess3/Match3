@@ -34,7 +34,7 @@ namespace _Project.Code.Core.Editor
             }
         }
 
-        public static LevelContentConfigs.ContentToSpawnPair[] Calculate(ContentType[] all)
+        public static LevelContentConfigs.ContentToSpawnPair[] Calculate(DefaultContentType[] all)
         {
             Dictionary<ContentChanceToSpawn.GenericContentType, float> genericChances =
                 ContentChanceToSpawn.CalculateGenericChances(all);
@@ -94,7 +94,7 @@ namespace _Project.Code.Core.Editor
             {
                 foreach (var contentType in levelContentConfigs.ContentToSpawnTypeChanceMap.Keys)
                 {
-                    if (cellContentConfig.ContentType == contentType)
+                    if (cellContentConfig.DefaultContentType == contentType)
                     {
                         resultConfigs[index] = cellContentConfig;
                         index++;
@@ -110,7 +110,7 @@ namespace _Project.Code.Core.Editor
 
             ParticlesConfig[] particlesConfig = EditorLoadHelper.LoadAssets<ParticlesConfig>(paths);
 
-            var resultParticles = new Dictionary<ContentType, ParticleSystem>();
+            var resultParticles = new Dictionary<DefaultContentType, ParticleSystem>();
             foreach (var config in particlesConfig)
             {
                 foreach (var contentType in levelConfig.ContentToSpawnTypeChanceMap.Keys)

@@ -14,12 +14,12 @@ namespace _Project.Code.Core.Configs
         [SerializeField] private ParticlesPair[] _particles;
         [SerializeField] private CellContentConfig[] _contentConfigs;
 
-        public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
+        public Dictionary<DefaultContentType, float> ContentToSpawnTypeChanceMap =>
             _contentToSpawn
                 .OrderBy(x => x.ChanceToSpawn.Min)
                 .ToDictionary(x => x.Type, x => x.ChanceToSpawn.Max);
 
-        public Dictionary<ContentType, ParticleSystem> Particles
+        public Dictionary<DefaultContentType, ParticleSystem> Particles
         {
             get => GetSerializedInEditor_ParticlesConfig();
             set => SerializeForEditor_ParticlesConfigs(value);
@@ -33,7 +33,7 @@ namespace _Project.Code.Core.Configs
         
         public void SetContentToSpawn_Editor(ContentToSpawnPair[] contentToSpawn) => _contentToSpawn = contentToSpawn;
 
-        private void SerializeForEditor_ParticlesConfigs(Dictionary<ContentType, ParticleSystem> value)
+        private void SerializeForEditor_ParticlesConfigs(Dictionary<DefaultContentType, ParticleSystem> value)
         {
             _particles = new ParticlesPair[value.Count];
             int index = 0;
@@ -48,27 +48,27 @@ namespace _Project.Code.Core.Configs
             }
         }
 
-        private Dictionary<ContentType, ParticleSystem> GetSerializedInEditor_ParticlesConfig() =>
+        private Dictionary<DefaultContentType, ParticleSystem> GetSerializedInEditor_ParticlesConfig() =>
             _particles.ToDictionary(x => x.Type, x => x.Particle);
         
         [Serializable]
         public class ContentToSpawnPair
         {
-            public ContentType Type;
+            public DefaultContentType Type;
             [FloatRangeSlider(0, 1)] public FloatRange ChanceToSpawn;
         }
 
         [Serializable]
         class ParticlesPair
         {
-            public ContentType Type;
+            public DefaultContentType Type;
             public ParticleSystem Particle;
         }
 
         [Serializable]
         public class CellContentPair
         {
-            public ContentType Type;
+            public DefaultContentType Type;
             public CellContentConfig CellContentConfig;
         }
     }

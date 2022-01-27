@@ -53,7 +53,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
                 if (!uppedCell.Content.IsDecorated)
                 {
                     var cellsInAllDirections =
-                        _cellCollection.GetCellsInAllDirections(uppedCell, ContentType.Stone)
+                        _cellCollection.GetCellsInAllDirections(uppedCell, DefaultContentType.Stone)
                             .Where(NotEmptyContent);
                     
                     matchedContent.UnionWith(cellsInAllDirections);
@@ -64,7 +64,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
 
             bool NotEmptyContent(Cell x)
             {
-                return x.Content.MatchType != ContentType.Empty;
+                return x.Content.MatchType != DefaultContentType.Empty;
             }
         }
 

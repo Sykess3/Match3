@@ -4,6 +4,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Pool
 {
     public interface ICellContentPool
     {
-        CellContent Get(ContentType type);
+        DefaultCellContent Get(DefaultContentType type);
     }
 }

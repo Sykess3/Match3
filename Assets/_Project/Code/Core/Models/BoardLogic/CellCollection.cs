@@ -38,7 +38,7 @@ namespace _Project.Code.Core.Models.BoardLogic
         {
             while (TryGetCellAbove(position, out Cell cellAbove))
             {
-                if (cellAbove.Content.MatchType == ContentType.Stone)
+                if (cellAbove.Content.MatchType == DefaultContentType.Stone)
                     return true;
 
                 position = cellAbove.Position;
@@ -59,7 +59,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             throw new ArgumentException("Direction must be either east either west!");
         }
 
-        public IEnumerable<Cell> GetAll(ContentType ofType)
+        public IEnumerable<Cell> GetAll(DefaultContentType ofType)
         {
             return _cells.Values.Where(TypeIsArgumentType);
 
@@ -69,7 +69,7 @@ namespace _Project.Code.Core.Models.BoardLogic
             }
         }
 
-        public IEnumerable<Cell> GetCellsInAllDirections(Cell relatively, ContentType toEndTypeInEachDirection)
+        public IEnumerable<Cell> GetCellsInAllDirections(Cell relatively, DefaultContentType toEndTypeInEachDirection)
         {
             var cells = new List<Cell>(16);
             var eastCells = GetCellsInDirection(relatively, Direction.East, toEndTypeInEachDirection);
@@ -134,7 +134,7 @@ namespace _Project.Code.Core.Models.BoardLogic
                 cellKvP.Value.ContentStartedMovement -= OnCellContentStartedMovement;
         }
 
-        private IEnumerable<Cell> GetCellsInDirection(Cell relatively, Direction direction, ContentType toEndType)
+        private IEnumerable<Cell> GetCellsInDirection(Cell relatively, Direction direction, DefaultContentType toEndType)
         {
             var current = relatively;
             while (true)

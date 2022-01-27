@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelContentConfigs: {fileID: 11400000, guid: 678f3ca2873dfa6428045ea6bef642b3, type: 2}
   _levelDecoratorsConfigs: {fileID: 11400000, guid: 60babe0a378641045989d71578eb1d92, type: 2}
+  _levelGoalAndStepsCount:
+    Member1: {fileID: 11400000, guid: 2debea81ed78e124ebd36c1b2f909b33, type: 2}
+    Member2: 20
   _contentEditorSettings:
   - Position: {x: -4, y: -4}
     IsStone: 0

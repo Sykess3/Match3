@@ -5,6 +5,7 @@ using _Project.Code.Core.Models.BoardLogic.Cells;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Project.Code.Core.Configs
 {
@@ -13,13 +14,13 @@ namespace _Project.Code.Core.Configs
     {
         [SerializeField] private Pair[] _particles;
 
-        public Dictionary<ContentType, ParticleSystem> Particles =>
-            _particles.ToDictionary(x => x.ContentType, x => x.Particle);
+        public Dictionary<DefaultContentType, ParticleSystem> Particles =>
+            _particles.ToDictionary(x => x.defaultContentType, x => x.Particle);
 
         [Serializable]
         private class Pair
         {
-            public ContentType ContentType;
+            [FormerlySerializedAs("ContentType")] public DefaultContentType defaultContentType;
             public ParticleSystem Particle;
         }
     }

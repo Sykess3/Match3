@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Particles
 {
-    public class ParticlesPool : ObjectPool<ContentType, ParticlesWrapper> , IParticlesPool
+    public class ParticlesPool : ObjectPool<DefaultContentType, ParticlesWrapper> , IParticlesPool
     {
         public ParticlesPool(IAssetProvider assetProvider, ILevelConfig config) 
             : base(new Factory(assetProvider, config))
@@ -16,10 +16,10 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
             
         }
 
-        private class Factory : IObjectPoolFactory<ContentType, ParticlesWrapper>
+        private class Factory : IObjectPoolFactory<DefaultContentType, ParticlesWrapper>
         {
             private readonly IAssetProvider _assetProvider;
-            private readonly Dictionary<ContentType, ParticleSystem> _particles;
+            private readonly Dictionary<DefaultContentType, ParticleSystem> _particles;
             private readonly Transform _parent;
 
             public Factory(IAssetProvider assetProvider, ILevelConfig levelConfig)
@@ -30,7 +30,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
                 _parent = new GameObject("Particles").transform;
             }
 
-            public ParticlesWrapper Create(ContentType type)
+            public ParticlesWrapper Create(DefaultContentType type)
             {
                 var particlePrefab = _particles[type];
                 var particleObject = _assetProvider.Instantiate<ParticleSystem>(particlePrefab.gameObject, _parent);

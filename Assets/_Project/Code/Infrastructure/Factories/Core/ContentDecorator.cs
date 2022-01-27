@@ -8,7 +8,7 @@ using _Project.Code.Core.Views;
 using _Project.Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace _Project.Code.Infrastructure.Factories
+namespace _Project.Code.Infrastructure.Factories.Core
 {
     public class ContentDecorator : IContentDecorator
     {
@@ -22,7 +22,7 @@ namespace _Project.Code.Infrastructure.Factories
             _decoratorConfigs = decoratorConfigs.ToDictionary(x => x.Type, x => x);
             _parent = new GameObject("Decorators").transform;
         }
-        
+
         /// <param name="contentBaseToDecorate"></param>
         /// <param name="type"></param>
         /// <returns>Last decorator</returns>
@@ -40,22 +40,21 @@ namespace _Project.Code.Infrastructure.Factories
             return decoratorsModels.Last();
         }
 
-        private static Decorator_CellContent[] DecorateModel(CellContentBase contentToDecorate, DecoratorType type,
+        private static DecoratorCellContent[] DecorateModel(CellContentBase contentToDecorate, DecoratorType type,
             IContentDecoratorConfig config)
         {
             int packCount = type.PackCount();
-            Decorator_CellContent[] decorators = new Decorator_CellContent[packCount];
-            
-            var nextDecoratedModel = new Decorator_CellContent(contentToDecorate, config.Switchable);
+            DecoratorCellContent[] decorators = new DecoratorCellContent[packCount];
+
+            var nextDecoratedModel = new DecoratorCellContent(contentToDecorate, config.Type, config.Switchable);
             decorators[0] = nextDecoratedModel;
             for (int i = 1; i < packCount; i++)
             {
-                nextDecoratedModel = new Decorator_CellContent(nextDecoratedModel, config.Switchable);
+                nextDecoratedModel = new DecoratorCellContent(nextDecoratedModel, config.Type, config.Switchable);
                 decorators[i] = nextDecoratedModel;
             }
 
             return decorators;
         }
-        
     }
 }

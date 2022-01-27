@@ -16,5 +16,8 @@ namespace _Project.Code.Infrastructure.Services
 
         public T Instantiate<T>(GameObject prefab, Transform parent) => 
             Object.Instantiate(prefab, parent).GetComponent<T>();
+
+        public T Instantiate<T>(T levelGoalPrefab, Transform parent) where T : Object => 
+            Object.Instantiate<T>(levelGoalPrefab, parent);
     }
 }

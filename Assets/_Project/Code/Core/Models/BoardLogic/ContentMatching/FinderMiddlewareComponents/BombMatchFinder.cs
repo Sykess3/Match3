@@ -12,13 +12,13 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
     public class BombMatchFinder
     {
         private readonly CellCollection _cellCollection;
-        private readonly Dictionary<ContentType, IBombConfig> _bombConfigs;
+        private readonly Dictionary<DefaultContentType, IBombConfig> _bombConfigs;
         private readonly System.Random _systemRandom = new System.Random();
 
         public BombMatchFinder(CellCollection cellCollection, IEnumerable<IBombConfig> configs)
         {
             _cellCollection = cellCollection;
-            _bombConfigs = configs.ToDictionary(x => x.ContentType, x => x);
+            _bombConfigs = configs.ToDictionary(x => x.DefaultContentType, x => x);
         }
 
         public void TryBlowUpBombs(HashSet<Cell> matchedCells)
@@ -78,7 +78,7 @@ namespace _Project.Code.Core.Models.BoardLogic.ContentMatching.FinderMiddlewareC
             } 
         }
 
-        private int GetAmountCellToDestroy(ContentType bombType)
+        private int GetAmountCellToDestroy(DefaultContentType bombType)
         {
             int max = _bombConfigs[bombType].MaxContentAmountToDestroy;
             int min = _bombConfigs[bombType].MinContentAmountToDestroy;

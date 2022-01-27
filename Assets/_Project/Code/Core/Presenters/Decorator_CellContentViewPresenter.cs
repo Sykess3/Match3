@@ -5,11 +5,11 @@ using _Project.Code.Core.Views;
 
 namespace _Project.Code.Core.Presenters
 {
-    public class Decorator_CellContentViewPresenter : Presenter<Decorator_CellContent, Decorator_CellContentView>
+    public class Decorator_CellContentViewPresenter : Presenter<DecoratorCellContent, Decorator_CellContentView>
     {
         private int _currentIndex;
 
-        public Decorator_CellContentViewPresenter(Decorator_CellContent[] decorators, Decorator_CellContentView view) :
+        public Decorator_CellContentViewPresenter(DecoratorCellContent[] decorators, Decorator_CellContentView view) :
             base(
                 decorators, view)
         {
@@ -20,9 +20,9 @@ namespace _Project.Code.Core.Presenters
 
         protected override void Subscribe() => SubscribeInternal(Models[_currentIndex]);
 
-        protected override void UnSubscribe() => UnSubscribeInternal(Models[_currentIndex]);
+        protected override void CleanUp() => UnSubscribeInternal(Models[_currentIndex]);
 
-        private void SubscribeInternal(Decorator_CellContent model)
+        private void SubscribeInternal(DecoratorCellContent model)
         {
             model.Matched += View.Match;
             model.PositionChanged += SyncPosition;
@@ -30,7 +30,7 @@ namespace _Project.Code.Core.Presenters
             View.Destroyed += model.Disable;
         }
 
-        private void UnSubscribeInternal(Decorator_CellContent model)
+        private void UnSubscribeInternal(DecoratorCellContent model)
         {
             model.Matched -= View.Match;
             model.PositionChanged -= SyncPosition;

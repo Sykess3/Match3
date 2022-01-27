@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.BoardLogic.Particles
 {
-    public class ParticlesWrapper : IPoolItem<ContentType>
+    public class ParticlesWrapper : IPoolItem<DefaultContentType>
     {
         private readonly ParticleSystem _particles;
 
         public event EventHandler Disabled;
 
-        public ContentType MatchType { get; }
+        public DefaultContentType MatchType { get; }
 
         public Vector2 Position
         {
@@ -21,7 +21,7 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
             set => _particles.transform.position = value;
         }
 
-        public ParticlesWrapper(ParticleSystem particles, ContentType type)
+        public ParticlesWrapper(ParticleSystem particles, DefaultContentType type)
         {
             MatchType = type;
             _particles = particles;

@@ -13,19 +13,21 @@ namespace _Project.Code.Core.Configs
     {
         [SerializeField] private LevelContentConfigs _levelContentConfigs;
         [SerializeField] private LevelDecoratorsConfigs _levelDecoratorsConfigs;
+        [SerializeField] private LevelGoalAndMaxStepsPair _levelGoalAndStepsCount;
         
         [SerializeField] private CellContentEditorSettings[] _contentEditorSettings = 
             new CellContentEditorSettings[Constant.Board.Size.x * Constant.Board.Size.y];
-        
+
         public CellContentEditorSettings[] ContentEditorSettings => _contentEditorSettings;
 
 
-        public Dictionary<ContentType, float> ContentToSpawnTypeChanceMap =>
+        public Dictionary<DefaultContentType, float> ContentToSpawnTypeChanceMap =>
             _levelContentConfigs.ContentToSpawnTypeChanceMap;
 
-        public Dictionary<ContentType, ParticleSystem> Particles => _levelContentConfigs.Particles;
+        public Dictionary<DefaultContentType, ParticleSystem> Particles => _levelContentConfigs.Particles;
         public IEnumerable<ICellContentConfig> CellContentConfigs => _levelContentConfigs.ContentConfigs;
-
+        public ILevelGoalConfig LevelGoal => _levelGoalAndStepsCount.Member1;
+        public int MaxStepsCount => _levelGoalAndStepsCount.Member2;
         public IEnumerable<IContentDecoratorConfig> DecoratorsConfigs =>
             _levelDecoratorsConfigs.DecoratorConfigs;
 
@@ -76,6 +78,9 @@ namespace _Project.Code.Core.Configs
             public bool IsStone;
             public DecoratorType DecoratorType;
         }
+        
+        [Serializable]
+        public class LevelGoalAndMaxStepsPair : Pair<LevelGoalConfig, int>{}
     }
     
 }

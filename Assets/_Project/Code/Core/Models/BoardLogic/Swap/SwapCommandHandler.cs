@@ -13,7 +13,8 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
         private readonly IContentMatchFinder _matchFinder;
         private readonly ICellContentSwapper _cellContentSwapper;
         private readonly IPlayerInput _playerInput;
-        
+        private Action _onSwapSucceed;
+
         public event Action<MatchData> Matched;
 
         public SwapCommandHandler(ICellContentSwapper cellContentSwapper, IPlayerInput playerInput, IContentMatchFinder matchFinder)
@@ -23,20 +24,26 @@ namespace _Project.Code.Core.Models.BoardLogic.Swap
             _matchFinder = matchFinder;
         }
 
-        public void Swap(SwapCommand command)
+        public void Swap(SwapCommand command, Action onSwapSucceed)
         {
+            _onSwapSucceed = onSwapSucceed;
             _playerInput.Disable();
             command.Swapper = _cellContentSwapper;
-            command.Execute(OnCommandExecuted);
+            command.Execute(RevertOrMatch);
         }
 
-        private void OnCommandExecuted(SwapCommand command)
+        private void RevertOrMatch(SwapCommand command)
         {
             var matchData = GetMatchedDataFromCommand(command);
             if (matchData.MatchedCells.Count == 0)
+            {
                 command.Revert(OnCommandReverted);
-            
-            Matched?.Invoke(matchData);
+            }
+            else
+            {
+                Matched?.Invoke(matchData);
+                _onSwapSucceed();
+            }
         }
         
         private void OnCommandReverted(SwapCommand obj) => _playerInput.Enable();

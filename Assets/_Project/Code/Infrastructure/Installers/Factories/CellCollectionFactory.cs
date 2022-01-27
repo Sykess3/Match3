@@ -57,9 +57,7 @@ namespace _Project.Code.Infrastructure.Installers.Factories
         private Cell[] CreateCellsWithRandomGeneratedCellContent(Vector2Int size, Vector2 offset)
         {
             var cells = new Cell[size.x * size.y];
-            Tuple<Cell, Cell> southNeighbours = null;
-            Tuple<Cell, Cell> westNeighbours = null;
-                
+
             for (int i = 0, index = 0; i < size.x; i++)
             {
                 for (int j = 0; j < size.y; j++, index++)
@@ -69,7 +67,7 @@ namespace _Project.Code.Infrastructure.Installers.Factories
                     var cell = new Cell(position);
                     if (_levelConfig.IsStone(position))
                     {
-                        cell.Content = _cellContentFactory.Create(ContentType.Stone);
+                        cell.Content = _cellContentFactory.Create(DefaultContentType.Stone);
                         cell.Content.Position = position;
                     }
                     else

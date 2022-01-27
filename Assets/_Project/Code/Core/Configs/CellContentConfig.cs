@@ -5,6 +5,7 @@ using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Views;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Project.Code.Core.Configs
 {
@@ -12,15 +13,15 @@ namespace _Project.Code.Core.Configs
     public class CellContentConfig : ScriptableObject, ICellContentConfig
     {
         [SerializeField] private CellContentView _prefab;
-        [SerializeField] private List<ContentType> _matchableContent;
+        [SerializeField] private List<DefaultContentType> _matchableContent;
         [SerializeField] private bool _switchable = true;
-        [SerializeField] private ContentType _contentType;
+        [FormerlySerializedAs("_contentType")] [SerializeField] private DefaultContentType defaultContentType;
 
 
-        public ContentType ContentType => _contentType;
+        public DefaultContentType DefaultContentType => defaultContentType;
 
 
-        public IEnumerable<ContentType> MatchableContent => _matchableContent;
+        public IEnumerable<DefaultContentType> MatchableContent => _matchableContent;
 
         public bool Switchable => _switchable;
         public GameObject Prefab => _prefab.gameObject;

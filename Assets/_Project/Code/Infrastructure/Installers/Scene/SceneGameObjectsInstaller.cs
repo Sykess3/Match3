@@ -32,11 +32,8 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .NonLazy();
 
             Container
-                .Bind<BoardInputHandler>()
-                .FromNewComponentOnNewGameObject()
-                .UnderTransform(inputTransform)
-                .AsSingle()
-                .NonLazy();
+                .BindInterfacesAndSelfTo<BoardInputHandler>()
+                .AsSingle();
         }
     }
 }

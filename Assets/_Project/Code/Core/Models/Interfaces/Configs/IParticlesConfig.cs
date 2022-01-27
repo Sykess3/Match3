@@ -7,6 +7,6 @@ namespace _Project.Code.Core.Models.Interfaces.Configs
 {
     public interface IParticlesConfig
     {
-        Dictionary<ContentType, ParticleSystem> Particles { get; }
+        Dictionary<DefaultContentType, ParticleSystem> Particles { get; }
     }
 }

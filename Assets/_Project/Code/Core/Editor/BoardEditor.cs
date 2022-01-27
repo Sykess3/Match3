@@ -11,7 +11,7 @@ namespace _Project.Code.Core.Editor
 {
     public class BoardEditor : ZenjectEditorWindow
     {
-        private ContentType _contentType;
+        private DefaultContentType _defaultContentType;
         private DiContainer _domainObjectsContainer;
 
         [MenuItem("CustomWindow/Board")]
@@ -29,7 +29,7 @@ namespace _Project.Code.Core.Editor
         public override void OnGUI()
         {
             base.OnGUI();
-            _contentType = (ContentType)EditorGUILayout.EnumPopup("Select type to replace", _contentType);
+            _defaultContentType = (DefaultContentType)EditorGUILayout.EnumPopup("Select type to replace", _defaultContentType);
             if (GUILayout.Button("Create"))
             {
                 Vector3 cellPos = Selection.activeGameObject.transform.position;
@@ -43,7 +43,7 @@ namespace _Project.Code.Core.Editor
                     while (cellToReplace.Content.IsDecorated) 
                         cellToReplace.MatchContent();
                     
-                    cellContentSpawner.Spawn(new ContentToSpawn(_contentType, cellPos));
+                    cellContentSpawner.Spawn(new ContentToSpawn(_defaultContentType, cellPos));
                 }
                 else
                 {

@@ -8,8 +8,10 @@ namespace _Project.Code.Core.Models.Interfaces.Configs
 {
     public interface ILevelConfig
     {
-        Dictionary<ContentType, float> ContentToSpawnTypeChanceMap { get; }
-        Dictionary<ContentType, ParticleSystem> Particles { get; }
+        Dictionary<DefaultContentType, float> ContentToSpawnTypeChanceMap { get; }
+        Dictionary<DefaultContentType, ParticleSystem> Particles { get; }
+        ILevelGoalConfig LevelGoal { get; }
+        int MaxStepsCount { get; }
         DecoratorType GetDecorator(Vector2 position);
         bool IsStone(Vector2 position);
     }

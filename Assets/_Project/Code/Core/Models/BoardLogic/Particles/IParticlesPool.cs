@@ -5,6 +5,6 @@ namespace _Project.Code.Core.Models.BoardLogic.Particles
 {
     public interface IParticlesPool
     {
-        ParticlesWrapper Get(ContentType type);
+        ParticlesWrapper Get(DefaultContentType type);
     }
 }

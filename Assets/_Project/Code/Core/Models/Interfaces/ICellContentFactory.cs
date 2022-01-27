@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Models.Interfaces
 {
-    public interface ICellContentFactory : IObjectPoolFactory<ContentType, CellContent>
+    public interface ICellContentFactory : IObjectPoolFactory<DefaultContentType, DefaultCellContent>
     {
         
     }
