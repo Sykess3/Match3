@@ -6,7 +6,7 @@ namespace _Project.Code.Core.Views.Animation
     public class CellContentAnimation : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
-        [SerializeField] private CellContentView _view;
+        [SerializeField] private DefaultCellContentView _view;
         [SerializeField] private string _animationParameterName;
         [SerializeField] private int _hashedAnimationParameterName;
 

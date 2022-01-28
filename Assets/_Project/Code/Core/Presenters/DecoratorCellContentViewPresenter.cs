@@ -5,11 +5,11 @@ using _Project.Code.Core.Views;
 
 namespace _Project.Code.Core.Presenters
 {
-    public class Decorator_CellContentViewPresenter : Presenter<DecoratorCellContent, Decorator_CellContentView>
+    public class DecoratorCellContentViewPresenter : Presenter<DecoratorCellContent, DecoratorCellContentView>
     {
         private int _currentIndex;
 
-        public Decorator_CellContentViewPresenter(DecoratorCellContent[] decorators, Decorator_CellContentView view) :
+        public DecoratorCellContentViewPresenter(DecoratorCellContent[] decorators, DecoratorCellContentView view) :
             base(
                 decorators, view)
         {

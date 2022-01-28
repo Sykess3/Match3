@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: 44f3547df23969847a596ead3f1b031f, type: 2}
+  _audioPlayer: {fileID: 6268054530378671107, guid: 14a3c738085efe840ae2ab9d28cb043e, type: 3}
 --- !u!114 &-3601006603833971861
 MonoBehaviour:
   m_ObjectHideFlags: 0

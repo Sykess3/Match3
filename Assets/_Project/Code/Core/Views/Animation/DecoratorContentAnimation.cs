@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace _Project.Code.Core.Views.Animation
 {
-    public class Decorator_ContentAnimation : MonoBehaviour , IAnimatorStateReader
+    public class DecoratorContentAnimation : MonoBehaviour , IAnimatorStateReader
     {
         [SerializeField] private Animator _animator;
-        [SerializeField] private Decorator_CellContentView _decoratedView;
+        [SerializeField] private DecoratorCellContentView _decoratedView;
         
         [SerializeField] private StringPair[] _names;
         [SerializeField] private IntPair[] _hashed;

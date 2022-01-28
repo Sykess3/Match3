@@ -12,7 +12,7 @@ namespace _Project.Code.Core.Configs
     [CreateAssetMenu(fileName = "", menuName = "StaticData/CellContent/Default\\Upped", order = 0)]
     public class CellContentConfig : ScriptableObject, ICellContentConfig
     {
-        [SerializeField] private CellContentView _prefab;
+        [SerializeField] private DefaultCellContentView _prefab;
         [SerializeField] private List<DefaultContentType> _matchableContent;
         [SerializeField] private bool _switchable = true;
         [FormerlySerializedAs("_contentType")] [SerializeField] private DefaultContentType defaultContentType;

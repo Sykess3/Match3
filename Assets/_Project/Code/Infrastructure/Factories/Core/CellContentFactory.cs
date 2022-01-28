@@ -8,6 +8,8 @@ using _Project.Code.Core.Models.Interfaces.Configs;
 using _Project.Code.Core.Presenters;
 using _Project.Code.Core.Views;
 using _Project.Code.Infrastructure.Loading;
+using _Project.Code.Meta.Views.Audio;
+using _Project.Code.Meta.Views.Hud;
 using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Factories.Core
@@ -16,15 +18,18 @@ namespace _Project.Code.Infrastructure.Factories.Core
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IParticlesPool _particlesPool;
+        private readonly AudioPlayer _audioPlayer;
         private readonly Dictionary<DefaultContentType, ICellContentConfig> _cellContentConfigsMap;
         private readonly Transform _parent;
         
         public CellContentFactory(IEnumerable<ICellContentConfig> configs, 
             IAssetProvider assetProvider,
-            IParticlesPool particlesPool)
+            IParticlesPool particlesPool, 
+            AudioPlayer _audioPlayer)
         {
             _assetProvider = assetProvider;
             _particlesPool = particlesPool;
+            this._audioPlayer = _audioPlayer;
             _cellContentConfigsMap = configs
                 .ToDictionary(x => x.DefaultContentType, x => x);
 
@@ -35,9 +40,10 @@ namespace _Project.Code.Infrastructure.Factories.Core
         {
             var config = _cellContentConfigsMap[type];
 
-            var view = _assetProvider.Instantiate<CellContentView>(config.Prefab, _parent);
+            var view = _assetProvider.Instantiate<DefaultCellContentView>(config.Prefab, _parent);
+            view.GetComponentInChildren<CellContentAudioEffect>().Construct(_audioPlayer);
             var model = new DefaultCellContent(config.MatchableContent, config.DefaultContentType, config.Switchable);
-            new CellContentViewPresenter(model, view.GetComponent<CellContentView>());
+            new CellContentViewPresenter(model, view.GetComponent<DefaultCellContentView>());
 
             model.Disabled += ModelOnDisabled;
 

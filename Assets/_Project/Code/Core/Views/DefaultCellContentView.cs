@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Project.Code.Core.Views
 {
     [SelectionBase]
-    public class CellContentView : View, ICellContentView
+    public class DefaultCellContentView : View, ICellContentView
     {
         public event Action Selected;
         public event Action AnimationEnded;

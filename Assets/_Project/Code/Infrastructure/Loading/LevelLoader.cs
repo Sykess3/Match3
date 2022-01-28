@@ -5,6 +5,7 @@ namespace _Project.Code.Infrastructure.Loading
 {
     public class LevelLoader : ILevelLoader
     {
+        private const string LevelsField = "LevelsField";
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IUnitySceneLoader _sceneLoader;
         
@@ -25,6 +26,7 @@ namespace _Project.Code.Infrastructure.Loading
                 onLoaded?.Invoke();
             }
         }
-        
+
+        public void LoadLevelsField() => Load(LevelsField);
     }
 }

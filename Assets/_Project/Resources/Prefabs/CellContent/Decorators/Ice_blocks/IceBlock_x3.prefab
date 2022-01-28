@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceBlock_x3
       objectReference: {fileID: 0}
+    - target: {fileID: 6976824212390505604, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
+      propertyPath: _audio
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d6956c3893a1c947bb9b19d48939bde, type: 3}
     - target: {fileID: 8415881035030862931, guid: 1733f8a0dfa6f1846b887fd0cb9c87b2, type: 3}
       propertyPath: _animationParametersNames.Array.size
       value: 3

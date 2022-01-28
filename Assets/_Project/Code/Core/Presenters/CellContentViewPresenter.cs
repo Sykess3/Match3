@@ -6,9 +6,9 @@ using _Project.Code.Core.Views;
 
 namespace _Project.Code.Core.Presenters
 {
-    public class CellContentViewPresenter : Presenter<DefaultCellContent, CellContentView>
+    public class CellContentViewPresenter : Presenter<DefaultCellContent, DefaultCellContentView>
     {
-        public CellContentViewPresenter(DefaultCellContent model, CellContentView view) : base(model, view)
+        public CellContentViewPresenter(DefaultCellContent model, DefaultCellContentView view) : base(model, view)
         {
         }
 
