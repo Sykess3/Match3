@@ -41,15 +41,7 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .Bind<Settings>()
                 .FromInstance(_settings)
                 .AsSingle();
-
-            Container
-                .Bind<LevelLoader>()
-                .AsSingle();
-
-            Container
-                .Bind<IUnitySceneLoader>()
-                .To<UnitySceneLoader>()
-                .AsSingle();
+            
         }
 
         private void BindAudio()

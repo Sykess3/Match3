@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 937147322156826285}
   - component: {fileID: 8315125273030990851}
   - component: {fileID: 7471929057274490222}
+  - component: {fileID: -2581466501639877209}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -166,3 +167,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-2581466501639877209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377393985378808632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74994981ce504a0b911281768434ef24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

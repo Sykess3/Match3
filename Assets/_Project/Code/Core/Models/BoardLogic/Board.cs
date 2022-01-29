@@ -66,8 +66,11 @@ namespace _Project.Code.Core.Models.BoardLogic
 
         private async void ResolveMatchesInWholeBoard()
         {
+#if UNITY_WEBGL
+            var matchDataByWholeBoard = _matchFinder.FindMatchesByWholeBoard();
+#elif !UNITY_WEBGL
             var matchDataByWholeBoard = await Task.Run(_matchFinder.FindMatchesByWholeBoard);
-            
+#endif      
             HandleMatchData(matchDataByWholeBoard);
         }
 

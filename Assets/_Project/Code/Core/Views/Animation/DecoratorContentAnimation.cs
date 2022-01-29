@@ -46,13 +46,13 @@ namespace _Project.Code.Core.Views.Animation
 
         private void PlayNext()
         {
-            int previousAnimation = _hashed[_nextAnimationParameterIndex].ParameterName;
+            int previousAnimation = _hashed[_nextAnimationParameterIndex - 1].ParameterName;
             _animator.SetBool(previousAnimation, false);
-            
-            _nextAnimationParameterIndex++;
             
             int currentAnimation = _hashed[_nextAnimationParameterIndex].ParameterName;
             _animator.SetBool(currentAnimation, true);
+            
+            _nextAnimationParameterIndex++;
         }
 
         private void PlayFirst()

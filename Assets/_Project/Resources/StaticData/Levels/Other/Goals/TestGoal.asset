@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3eaaa3ae42924d33983ee19c63aab3d0, type: 3}
-  m_Name: 20Red
+  m_Name: TestGoal
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5892768698636819640, guid: 282bba838be433a43b3d8713b1bd6552, type: 3}
   _defaultGoalPairs:
   - Member1: 1
     Member2: 15
+  - Member1: 3
+    Member2: 4
+  - Member1: 6
+    Member2: 7
   _decoratorGoalPairs: []
   _defaultContentImages:
   - {fileID: 21300426, guid: 12b899fa8ee8b7f4b92a74630c9e5888, type: 3}
+  - {fileID: 21300422, guid: 12b899fa8ee8b7f4b92a74630c9e5888, type: 3}
+  - {fileID: 21300428, guid: 12b899fa8ee8b7f4b92a74630c9e5888, type: 3}
   _decoratedContentImages: []

@@ -6,5 +6,6 @@ namespace _Project.Code.Core.Models
     {
         void Load(string name, Action onLoaded = null);
         void LoadLevelsField();
+        void Reload(Action onLoaded = null);
     }
 }

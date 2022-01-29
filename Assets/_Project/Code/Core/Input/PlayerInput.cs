@@ -23,7 +23,7 @@ namespace _Project.Code.Core.Input
             if (_disabled)
                 return;
 
-            if (ClickedOnClickableGameObject(out var position))
+            if (Clicked(out var position))
             {
                 ClickedOnPosition?.Invoke(position);
             }
@@ -33,7 +33,7 @@ namespace _Project.Code.Core.Input
 
         public void Enable() => _disabled = false;
 
-        private bool ClickedOnClickableGameObject(out Vector2 position)
+        private bool Clicked(out Vector2 position)
         {
             if (!UnityEngine.Input.GetMouseButtonDown(0))
             {

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Code.Core.Models.BoardLogic.Cells.Content;
 using _Project.Code.Core.Models.Interfaces.Configs;
-using _Project.Code.Meta.Views;
 using _Project.Code.Meta.Views.Hud;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace _Project.Code.Core.Configs
@@ -28,8 +29,19 @@ namespace _Project.Code.Core.Configs
         public Sprite[] DefaultContentImages => _defaultContentImages;
         public Sprite[] DecoratorContentImages => _decoratedContentImages;
 
-        private void OnEnable() => OnValidate();
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_prefab == null)
+                _prefab = AssetDatabase.LoadAssetAtPath(_prefabPath, typeof(SingleGoalView)) as SingleGoalView;
+
+
+            ValidateImages(_decoratorGoalPairs, ref _decoratedContentImages);
+            ValidateImages(_defaultGoalPairs, ref _defaultContentImages);
+        }
+
+        private void OnEnable() => OnValidate();
         private void OnDisable()
         {
             if (_decoratedContentImages.Any(x => x == null) || _defaultContentImages.Any(x => x == null))
@@ -38,17 +50,7 @@ namespace _Project.Code.Core.Configs
             }
         }
 
-        private void OnValidate()
-        {
-            if (_prefab == null) 
-                _prefab = AssetDatabase.LoadAssetAtPath(_prefabPath, typeof(SingleGoalView)) as SingleGoalView;
-            
-            
-            ValidateImages(_decoratorGoalPairs,ref _decoratedContentImages);
-            ValidateImages(_defaultGoalPairs,ref _defaultContentImages);
-        }
-
-        private void ValidateImages(Array goalPairs,ref Sprite[] imagesArray)
+        private void ValidateImages(Array goalPairs, ref Sprite[] imagesArray)
         {
             if (imagesArray.Length > goalPairs.Length)
                 Debug.LogError("Pairs count are less than images");
@@ -62,6 +64,7 @@ namespace _Project.Code.Core.Configs
                 imagesArray = newImages;
             }
         }
+#endif
 
         [Serializable]
         class ContentGoalPair : Pair<DefaultContentType, int>

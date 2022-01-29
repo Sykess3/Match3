@@ -31,17 +31,17 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -4, y: 0}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: -4, y: 1}
-    IsStone: 1
-    DecoratorType: 1
+    IsStone: 0
+    DecoratorType: 0
   - Position: {x: -4, y: 2}
     IsStone: 0
-    DecoratorType: 2
+    DecoratorType: 0
   - Position: {x: -4, y: 3}
     IsStone: 0
-    DecoratorType: 3
+    DecoratorType: 0
   - Position: {x: -4, y: 4}
     IsStone: 0
     DecoratorType: 0
@@ -59,9 +59,9 @@ MonoBehaviour:
     DecoratorType: 0
   - Position: {x: -3, y: 0}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 1
   - Position: {x: -3, y: 1}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -3, y: 2}
     IsStone: 0
@@ -86,9 +86,9 @@ MonoBehaviour:
     DecoratorType: 0
   - Position: {x: -2, y: 0}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 3
   - Position: {x: -2, y: 1}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -2, y: 2}
     IsStone: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: -1, y: 1}
-    IsStone: 1
+    IsStone: 0
     DecoratorType: 0
   - Position: {x: -1, y: 2}
     IsStone: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
     DecoratorType: 0
   - Position: {x: 2, y: 0}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 3
   - Position: {x: 2, y: 1}
     IsStone: 0
     DecoratorType: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
     DecoratorType: 0
   - Position: {x: 3, y: 0}
     IsStone: 0
-    DecoratorType: 0
+    DecoratorType: 1
   - Position: {x: 3, y: 1}
     IsStone: 0
     DecoratorType: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
     IsStone: 0
     DecoratorType: 0
   - Position: {x: 4, y: 0}
-    IsStone: 0
+    IsStone: 1
     DecoratorType: 0
   - Position: {x: 4, y: 1}
     IsStone: 0

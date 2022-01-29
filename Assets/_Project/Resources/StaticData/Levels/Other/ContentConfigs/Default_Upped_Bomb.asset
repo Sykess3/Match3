@@ -10,62 +10,98 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36eac7727b54426eb9e1c6794d50289a, type: 3}
-  m_Name: DefaultAndUppedContent
+  m_Name: Default_Upped_Bomb
   m_EditorClassIdentifier: 
   _contentToSpawn:
   - Type: 1
     ChanceToSpawn:
       _min: 0
-      _max: 0.16129033
+      _max: 0.15625
   - Type: 7
     ChanceToSpawn:
       _min: 0
       _max: 0
   - Type: 2
     ChanceToSpawn:
-      _min: 0.16129033
-      _max: 0.32258067
+      _min: 0.15625
+      _max: 0.3125
   - Type: 3
     ChanceToSpawn:
-      _min: 0.32258067
-      _max: 0.48387098
+      _min: 0.3125
+      _max: 0.46875
   - Type: 4
     ChanceToSpawn:
-      _min: 0.48387098
-      _max: 0.64516133
+      _min: 0.46875
+      _max: 0.625
   - Type: 5
     ChanceToSpawn:
-      _min: 0.64516133
-      _max: 0.8064517
+      _min: 0.625
+      _max: 0.78125
   - Type: 6
     ChanceToSpawn:
-      _min: 0.8064517
-      _max: 0.967742
+      _min: 0.78125
+      _max: 0.9375
   - Type: 8
     ChanceToSpawn:
-      _min: 0.967742
-      _max: 0.97311836
+      _min: 0.9375
+      _max: 0.9461806
   - Type: 9
     ChanceToSpawn:
-      _min: 0.97311836
-      _max: 0.9784947
+      _min: 0.9461806
+      _max: 0.95486116
   - Type: 10
     ChanceToSpawn:
-      _min: 0.9784947
-      _max: 0.98387104
+      _min: 0.95486116
+      _max: 0.96354175
   - Type: 11
     ChanceToSpawn:
-      _min: 0.98387104
-      _max: 0.9892474
+      _min: 0.96354175
+      _max: 0.9722223
   - Type: 12
     ChanceToSpawn:
-      _min: 0.9892474
-      _max: 0.9946237
+      _min: 0.9722223
+      _max: 0.9809029
   - Type: 13
     ChanceToSpawn:
-      _min: 0.9946237
+      _min: 0.9809029
+      _max: 0.9895835
+  - Type: 14
+    ChanceToSpawn:
+      _min: 0.9895835
+      _max: 0.9913196
+  - Type: 15
+    ChanceToSpawn:
+      _min: 0.9913196
+      _max: 0.9930557
+  - Type: 16
+    ChanceToSpawn:
+      _min: 0.9930557
+      _max: 0.9947918
+  - Type: 17
+    ChanceToSpawn:
+      _min: 0.9947918
+      _max: 0.9965279
+  - Type: 18
+    ChanceToSpawn:
+      _min: 0.9965279
+      _max: 0.998264
+  - Type: 19
+    ChanceToSpawn:
+      _min: 0.998264
       _max: 1
   _particles:
+  - Type: 14
+    Particle: {fileID: 4472947477021509607, guid: 0ee23cafc8461f042b46e4eae0f366be, type: 3}
+  - Type: 15
+    Particle: {fileID: 8086026490276324966, guid: 25298a3d92e132b4ba0c01ebe73e4bd9, type: 3}
+  - Type: 16
+    Particle: {fileID: 3083520475810140028, guid: 960e0f4b7d41e5247bb26e7f1fd5c7b3, type: 3}
+  - Type: 17
+    Particle: {fileID: 7104714368689211068, guid: ad8d7934715612244b5fa77f7c368274, type: 3}
+  - Type: 18
+    Particle: {fileID: 4665315610100848504, guid: 0cc6c89d7d43ec94981e2d05f23a1833, type: 3}
+  - Type: 19
+    Particle: {fileID: 573145275923811302, guid: e90367be8b6e0a44ebde6c04087a230c, type: 3}
   - Type: 1
     Particle: {fileID: 8917810451052383804, guid: 4e950650cc96d0f4a8b8b36ea0ad13c3, type: 3}
   - Type: 2
@@ -91,13 +127,19 @@ MonoBehaviour:
   - Type: 13
     Particle: {fileID: 5420040425364188581, guid: 9b69cf1133549df4083a62fe745729dc, type: 3}
   _contentConfigs:
+  - {fileID: 11400000, guid: 069ea9c720c0e2947885c416d1c62d9a, type: 2}
+  - {fileID: 11400000, guid: 8bf2be3425b36b54a8920569927422f3, type: 2}
+  - {fileID: 11400000, guid: 4bba97c02d6a8df4a9a34f44ece07d41, type: 2}
+  - {fileID: 11400000, guid: d222f171cd23cb24aa8065c8fbb0ba1e, type: 2}
+  - {fileID: 11400000, guid: 06038ead45bdc71468b4e8651642285b, type: 2}
+  - {fileID: 11400000, guid: 05d69375b2da7de4795140d168756a4d, type: 2}
+  - {fileID: 11400000, guid: 9abdc367c07da8a479eeeb1fb83ca3c4, type: 2}
   - {fileID: 11400000, guid: 5336a9082245ae44b841eda2fa9c0812, type: 2}
   - {fileID: 11400000, guid: d9e139ea1d1953c45af3ad0f2bbf2f76, type: 2}
   - {fileID: 11400000, guid: 6ff74127479639445ad98b355f168da6, type: 2}
   - {fileID: 11400000, guid: 211527a42565fed4fa5b2410ff7bac69, type: 2}
   - {fileID: 11400000, guid: e5cecfa2c8d59e84490dd0ec4ca0cd3c, type: 2}
   - {fileID: 11400000, guid: 61bfae3182c56274294e7ef4e529ae17, type: 2}
-  - {fileID: 11400000, guid: 9abdc367c07da8a479eeeb1fb83ca3c4, type: 2}
   - {fileID: 11400000, guid: d2dba9423c96db54f877def4ca0cbcbb, type: 2}
   - {fileID: 11400000, guid: 0001ea0e0b2748344a10c7d2533d52ec, type: 2}
   - {fileID: 11400000, guid: 0e67597b98879b44a8d58cc0aafea904, type: 2}

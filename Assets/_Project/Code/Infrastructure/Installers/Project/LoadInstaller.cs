@@ -20,15 +20,6 @@ namespace _Project.Code.Infrastructure.Installers.Project
 
             Container
                 .Bind<ILevelLoader>()
-                .FromSubContainerResolve()
-                .ByMethod(LevelLoaderSubContainer)
-                .AsTransient();
-        }
-
-        private void LevelLoaderSubContainer(DiContainer obj)
-        {
-            Container
-                .Bind<ILevelLoader>()
                 .To<LevelLoader>()
                 .AsTransient();
 
@@ -37,5 +28,6 @@ namespace _Project.Code.Infrastructure.Installers.Project
                 .To<UnitySceneLoader>()
                 .AsSingle();
         }
+        
     }
 }

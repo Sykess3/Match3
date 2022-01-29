@@ -24,24 +24,6 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .Bind<MatchDataHandler>()
                 .AsSingle();
 
-#if !UNITY_EDITOR
-            Container
-                .Bind<CellCollection>()
-                .FromFactory<CellCollectionFactory>()
-                .AsSingle();
-            
-            Container
-                .Bind<ICellContentSpawner>()
-                .To<CellContentSpawner>()
-                .AsSingle();
-
-            Container
-                .Bind<IRandomCellContentGenerator>()
-                .To<RandomCellContentGenerator>()
-                .AsSingle();
-#endif
-            
-
             FallingBindings();
 
             MovementBindings();

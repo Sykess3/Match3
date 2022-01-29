@@ -1,5 +1,4 @@
-﻿using UnityEditor.Animations;
-
+﻿
 namespace _Project.Code.Core.Views.Animation
 {
     public interface IAnimatorStateReader

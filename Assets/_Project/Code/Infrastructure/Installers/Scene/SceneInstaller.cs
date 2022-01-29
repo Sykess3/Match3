@@ -49,8 +49,7 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                  .AsSingle();
 
             BindObjectPools();
-
-#if UNITY_EDITOR
+            
             Container
                 .Bind<CellCollection>()
                 .FromFactory<CellCollectionFactory>()
@@ -65,7 +64,6 @@ namespace _Project.Code.Infrastructure.Installers.Scene
                 .Bind<IRandomCellContentGenerator>()
                 .To<RandomCellContentGenerator>()
                 .AsSingle();
-#endif
 
             Container
                 .Bind(typeof(Board), typeof(IInitializable), typeof(IDisposable))

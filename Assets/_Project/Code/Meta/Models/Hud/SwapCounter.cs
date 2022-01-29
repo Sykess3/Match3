@@ -9,14 +9,16 @@ namespace _Project.Code.Meta.Models.Hud
     public class SwapCounter : IModel
     {
         private readonly BoardInputHandler _boardInputHandler;
+        private readonly GoalCalculator _goalCalculator;
         public int SwapsLeft { get; private set; }
 
         public event Action SwapsEnded;
         public event Action<int> Swapped;
 
-        public SwapCounter(BoardInputHandler boardInputHandler, int maxSwapCount)
+        public SwapCounter(BoardInputHandler boardInputHandler, int maxSwapCount, GoalCalculator goalCalculator)
         {
             _boardInputHandler = boardInputHandler;
+            _goalCalculator = goalCalculator;
             SwapsLeft = maxSwapCount;
         }
 
@@ -29,11 +31,8 @@ namespace _Project.Code.Meta.Models.Hud
             SwapsLeft--;
             Swapped?.Invoke(SwapsLeft);
 
-            if (SwapsLeft == 0)
-            {
-                Debug.Log("Fuck");
+            if (SwapsLeft == 0 && !_goalCalculator.IsReached) 
                 SwapsEnded?.Invoke();
-            }
         }
     }
 }

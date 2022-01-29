@@ -11,18 +11,20 @@ namespace _Project.Code.Infrastructure.Installers.Factories.Meta
     {
         private readonly SwapCounterView _view;
         private readonly BoardInputHandler _boardInputHandler;
+        private readonly GoalCalculator _goalCalculator;
         private readonly int _maxSwapsCount;
 
-        public SwapCounterFactory(ILevelConfig levelConfig, SwapCounterView view, BoardInputHandler boardInputHandler)
+        public SwapCounterFactory(ILevelConfig levelConfig, SwapCounterView view, BoardInputHandler boardInputHandler, GoalCalculator goalCalculator)
         {
             _view = view;
             _boardInputHandler = boardInputHandler;
+            _goalCalculator = goalCalculator;
             _maxSwapsCount = levelConfig.MaxStepsCount;
         }
 
         public SwapCounter Create()
         {
-            var model = new SwapCounter(_boardInputHandler, _maxSwapsCount);
+            var model = new SwapCounter(_boardInputHandler, _maxSwapsCount, _goalCalculator);
             var presenter = new SwapCounterViewPresenter(model, _view);
 
             return model;

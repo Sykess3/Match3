@@ -28,8 +28,8 @@ namespace _Project.Code.Core.Models
     public static class ContentChanceToSpawn
     {
         private const float Default = 0.90f;
-        private const float Upped = 0.03f;
-        private const float Bomb = 0.02f;
+        private const float Upped = 0.05f;
+        private const float Bomb = 0.01f;
 
         private const int DefaultSubTypesCount = 6;
 

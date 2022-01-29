@@ -9,6 +9,7 @@ namespace _Project.Code.Infrastructure.Loading
     internal class UnitySceneLoader : IUnitySceneLoader
     {
         private readonly ICoroutineRunner _coroutineRunner;
+        private string _currentScene;
 
         public UnitySceneLoader(ICoroutineRunner coroutineRunner)
         {
@@ -18,8 +19,23 @@ namespace _Project.Code.Infrastructure.Loading
         public void Load(string name, Action onLoaded = null) =>
             _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
 
+        public void Reload(Action onLoaded = null)
+        {
+            _coroutineRunner.StartCoroutine(ReloadScene(_currentScene, onLoaded));
+        }
+
+        private IEnumerator ReloadScene(string currentScene, Action onLoaded)
+        {
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(currentScene);
+
+            while (!waitNextScene.isDone)
+                yield return null;
+            onLoaded?.Invoke();
+        }
+
         private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
         {
+            _currentScene = nextScene;
             if (SceneManager.GetActiveScene().name == nextScene)
             {
                 onLoaded?.Invoke();

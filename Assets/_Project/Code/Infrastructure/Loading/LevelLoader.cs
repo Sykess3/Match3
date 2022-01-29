@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Code.Core.Models;
+using UnityEngine;
 
 namespace _Project.Code.Infrastructure.Loading
 {
@@ -28,5 +29,17 @@ namespace _Project.Code.Infrastructure.Loading
         }
 
         public void LoadLevelsField() => Load(LevelsField);
+
+        public void Reload(Action onLoaded = null)
+        {
+            //_loadingCurtain.Show();
+            _sceneLoader.Reload(OnLoaded);
+                
+            void OnLoaded()
+            {
+                // _loadingCurtain.Hide();
+                onLoaded?.Invoke();
+            }
+        }
     }
 }

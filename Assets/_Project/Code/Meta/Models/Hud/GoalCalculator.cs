@@ -1,16 +1,19 @@
 ﻿using System;
 using _Project.Code.Core.Models.BoardLogic;
+using _Project.Code.Core.Models.Framework;
 using Zenject;
 
 namespace _Project.Code.Meta.Models.Hud
 {
-    public class GoalCalculator : IInitializable, IDisposable
+    public class GoalCalculator : IInitializable, IDisposable, IModel
     {
         private readonly Board _board;
         private readonly IGoalsFactory _factory;
         
         private DefaultSingleGoal[] _defaultSingleGoals;
         private DecoratorSingleGoal[] _decoratorSingleGoals;
+        
+        public bool IsReached { get; private set; }
 
         public event Action Reached;
         
@@ -40,8 +43,11 @@ namespace _Project.Code.Meta.Models.Hud
             reachedSingleGoals += GetReachedGoals(_defaultSingleGoals);
 
             int goalsCount = _decoratorSingleGoals.Length + _defaultSingleGoals.Length;
-            if (reachedSingleGoals == goalsCount) 
+            if (reachedSingleGoals == goalsCount)
+            {
+                IsReached = true;
                 Reached?.Invoke();
+            }
 
         }
 

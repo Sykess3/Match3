@@ -1,3 +1,4 @@
+using _Project.Code.Core.Models;
 using _Project.Code.Infrastructure.Loading;
 using Zenject;
 
@@ -6,12 +7,12 @@ namespace _Project.Code.Infrastructure
     public class GameBootstrapper : IInitializable
     {
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly LevelLoader _levelLoader;
+        private readonly ILevelLoader _levelLoader;
         private readonly Settings _settings;
         private readonly IPersistentProgressLoader _persistentProgress;
 
         public GameBootstrapper(LoadingCurtain loadingCurtain, 
-            LevelLoader levelLoader,
+            ILevelLoader levelLoader,
             Settings settings,
             IPersistentProgressLoader persistentProgress)
         {
